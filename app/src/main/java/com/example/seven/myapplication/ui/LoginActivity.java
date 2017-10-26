@@ -11,7 +11,7 @@ import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.view.OwlView;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class Main2Activity extends BsaeActivity {
+public class LoginActivity extends BsaeActivity {
     private EditText edt1;
     private EditText edt2;
     private Button btn;
@@ -23,7 +23,7 @@ public class Main2Activity extends BsaeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_login);
         getview();
         titleBar();
     }
@@ -74,10 +74,10 @@ public class Main2Activity extends BsaeActivity {
             }
             else if(name.equals("617") && psw.equals("123")){
                 ShowToast("登录成功");
-                Intent intent=new Intent(Main2Activity.this, Main3Activity.class);
+                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                Main2Activity.this.finish();
+                LoginActivity.this.finish();
             }
             else{
                 ShowToast("账号或密码错误！");

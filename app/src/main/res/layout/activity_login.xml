@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/skyBlue"
     android:orientation="vertical"
-    tools:context="com.example.seven.myapplication.ui.Main2Activity">
+    tools:context="com.example.seven.myapplication.ui.LoginActivity">
     <com.example.seven.myapplication.view.TitleBar
         android:id="@+id/login_bar"
         android:layout_width="match_parent"

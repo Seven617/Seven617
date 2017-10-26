@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.seven.myapplication.ui.Main4Activity">
+    android:orientation="vertical"
+    tools:context="com.example.seven.myapplication.ui.ZFBActivity">
     <com.example.seven.myapplication.view.TitleBar
         android:id="@+id/zfbpay_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:gravity="center"
+        android:textSize="48dp"
+        android:textStyle="bold"
+        android:text="支付宝支付界面"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

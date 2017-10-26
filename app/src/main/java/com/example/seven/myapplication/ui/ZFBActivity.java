@@ -1,43 +1,33 @@
 package com.example.seven.myapplication.ui;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class Main3Activity extends AppCompatActivity {
+public class ZFBActivity extends AppCompatActivity {
     private TitleBar titleBar;
-    private Button zfbpay;
     private String title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_zfb);
         getview();
         titleBar();
     }
     private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.main_bar);
-        zfbpay= (Button) this.findViewById(R.id.zfbpay);
-        zfbpay.setOnClickListener(next);
+        titleBar = (TitleBar) findViewById(R.id.zfbpay_bar);
     }
-    View.OnClickListener next=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(v.getId()==R.id.zfbpay){
-                Intent intent = new Intent(Main3Activity.this, Main4Activity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        }
-    };
     private void titleBar() {
-        title = "支付主界面";
+        //左边返回按钮
+//        titleBar.setLeftImageResource(R.mipmap.back);
+        titleBar.setLeftText("返回");
+        titleBar.setLeftTextColor(Color.WHITE);
+        titleBar.setLeftTextSize(15);
+        title = "二维码/条码";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -45,7 +35,13 @@ public class Main3Activity extends AppCompatActivity {
         titleBar.setDividerColor(Color.GRAY);
         //设置titleBar背景颜色
         titleBar.setBackgroundResource(R.color.colorPrimaryDark);
+        //左边返回按钮点击事件
+        titleBar.setLeftClickListener(ck);
     }
-
-
+    View.OnClickListener ck=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ZFBActivity.this.finish();
+        }
+    };
 }

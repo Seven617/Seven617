@@ -1,80 +1,71 @@
 package com.example.seven.myapplication.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.view.TitleBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends BsaeActivity {
-    private static final int FAILURE = 0; // 无网络
-    private static final int SUCCESS = 1; // 有网络
-    private static final int OFFLINE = 2; // 如果支持离线阅读，进入离线模式
-    private static final int SHOW_TIME_MIN = 800;
-    Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
-        public void run() {
-            MainActivity.this.finish();
-        }
-    };
+    private TitleBar titleBar;
+    private Button zfbpay;
+    private String title;
+    private boolean quit = false; //设置退出的标识
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new MyAsyncTask().execute();
+        getview();
+        titleBar();
     }
-
-    //检测网络
-    class MyAsyncTask extends AsyncTask<Void, Void, Integer> {
+    private void getview() {
+        titleBar = (TitleBar) findViewById(R.id.main_bar);
+        zfbpay= (Button) this.findViewById(R.id.zfbpay);
+        zfbpay.setOnClickListener(next);
+    }
+    View.OnClickListener next=new View.OnClickListener() {
         @Override
-        protected Integer doInBackground(Void... arg0) {
-            int result;
-            //请求数据
-            result = loadingCache();
-            long startTime = System.currentTimeMillis();
-            long loadingTime = System.currentTimeMillis() - startTime;
-            if (loadingTime < SHOW_TIME_MIN) {
-                try {
-                    Thread.sleep(SHOW_TIME_MIN - loadingTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return result;
-        }
-
-        //执行操作
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if (result == SUCCESS) {
-//                ShowToast("54617");
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+        public void onClick(View v) {
+            if(v.getId()==R.id.zfbpay){
+                Intent intent = new Intent(MainActivity.this, ZFBActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                MainActivity.this.finish();
-            } else {
-                ShowToast("请检测网络连接");
-                timer.schedule(task, 2000);
             }
         }
+    };
+    private void titleBar() {
+        title = "支付主界面";
+        titleBar.setTitle(title);
+        titleBar.setTitleSize(20);
+        titleBar.setTitleColor(Color.WHITE);
+        //下滑分割线
+        titleBar.setDividerColor(Color.GRAY);
+        //设置titleBar背景颜色
+        titleBar.setBackgroundResource(R.color.colorPrimaryDark);
+    }
 
-        //判断网络
-        public int loadingCache() {
-            ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo info = manager.getActiveNetworkInfo();
-            if (info == null) {
-                return FAILURE;
-            } else {
-                return SUCCESS;
-            }
+    //    //双击退出
+    @Override
+    public void onBackPressed() {
+
+        if (quit == false) {     //询问退出程序
+            ShowToast("再按一次退出程序");
+            new Timer(true).schedule(new TimerTask() {      //启动定时任务
+                @Override
+                public void run() {
+                    quit = false;   //重置退出标识
+                }
+            }, 2000);  //延时２秒执行
+            quit = true;
+        } else {     //确认退出程序
+            super.onBackPressed();
+            finish();
         }
     }
 }
-

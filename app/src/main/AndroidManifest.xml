@@ -6,8 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -15,13 +17,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/touxiang"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.WelComeActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,14 +35,17 @@
             android:name=".ui.BsaeActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.Main2Activity"
+            android:name=".ui.LoginActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.Main3Activity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoBarTheme">
         </activity>
-        <activity android:name=".ui.Main4Activity"
-                  android:theme="@style/NoBarTheme">
+        <activity
+            android:name=".ui.ZFBActivity"
+            android:theme="@style/NoBarTheme">
+        </activity>
+        <activity android:name=".ui.WeChatActivity">
         </activity>
     </application>
 
