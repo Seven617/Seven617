@@ -15,7 +15,9 @@ import java.util.TimerTask;
 public class MainActivity extends BsaeActivity {
     private TitleBar titleBar;
     private Button zfbpay;
+    private Button wechatpay;
     private String title;
+    private Intent intent;;
     private boolean quit = false; //设置退出的标识
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +29,22 @@ public class MainActivity extends BsaeActivity {
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.main_bar);
         zfbpay= (Button) this.findViewById(R.id.zfbpay);
+        wechatpay= (Button) this.findViewById(R.id.wechatpay);
         zfbpay.setOnClickListener(next);
+        wechatpay.setOnClickListener(next);
     }
     View.OnClickListener next=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             if(v.getId()==R.id.zfbpay){
-                Intent intent = new Intent(MainActivity.this, ZFBActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                intent  = new Intent(MainActivity.this, ZFBActivity.class);
             }
+            if(v.getId()==R.id.wechatpay){
+                 intent = new Intent(MainActivity.this, WeChatActivity.class);
+            }
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     };
     private void titleBar() {

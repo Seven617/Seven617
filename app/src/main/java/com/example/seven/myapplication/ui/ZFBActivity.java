@@ -27,7 +27,7 @@ public class ZFBActivity extends AppCompatActivity {
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "二维码/条码";
+        title = "支付宝二维码/条码";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);

@@ -7,4 +7,16 @@
     android:orientation="vertical"
     tools:context="com.example.seven.myapplication.ui.WeChatActivity">
 
+    <com.example.seven.myapplication.view.TitleBar
+        android:id="@+id/wechatpay_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark" />
+    <TextView
+        android:gravity="center"
+        android:textSize="48dp"
+        android:textStyle="bold"
+        android:text="微信支付界面"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
