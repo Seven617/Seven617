@@ -13,9 +13,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.seven.myapplication.R;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+/**
+ * Created by Seven on 2017-10-26.
+ */
 
 public class WelComeActivity extends BsaeActivity {
     private static final int FAILURE = 0; // 无网络
