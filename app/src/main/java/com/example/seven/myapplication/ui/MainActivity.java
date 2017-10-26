@@ -17,7 +17,7 @@ public class MainActivity extends BsaeActivity {
     private Button zfbpay;
     private Button wechatpay;
     private String title;
-    private Intent intent;;
+    private Intent intent;
     private boolean quit = false; //设置退出的标识
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class MainActivity extends BsaeActivity {
                  intent = new Intent(MainActivity.this, WeChatActivity.class);
             }
             startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     };
     private void titleBar() {
