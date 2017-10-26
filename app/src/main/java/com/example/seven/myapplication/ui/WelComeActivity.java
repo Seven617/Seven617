@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Seven on 2017-10-26.
+ * Created by Seven on 2017-10-26
  */
 
 public class WelComeActivity extends BsaeActivity {
