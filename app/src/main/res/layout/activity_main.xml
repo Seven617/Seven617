@@ -18,12 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <Button
+            android:background="@drawable/buttom"
             android:id="@+id/zfbpay"
             android:text="支付宝支付"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Button
+            android:background="@drawable/buttom"
             android:id="@+id/query"
             android:text="查询"
             android:layout_weight="1"
@@ -38,11 +40,13 @@
         android:layout_height="0dp">
         <Button
             android:id="@+id/wechatpay"
+            android:background="@drawable/buttom"
             android:text="微信支付"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Button
+            android:background="@drawable/buttom"
             android:id="@+id/print"
             android:text="打印"
             android:layout_weight="1"
@@ -56,12 +60,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <Button
+
+            android:background="@drawable/buttom"
             android:id="@+id/refunds"
             android:text="退款"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Button
+            android:background="@drawable/buttom"
             android:id="@+id/management"
             android:text="管理"
             android:layout_weight="1"
@@ -76,12 +83,14 @@
         android:layout_height="0dp">
         <Button
             android:id="@+id/settlement"
+            android:background="@drawable/buttom"
             android:text="结算"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Button
             android:id="@+id/version"
+            android:background="@drawable/buttom"
             android:text="版本"
             android:layout_weight="1"
             android:layout_width="0dp"

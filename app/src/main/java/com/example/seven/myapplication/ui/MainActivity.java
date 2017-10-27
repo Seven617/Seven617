@@ -36,7 +36,6 @@ public class MainActivity extends BsaeActivity {
     View.OnClickListener next=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             if(v.getId()==R.id.zfbpay){
                 intent  = new Intent(MainActivity.this, ZFBActivity.class);
             }

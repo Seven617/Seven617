@@ -32,7 +32,6 @@ public class LoginActivity extends BsaeActivity {
         edt1= (EditText) this.findViewById(R.id.name);
         edt2= (EditText) this.findViewById(R.id.psd);
         titleBar = (TitleBar) findViewById(R.id.login_bar);
-        mOwlView= (OwlView) findViewById(R.id.owl_view);
         btn= (Button) this.findViewById(R.id.btn);
         edt2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
