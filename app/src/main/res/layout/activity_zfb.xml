@@ -12,10 +12,36 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark" />
     <TextView
+        android:layout_weight="1"
         android:gravity="center"
         android:textSize="48dp"
         android:textStyle="bold"
-        android:text="支付宝支付界面"
+        android:text="输入金额"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"/>
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="0dp">
+        <com.example.seven.myapplication.view.AmountEditText
+            android:id="@+id/edit_amount"
+            android:gravity="center"
+            android:hint="0000.00"
+            android:textSize="30dp"
+            android:maxLength="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:text="确定"
+        android:layout_weight="1"
+        android:textSize="30dp"
+        android:layout_margin="40dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/round_btn"
+        android:layout_height="0dp" />
 </LinearLayout>

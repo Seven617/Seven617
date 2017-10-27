@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.view.OwlView;
 import com.example.seven.myapplication.view.TitleBar;
 
 public class LoginActivity extends BsaeActivity {
@@ -18,7 +17,6 @@ public class LoginActivity extends BsaeActivity {
     private String name;
     private String psw;
     private String title;
-    private OwlView mOwlView;
     private TitleBar titleBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +31,6 @@ public class LoginActivity extends BsaeActivity {
         edt2= (EditText) this.findViewById(R.id.psd);
         titleBar = (TitleBar) findViewById(R.id.login_bar);
         btn= (Button) this.findViewById(R.id.btn);
-        edt2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    mOwlView.open();
-
-                }else{
-                    mOwlView.close();
-                }
-            }
-        });
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除

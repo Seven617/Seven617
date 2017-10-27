@@ -4,13 +4,18 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class ZFBActivity extends AppCompatActivity {
+public class ZFBActivity extends BsaeActivity {
     private TitleBar titleBar;
     private String title;
+    private AmountEditText amountEditText;
+    private Button btn_sure;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +25,21 @@ public class ZFBActivity extends AppCompatActivity {
     }
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.zfbpay_bar);
+        btn_sure= (Button) findViewById(R.id.btn_sure);
+        amountEditText = (AmountEditText) findViewById(R.id.edit_amount);
+//        amountEditText.setMultiple(100);
+        btn_sure.setOnClickListener(OK);
     }
+    View.OnClickListener OK=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (amountEditText.isConformRules()){
+                ShowToast(amountEditText.getContent());
+            }else {
+                ShowToast("输入内容不符合规则！！！");
+            }
+        }
+    };
     private void titleBar() {
         //左边返回按钮
 //        titleBar.setLeftImageResource(R.mipmap.back);
