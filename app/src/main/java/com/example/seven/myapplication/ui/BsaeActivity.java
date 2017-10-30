@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
+
 import com.example.seven.myapplication.network.NetChangeObserver;
 import com.example.seven.myapplication.network.NetStateReceiver;
 import com.example.seven.myapplication.network.NetUtils;
@@ -51,6 +52,7 @@ public abstract class BsaeActivity extends Activity {
      * 网络断开的时候调用
      */
     protected abstract void onNetworkDisConnected();
+
     //Toast及时反应
     private Toast mToast;
 

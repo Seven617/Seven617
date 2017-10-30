@@ -71,7 +71,7 @@ public class MainActivity extends BsaeActivity {
                 intent = new Intent(MainActivity.this, WeChatActivity.class);
             }
             if (v.getId() == R.id.refunds) {
-                intent = new Intent(MainActivity.this, REFUNDABLEActivity.class);
+                intent = new Intent(MainActivity.this, RefundableActivity.class);
             }
             if (v.getId() == R.id.query) {
                 intent = new Intent(MainActivity.this, QueryActivity.class);

@@ -51,12 +51,12 @@ public class WelComeActivity extends BsaeActivity {
         setContentView(R.layout.activity_welcome);
         new MyAsyncTask().execute();
     }
-
+    //网络连接状态
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
 
     }
-
+    //网络断开状态
     @Override
     protected void onNetworkDisConnected() {
 
@@ -86,7 +86,7 @@ public class WelComeActivity extends BsaeActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if (result == SUCCESS) {
-//                ShowToast("54617");
+            //ShowToast("54617");
                 Intent intent = new Intent(WelComeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

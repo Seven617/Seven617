@@ -27,26 +27,28 @@ public class LoginActivity extends BsaeActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //获取控件
         getview();
+        //标题
         titleBar();
     }
-
+    //网络连接状态
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-//        ShowToast("网络连接正常\n" + type.name());
+        //ShowToast("网络连接正常\n" + type.name());
         show_login.setVisibility(View.VISIBLE);
         gone_login.setVisibility(View.GONE);
     }
-
+    //网络断开状态
     @Override
     protected void onNetworkDisConnected() {
-//        ShowToast("请检测网络连接");
-//        this.finish();
+        //ShowToast("请检测网络连接");
+        //this.finish();
         show_login.setVisibility(View.GONE);
         gone_login.setVisibility(View.VISIBLE);
     }
 
-
+    //获取控件
     private void getview() {
         show_login= (LinearLayout) findViewById(R.id.show_login);
         gone_login= (LinearLayout) findViewById(R.id.gone_login);
@@ -60,16 +62,7 @@ public class LoginActivity extends BsaeActivity {
         edt1.setText("617");
         edt2.setText("123");
     }
-    private void titleBar() {
-        title = "用户登录";
-        titleBar.setTitle(title);
-        titleBar.setTitleSize(20);
-        titleBar.setTitleColor(Color.WHITE);
-        //下滑分割线
-        titleBar.setDividerColor(Color.GRAY);
-        //设置titleBar背景颜色
-        titleBar.setBackgroundResource(R.color.colorPrimaryDark);
-    }
+    //btn按钮点击事件
     View.OnClickListener tonext=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -93,4 +86,17 @@ public class LoginActivity extends BsaeActivity {
             }
         }
     };
+    //标题
+    private void titleBar() {
+        title = "用户登录";
+        titleBar.setTitle(title);
+        titleBar.setTitleSize(20);
+        titleBar.setTitleColor(Color.WHITE);
+        //下滑分割线
+        titleBar.setDividerColor(Color.GRAY);
+        //设置titleBar背景颜色
+        titleBar.setBackgroundResource(R.color.colorPrimaryDark);
+    }
+
+
 }

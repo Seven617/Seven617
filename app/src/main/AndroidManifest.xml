@@ -42,9 +42,13 @@
             android:name=".ui.WeChatActivity"
             android:theme="@style/NoBarTheme">
         </activity>
-        <activity android:name=".ui.REFUNDABLEActivity">
+        <activity
+            android:name=".ui.RefundableActivity"
+            android:theme="@style/NoBarTheme">
         </activity>
-        <activity android:name=".ui.QueryActivity">
+        <activity
+            android:name=".ui.QueryActivity"
+            android:theme="@style/NoBarTheme">
         </activity>
     </application>
 
