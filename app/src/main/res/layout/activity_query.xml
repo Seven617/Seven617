@@ -4,22 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/skyBlue"
     android:orientation="vertical"
-    tools:context="com.example.seven.myapplication.ui.ZFBActivity">
-
+    android:background="@color/skyBlue"
+    tools:context="com.example.seven.myapplication.ui.QueryActivity">
     <com.example.seven.myapplication.view.TitleBar
-        android:id="@+id/zfbpay_bar"
+        android:id="@+id/query_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"/>
-
+        android:background="@color/colorPrimaryDark" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="输入金额"
+        android:text="输入单号查询"
         android:textSize="30dp"
         android:textStyle="bold"/>
 
@@ -29,8 +27,8 @@
         android:layout_weight="3"
         android:gravity="center">
 
-        <com.example.seven.myapplication.view.AmountEditText
-            android:id="@+id/zfb_edit_amount"
+        <com.example.seven.myapplication.view.ClearEditText
+            android:id="@+id/query_edittext"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/round_white_btn_bg"
@@ -44,7 +42,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/zfb_btn_sure"
+        android:id="@+id/query_btn_sure"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="100dp"

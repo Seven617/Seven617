@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
@@ -16,6 +17,7 @@ public class ZFBActivity extends BsaeActivity {
     private String title;
     private AmountEditText amountEditText;
     private Button btn_sure;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,23 +25,37 @@ public class ZFBActivity extends BsaeActivity {
         getview();
         titleBar();
     }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
+    }
+
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.zfbpay_bar);
-        btn_sure= (Button) findViewById(R.id.btn_sure);
-        amountEditText = (AmountEditText) findViewById(R.id.edit_amount);
-//        amountEditText.setMultiple(100);
+        btn_sure = (Button) findViewById(R.id.zfb_btn_sure);
+        amountEditText = (AmountEditText) findViewById(R.id.zfb_edit_amount);
+        //设置输入框数字的倍数
+        //amountEditText.setMultiple(100);
         btn_sure.setOnClickListener(OK);
     }
-    View.OnClickListener OK=new View.OnClickListener() {
+
+    View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (amountEditText.isConformRules()){
+            if (amountEditText.isConformRules()) {
                 ShowToast(amountEditText.getContent());
-            }else {
+            } else {
                 ShowToast("输入内容不符合规则！！！");
             }
         }
     };
+
     private void titleBar() {
         //左边返回按钮
 //        titleBar.setLeftImageResource(R.mipmap.back);
@@ -57,7 +73,8 @@ public class ZFBActivity extends BsaeActivity {
         //左边返回按钮点击事件
         titleBar.setLeftClickListener(ck);
     }
-    View.OnClickListener ck=new View.OnClickListener() {
+
+    View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             ZFBActivity.this.finish();

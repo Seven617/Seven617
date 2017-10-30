@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/skyBlue"
     tools:context="com.example.seven.myapplication.ui.WeChatActivity">
 
     <com.example.seven.myapplication.view.TitleBar
@@ -13,10 +14,41 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark" />
     <TextView
-        android:gravity="center"
-        android:textSize="48dp"
-        android:textStyle="bold"
-        android:text="微信支付界面"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="输入金额"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center">
+
+        <com.example.seven.myapplication.view.AmountEditText
+            android:id="@+id/wechat_edit_amount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_white_btn_bg"
+            android:gravity="center"
+            android:hint="0000.00"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:textSize="30dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/wechat_btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="100dp"
+        android:layout_weight="1"
+        android:background="@drawable/sure_btn"
+        android:text="确定"
+        android:textSize="30dp"/>
 </LinearLayout>

@@ -1,59 +1,29 @@
 package com.example.seven.myapplication.ui;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
-import com.example.seven.myapplication.view.AmountEditText;
+import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class WeChatActivity extends BsaeActivity {
+//单号查询
+public class QueryActivity extends BsaeActivity {
     private TitleBar titleBar;
     private String title;
-    private AmountEditText amountEditText;
+    private ClearEditText EditText;
     private Button btn_sure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wechat);
+        setContentView(R.layout.activity_query);
         getview();
         titleBar();
     }
-
-    @Override
-    protected void onNetworkConnected(NetUtils.NetType type) {
-
-    }
-
-    @Override
-    protected void onNetworkDisConnected() {
-
-    }
-
-    private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.wechatpay_bar);
-        btn_sure = (Button) findViewById(R.id.wechat_btn_sure);
-        amountEditText = (AmountEditText) findViewById(R.id.wechat_edit_amount);
-        //设置输入框数字的倍数
-        //amountEditText.setMultiple(100);
-        btn_sure.setOnClickListener(OK);
-    }
-
-    View.OnClickListener OK = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (amountEditText.isConformRules()) {
-                ShowToast(amountEditText.getContent());
-            } else {
-                ShowToast("输入内容不符合规则！！！");
-            }
-        }
-    };
 
     private void titleBar() {
         //左边返回按钮
@@ -61,7 +31,7 @@ public class WeChatActivity extends BsaeActivity {
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "微信二维码/条码";
+        title = "单号查询";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -73,10 +43,34 @@ public class WeChatActivity extends BsaeActivity {
         titleBar.setLeftClickListener(ck);
     }
 
+    private void getview() {
+        titleBar = (TitleBar) findViewById(R.id.query_bar);
+        btn_sure = (Button) findViewById(R.id.query_btn_sure);
+        EditText = (ClearEditText) findViewById(R.id.query_edittext);
+        btn_sure.setOnClickListener(OK);
+    }
+
+    View.OnClickListener OK = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            WeChatActivity.this.finish();
+            QueryActivity.this.finish();
         }
     };
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
+    }
+
+
 }

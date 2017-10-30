@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.network.NetUtils;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +50,16 @@ public class WelComeActivity extends BsaeActivity {
         }
         setContentView(R.layout.activity_welcome);
         new MyAsyncTask().execute();
+    }
+
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
     }
 
     //检测网络
