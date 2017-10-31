@@ -20,7 +20,7 @@ import java.util.TimerTask;
  * Created by Seven on 2017-10-26
  */
 
-public class WelComeActivity extends BsaeActivity {
+public class WelComeActivity extends BaseActivity {
     private static final int FAILURE = 0; // 无网络
     private static final int SUCCESS = 1; // 有网络
     private static final int OFFLINE = 2; // 如果支持离线阅读，进入离线模式

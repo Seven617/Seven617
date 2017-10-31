@@ -12,7 +12,7 @@ import com.example.seven.myapplication.view.TitleBar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends BsaeActivity {
+public class MainActivity extends BaseActivity {
     private TitleBar titleBar;
     private Button zfbpay;
     private Button wechatpay;

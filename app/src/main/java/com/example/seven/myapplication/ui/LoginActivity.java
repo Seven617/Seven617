@@ -3,14 +3,19 @@ package com.example.seven.myapplication.ui;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.service.HttpTest;
+import com.example.seven.myapplication.service.HttpTestService;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class LoginActivity extends BsaeActivity {
+import java.io.IOException;
+
+public class LoginActivity extends BaseActivity {
     private EditText edt1;
     private EditText edt2;
     private Button btn;
@@ -18,6 +23,7 @@ public class LoginActivity extends BsaeActivity {
     private String psw;
     private String title;
     private TitleBar titleBar;
+    private static HttpTestService httpTestService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +40,8 @@ public class LoginActivity extends BsaeActivity {
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除
-        edt1.setText("617");
-        edt2.setText("123");
+//        edt1.setText("617");
+//        edt2.setText("123");
     }
     private void titleBar() {
         title = "用户登录";
@@ -50,8 +56,18 @@ public class LoginActivity extends BsaeActivity {
     View.OnClickListener tonext=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            name= edt1.getText().toString();
-            psw=edt2.getText().toString();
+            Log.i("tag","点击事件");
+
+            HttpTest httpTest  =new HttpTest();
+            try {
+                System.out.println(httpTest.requset());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            name = edt1.getText().toString();
+            psw = edt2.getText().toString();
             if(name.isEmpty()){
                 ShowToast("账号不能为空");
             }

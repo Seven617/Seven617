@@ -1,17 +1,15 @@
 package com.example.seven.myapplication.ui;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class ZFBActivity extends BsaeActivity {
+public class ZFBActivity extends BaseActivity {
     private TitleBar titleBar;
     private String title;
     private AmountEditText amountEditText;
