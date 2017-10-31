@@ -8,20 +8,20 @@ import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
-import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class WeChatActivity extends BaseActivity {
+//退款
+public class RefundableActivity extends BaseActivity {
     private TitleBar titleBar;
     private String title;
-    private AmountEditText amountEditText;
     private Button btn_sure;
-    private LinearLayout show_wechat;
-    private LinearLayout gone_wechat;
+    private LinearLayout show_refundable;
+    private LinearLayout gone_refundable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wechat);
+        setContentView(R.layout.activity_refundable);
         //获取控件
         getview();
         //标题
@@ -31,49 +31,31 @@ public class WeChatActivity extends BaseActivity {
     //网络连接状态（一切正常显示）
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-        show_wechat.setVisibility(View.VISIBLE);
-        gone_wechat.setVisibility(View.GONE);
+        show_refundable.setVisibility(View.VISIBLE);
+        gone_refundable.setVisibility(View.GONE);
     }
 
     //网络断开状态（原本界面隐藏 显示"当前网络不可用"）
     @Override
     protected void onNetworkDisConnected() {
-        show_wechat.setVisibility(View.GONE);
-        gone_wechat.setVisibility(View.VISIBLE);
+        show_refundable.setVisibility(View.GONE);
+        gone_refundable.setVisibility(View.VISIBLE);
     }
 
     //获取控件
     private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.wechatpay_bar);
-        btn_sure = (Button) findViewById(R.id.wechat_btn_sure);
-        show_wechat = (LinearLayout) findViewById(R.id.show_wechat);
-        gone_wechat = (LinearLayout) findViewById(R.id.gone_wechat);
-        amountEditText = (AmountEditText) findViewById(R.id.wechat_edit_amount);
-        //设置输入框数字的倍数
-        //amountEditText.setMultiple(100);
-        btn_sure.setOnClickListener(OK);
+        titleBar = (TitleBar) findViewById(R.id.refunds_bar);
+        btn_sure = (Button) findViewById(R.id.refundable_btn_sure);
+        show_refundable = (LinearLayout) findViewById(R.id.show_refundable);
+        gone_refundable = (LinearLayout) findViewById(R.id.gone_refundable);
     }
-
-    //btn按钮点击事件
-    View.OnClickListener OK = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (amountEditText.isConformRules()) {
-                ShowToast(amountEditText.getContent());
-            } else {
-                ShowToast("输入内容不符合规则！！！");
-            }
-        }
-    };
 
     //标题
     private void titleBar() {
-        //左边返回按钮
-        //titleBar.setLeftImageResource(R.mipmap.back);
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "微信二维码/条码";
+        title = "退款界面";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -89,7 +71,9 @@ public class WeChatActivity extends BaseActivity {
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            WeChatActivity.this.finish();
+            RefundableActivity.this.finish();
         }
     };
+
+
 }

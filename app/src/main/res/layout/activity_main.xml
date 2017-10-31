@@ -7,93 +7,127 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context="com.example.seven.myapplication.ui.MainActivity">
-    <com.example.seven.myapplication.view.TitleBar
-        android:id="@+id/main_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark" />
+
     <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
+        android:id="@+id/show_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-            android:background="@drawable/buttom"
-            android:id="@+id/zfbpay"
-            android:text="支付宝支付"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.seven.myapplication.view.TitleBar
+            android:id="@+id/main_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:background="@drawable/buttom"
-            android:id="@+id/query"
-            android:text="查询"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/zfbpay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="支付宝支付"/>
+
+            <Button
+                android:id="@+id/query"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="查询"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/wechatpay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="微信支付"/>
+
+            <Button
+                android:id="@+id/print"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="打印"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/refunds"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="退款"/>
+
+            <Button
+                android:id="@+id/management"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="管理"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/settlement"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="结算"/>
+
+            <Button
+                android:id="@+id/version"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/buttom"
+                android:text="版本"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
+        android:id="@+id/gone_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-            android:id="@+id/wechatpay"
-            android:background="@drawable/buttom"
-            android:text="微信支付"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:background="@drawable/buttom"
-            android:id="@+id/print"
-            android:text="打印"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="当前网络不可用"
+            android:textSize="48dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-
-            android:background="@drawable/buttom"
-            android:id="@+id/refunds"
-            android:text="退款"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:background="@drawable/buttom"
-            android:id="@+id/management"
-            android:text="管理"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <Button
-            android:id="@+id/settlement"
-            android:background="@drawable/buttom"
-            android:text="结算"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:id="@+id/version"
-            android:background="@drawable/buttom"
-            android:text="版本"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
 </LinearLayout>

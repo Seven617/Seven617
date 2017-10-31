@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.network.NetUtils;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,6 +51,16 @@ public class WelComeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         new MyAsyncTask().execute();
     }
+    //网络连接状态
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+    //网络断开状态
+    @Override
+    protected void onNetworkDisConnected() {
+
+    }
 
     //检测网络
     class MyAsyncTask extends AsyncTask<Void, Void, Integer> {
@@ -74,7 +86,7 @@ public class WelComeActivity extends BaseActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if (result == SUCCESS) {
-//                ShowToast("54617");
+            //ShowToast("54617");
                 Intent intent = new Intent(WelComeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

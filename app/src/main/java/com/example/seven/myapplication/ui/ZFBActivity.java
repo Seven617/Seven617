@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
@@ -14,33 +18,61 @@ public class ZFBActivity extends BaseActivity {
     private String title;
     private AmountEditText amountEditText;
     private Button btn_sure;
+    private LinearLayout show_zfb;
+    private LinearLayout gone_zfb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zfb);
+        //获取控件
         getview();
+        //标题
         titleBar();
     }
+
+    //网络连接状态（一切正常显示）
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+        show_zfb.setVisibility(View.VISIBLE);
+        gone_zfb.setVisibility(View.GONE);
+    }
+
+    //网络断开状态（原本界面隐藏 显示"当前网络不可用"）
+    @Override
+    protected void onNetworkDisConnected() {
+        show_zfb.setVisibility(View.GONE);
+        gone_zfb.setVisibility(View.VISIBLE);
+    }
+
+    //获取控件
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.zfbpay_bar);
-        btn_sure= (Button) findViewById(R.id.btn_sure);
-        amountEditText = (AmountEditText) findViewById(R.id.edit_amount);
-//        amountEditText.setMultiple(100);
+        btn_sure = (Button) findViewById(R.id.zfb_btn_sure);
+        show_zfb = (LinearLayout) findViewById(R.id.show_zfb);
+        gone_zfb = (LinearLayout) findViewById(R.id.gone_zfb);
+        amountEditText = (AmountEditText) findViewById(R.id.zfb_edit_amount);
+        //设置输入框数字的倍数
+        //amountEditText.setMultiple(100);
         btn_sure.setOnClickListener(OK);
     }
-    View.OnClickListener OK=new View.OnClickListener() {
+
+    //btn按钮点击事件
+    View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (amountEditText.isConformRules()){
+            if (amountEditText.isConformRules()) {
                 ShowToast(amountEditText.getContent());
-            }else {
+            } else {
                 ShowToast("输入内容不符合规则！！！");
             }
         }
     };
+
+    //标题
     private void titleBar() {
         //左边返回按钮
-//        titleBar.setLeftImageResource(R.mipmap.back);
+        //titleBar.setLeftImageResource(R.mipmap.back);
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
@@ -55,7 +87,9 @@ public class ZFBActivity extends BaseActivity {
         //左边返回按钮点击事件
         titleBar.setLeftClickListener(ck);
     }
-    View.OnClickListener ck=new View.OnClickListener() {
+
+    //左边返回按钮点击事件
+    View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             ZFBActivity.this.finish();

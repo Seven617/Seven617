@@ -8,20 +8,22 @@ import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
-import com.example.seven.myapplication.view.AmountEditText;
+import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class WeChatActivity extends BaseActivity {
+//单号查询
+public class QueryActivity extends BaseActivity {
     private TitleBar titleBar;
     private String title;
-    private AmountEditText amountEditText;
+    private ClearEditText EditText;
     private Button btn_sure;
-    private LinearLayout show_wechat;
-    private LinearLayout gone_wechat;
+    private LinearLayout show_query;
+    private LinearLayout gone_query;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wechat);
+        setContentView(R.layout.activity_query);
         //获取控件
         getview();
         //标题
@@ -31,26 +33,24 @@ public class WeChatActivity extends BaseActivity {
     //网络连接状态（一切正常显示）
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-        show_wechat.setVisibility(View.VISIBLE);
-        gone_wechat.setVisibility(View.GONE);
+        show_query.setVisibility(View.VISIBLE);
+        gone_query.setVisibility(View.GONE);
     }
 
     //网络断开状态（原本界面隐藏 显示"当前网络不可用"）
     @Override
     protected void onNetworkDisConnected() {
-        show_wechat.setVisibility(View.GONE);
-        gone_wechat.setVisibility(View.VISIBLE);
+        show_query.setVisibility(View.GONE);
+        gone_query.setVisibility(View.VISIBLE);
     }
 
     //获取控件
     private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.wechatpay_bar);
-        btn_sure = (Button) findViewById(R.id.wechat_btn_sure);
-        show_wechat = (LinearLayout) findViewById(R.id.show_wechat);
-        gone_wechat = (LinearLayout) findViewById(R.id.gone_wechat);
-        amountEditText = (AmountEditText) findViewById(R.id.wechat_edit_amount);
-        //设置输入框数字的倍数
-        //amountEditText.setMultiple(100);
+        titleBar = (TitleBar) findViewById(R.id.query_bar);
+        btn_sure = (Button) findViewById(R.id.query_btn_sure);
+        EditText = (ClearEditText) findViewById(R.id.query_edittext);
+        show_query = (LinearLayout) findViewById(R.id.show_query);
+        gone_query = (LinearLayout) findViewById(R.id.gone_query);
         btn_sure.setOnClickListener(OK);
     }
 
@@ -58,11 +58,7 @@ public class WeChatActivity extends BaseActivity {
     View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (amountEditText.isConformRules()) {
-                ShowToast(amountEditText.getContent());
-            } else {
-                ShowToast("输入内容不符合规则！！！");
-            }
+
         }
     };
 
@@ -73,7 +69,7 @@ public class WeChatActivity extends BaseActivity {
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "微信二维码/条码";
+        title = "单号查询";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -85,11 +81,14 @@ public class WeChatActivity extends BaseActivity {
         titleBar.setLeftClickListener(ck);
     }
 
+
     //左边返回按钮点击事件
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            WeChatActivity.this.finish();
+            QueryActivity.this.finish();
         }
     };
+
+
 }
