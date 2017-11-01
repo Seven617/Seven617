@@ -63,8 +63,8 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除
-        //edt1.setText("617");
-        //edt2.setText("123");
+        edt1.setText("617");
+        edt2.setText("123");
     }
     //btn按钮点击事件
     View.OnClickListener tonext=new View.OnClickListener() {
