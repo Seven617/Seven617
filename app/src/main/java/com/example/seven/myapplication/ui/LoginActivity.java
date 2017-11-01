@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +13,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.service.HttpTest;
-import com.example.seven.myapplication.service.HttpTestService;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.TitleBar;
 
-import java.io.IOException;
 
 public class LoginActivity extends BaseActivity {
     private EditText edt1;
@@ -29,7 +25,6 @@ public class LoginActivity extends BaseActivity {
     private String psw;
     private String title;
     private TitleBar titleBar;
-    private static HttpTestService httpTestService;
     private LinearLayout show_login;
     private LinearLayout gone_login;
     @Override
@@ -68,24 +63,14 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除
-//        edt1.setText("617");
-//        edt2.setText("123");
+        //edt1.setText("617");
+        //edt2.setText("123");
     }
     //btn按钮点击事件
     View.OnClickListener tonext=new View.OnClickListener() {
         @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
         @Override
         public void onClick(View v) {
-            Log.i("tag","点击事件");
-
-            HttpTest httpTest  =new HttpTest();
-            try {
-                System.out.println(httpTest.requset());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
             name = edt1.getText().toString();
             psw = edt2.getText().toString();
             if(name.isEmpty()){
