@@ -22,9 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-android:name=".ui.BaseActivity"
-            android:theme="@style/NoBarTheme"/>
         <activityandroid:name=".ui.LoginActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
