@@ -27,19 +27,19 @@
             android:theme="@style/NoBarTheme" />
         <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.ZFBActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.WeChatActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.RefundableActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.QueryActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:theme="@style/NoBarTheme"/>
     </application>
 
 </manifest>
