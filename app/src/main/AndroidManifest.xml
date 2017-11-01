@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.seven.myapplication">
+    package="com.example.seven.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -17,36 +18,29 @@
             android:name=".ui.WelComeActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-android:name=".ui.BaseActivity"
-            android:theme="@style/NoBarTheme"/>
-        <activityandroid:name=".ui.LoginActivity"
-            android:theme="@style/NoBarTheme"/>
+            android:name=".ui.LoginActivity"
+            android:theme="@style/NoBarTheme" />
         <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/NoBarTheme">
-        </activity>
+            android:theme="@style/NoBarTheme"></activity>
         <activity
             android:name=".ui.ZFBActivity"
-            android:theme="@style/NoBarTheme">
-        </activity>
+            android:theme="@style/NoBarTheme"></activity>
         <activity
             android:name=".ui.WeChatActivity"
-            android:theme="@style/NoBarTheme">
-        </activity>
+            android:theme="@style/NoBarTheme"></activity>
         <activity
             android:name=".ui.RefundableActivity"
-            android:theme="@style/NoBarTheme">
-        </activity>
+            android:theme="@style/NoBarTheme"></activity>
         <activity
             android:name=".ui.QueryActivity"
-            android:theme="@style/NoBarTheme">
-        </activity>
+            android:theme="@style/NoBarTheme"></activity>
     </application>
 
 </manifest>
