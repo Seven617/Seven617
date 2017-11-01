@@ -5,16 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
-
-=======
->>>>>>> 6df4c16479e68c59b3fa11ef02ba5f2f375cfced
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -38,13 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
-            android:name=".ui.BaseActivity"
+android:name=".ui.BaseActivity"
             android:theme="@style/NoBarTheme"/>
-        <activity
-=======
->>>>>>> 6df4c16479e68c59b3fa11ef02ba5f2f375cfced
-            android:name=".ui.LoginActivity"
+        <activityandroid:name=".ui.LoginActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.MainActivity"
