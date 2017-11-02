@@ -14,16 +14,11 @@ import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.model.LoginResult;
-import com.example.seven.myapplication.model.Result;
-import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.SelfDialog;
 import com.example.seven.myapplication.view.TitleBar;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class LoginActivity extends BaseActivity {
@@ -110,7 +105,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onSuccess(String data) {
                 LoginService loginService = new LoginService();
-                LoginResult result = loginService.toLoginResult(data);
+                LoginResult result = loginService.getLoginResult(data);
                 showresult = result.getResult();
                 if (result.isSuccess()) {
                     Yesshowdialog();

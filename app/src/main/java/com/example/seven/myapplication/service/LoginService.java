@@ -3,10 +3,9 @@ package com.example.seven.myapplication.service;
 import com.alibaba.fastjson.JSONObject;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.LoginResult;
-import com.example.seven.myapplication.model.Result;
+import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
-import com.example.seven.myapplication.util.AndroidPosUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +15,8 @@ import java.util.Map;
  */
 
 public class LoginService {
-    public LoginResult toLoginResult(String  data){
-        Result result = JSONObject.parseObject(data,Result.class);
+    public LoginResult getLoginResult(String  data){
+        NetworkResult result = JSONObject.parseObject(data,NetworkResult.class);
 
         LoginResult loginResult = new LoginResult();
         if(APIConstants.RESULT_SUCCESS_CODE.equals(result.getStatus())){
