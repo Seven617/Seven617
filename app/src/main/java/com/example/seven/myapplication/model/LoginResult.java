@@ -25,3 +25,4 @@ public class LoginResult {
         this.result = result;
     }
 }
+
