@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/MatchWrap.Vertical"
+              android:layout_alignParentBottom="true">
+
+
+    <LinearLayout
+        style="@style/MatchWrap.Horizontal"
+        android:layout_marginBottom="80dp">
+
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="扣款:"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/zfb_pay_text"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="收钱"
+            android:textColor="@color/orangeRed"
+            android:textSize="35dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/MatchWrap.Horizontal">
+
+        <TextView
+            android:id="@+id/scan_barcode"
+            style="@style/AutoWrapTv"
+            android:text="扫条码"/>
+
+        <TextView
+            android:id="@+id/scan_qrcode"
+            style="@style/AutoWrapTv"
+            android:text="扫二维码"/>
+    </LinearLayout>
+
+</LinearLayout>

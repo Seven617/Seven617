@@ -104,7 +104,6 @@ public class LoginActivity extends BaseActivity {
         loginService.login(name,psw,new CommonCallback<String >() {
             @Override
             public void onSuccess(String data) {
-                LoginService loginService = new LoginService();
                 LoginResult result = loginService.getLoginResult(data);
                 showresult = result.getResult();
                 if (result.isSuccess()) {

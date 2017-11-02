@@ -20,7 +20,7 @@ import com.example.seven.myapplication.R;
  *
  *
  */
-public class ClearEditText extends EditText implements View.OnFocusChangeListener, TextWatcher {
+public class ClearEditText extends android.support.v7.widget.AppCompatEditText implements View.OnFocusChangeListener, TextWatcher {
     /**
      * 删除按钮的引用
      */
