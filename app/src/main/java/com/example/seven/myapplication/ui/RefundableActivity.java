@@ -2,22 +2,31 @@ package com.example.seven.myapplication.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
+import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
+import cn.bingoogolapple.qrcode.core.QRCodeView;
+import cn.bingoogolapple.qrcode.zxing.ZXingView;
+
 //退款
-public class RefundableActivity extends BaseActivity {
+public class RefundableActivity extends BaseActivity implements QRCodeView.Delegate{
     private TitleBar titleBar;
     private String title;
+    private String refundsSn;
     private Button btn_sure;
     private LinearLayout show_refundable;
     private LinearLayout gone_refundable;
-
+    private QRCodeView mQRCodeView;
+    private ClearEditText refunds_edittext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +55,11 @@ public class RefundableActivity extends BaseActivity {
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.refunds_bar);
         btn_sure = (Button) findViewById(R.id.refundable_btn_sure);
+        refunds_edittext= (ClearEditText) findViewById(R.id.refunds_edittext);
         show_refundable = (LinearLayout) findViewById(R.id.show_refundable);
         gone_refundable = (LinearLayout) findViewById(R.id.gone_refundable);
+        mQRCodeView = (ZXingView) findViewById(R.id.refunds_zxingview);
+        mQRCodeView.setDelegate(this);
     }
 
     //标题
@@ -76,4 +88,44 @@ public class RefundableActivity extends BaseActivity {
     };
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mQRCodeView.startCamera();
+        mQRCodeView.changeToScanBarcodeStyle();
+        mQRCodeView.startSpot();
+        mQRCodeView.showScanRect();
+    }
+
+    @Override
+    protected void onStop() {
+        mQRCodeView.stopCamera();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mQRCodeView.onDestroy();
+        super.onDestroy();
+    }
+
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
+    }
+
+    @Override
+    public void onScanQRCodeSuccess(String result) {
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        refundsSn=result;
+        refunds_edittext.setText(refundsSn);
+        vibrate();
+        mQRCodeView.startSpot();
+    }
+
+
+    @Override
+    public void onScanQRCodeOpenCameraError() {
+
+    }
 }

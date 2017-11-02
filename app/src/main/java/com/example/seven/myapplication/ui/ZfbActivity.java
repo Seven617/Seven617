@@ -59,8 +59,6 @@ public class ZfbActivity extends BaseActivity implements EasyPermissions.Permiss
         show_zfb = (LinearLayout) findViewById(R.id.show_zfb);
         gone_zfb = (LinearLayout) findViewById(R.id.gone_zfb);
         amountEditText = (AmountEditText) findViewById(R.id.zfb_edit_amount);
-        //设置输入框数字的倍数
-        //amountEditText.setMultiple(100);
         btn_sure.setOnClickListener(OK);
     }
 

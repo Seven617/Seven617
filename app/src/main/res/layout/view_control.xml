@@ -6,10 +6,10 @@
 
     <LinearLayout
         style="@style/MatchWrap.Horizontal"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="80dp">
 
         <TextView
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center|right"
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/zfb_pay_text"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center|left"

@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
                 intent = new Intent(MainActivity.this, RefundableActivity.class);
             }
             if (v.getId() == R.id.query) {
-                intent = new Intent(MainActivity.this, QueryActivity.class);
+                intent = new Intent(MainActivity.this, ChoseQueryActivity.class);
             }
             startActivity(intent);
         }

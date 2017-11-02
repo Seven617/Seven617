@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/skyBlue"
-    tools:context="com.example.seven.myapplication.ui.QueryActivity">
+    tools:context="com.example.seven.myapplication.ui.OneQueryActivity">
     <LinearLayout
         android:id="@+id/show_query"
         android:orientation="vertical"
@@ -18,29 +18,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark" />
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="输入单号查询"-->
-            <!--android:textSize="30dp"-->
-            <!--android:textStyle="bold"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <cn.bingoogolapple.qrcode.zxing.ZXingView
                 android:id="@+id/query_zxingview"
-                android:layout_height="0dp"
-                android:layout_weight="5"
                 android:layout_width="match_parent"
-                android:layout_centerVertical="true"
+                android:layout_height="0dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="5"
                 app:qrcv_animTime="1000"
                 app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
                 app:qrcv_barcodeRectHeight="180dp"

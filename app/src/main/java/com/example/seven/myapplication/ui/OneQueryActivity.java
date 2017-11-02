@@ -1,14 +1,8 @@
 package com.example.seven.myapplication.ui;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,23 +15,20 @@ import com.example.seven.myapplication.service.FindService;
 import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 //单号查询
-public class QueryActivity extends BaseActivity implements QRCodeView.Delegate{
+public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegate{
     private TitleBar titleBar;
     private String title;
-    private ClearEditText EditText;
+    private ClearEditText clearEditText;
     private String orderSn;
     private Button btn_sure;
     private LinearLayout show_query;
     private LinearLayout gone_query;
     private QRCodeView mQRCodeView;
     private FindService findService;
-    private static final String TAG = QueryActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +57,7 @@ public class QueryActivity extends BaseActivity implements QRCodeView.Delegate{
     private void getview() {
         titleBar = (TitleBar) findViewById(R.id.query_bar);
         btn_sure = (Button) findViewById(R.id.query_btn_sure);
-        EditText = (ClearEditText) findViewById(R.id.query_edittext);
+        clearEditText = (ClearEditText) findViewById(R.id.query_edittext);
         show_query = (LinearLayout) findViewById(R.id.show_query);
         gone_query = (LinearLayout) findViewById(R.id.gone_query);
         mQRCodeView = (ZXingView) findViewById(R.id.query_zxingview);
@@ -117,7 +108,7 @@ public class QueryActivity extends BaseActivity implements QRCodeView.Delegate{
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            QueryActivity.this.finish();
+            OneQueryActivity.this.finish();
         }
     };
 
@@ -149,10 +140,9 @@ public class QueryActivity extends BaseActivity implements QRCodeView.Delegate{
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Log.i(TAG, "result:" + result);
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         orderSn=result;
-        EditText.setText(orderSn);
+        clearEditText.setText(orderSn);
         vibrate();
         mQRCodeView.startSpot();
     }

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -42,12 +41,13 @@
             android:name=".ui.RefundableActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.QueryActivity"
+            android:name=".ui.OneQueryActivity"
             android:theme="@style/NoBarTheme"/>
-
         <activity
             android:name=".ui.ZfbPayActivity"
             android:theme="@style/NoBarTheme">
+        </activity>
+        <activity android:name=".ui.ChoseQueryActivity">
         </activity>
     </application>
 

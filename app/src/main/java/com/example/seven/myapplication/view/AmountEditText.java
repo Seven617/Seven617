@@ -19,7 +19,7 @@ public class AmountEditText extends EditText {
     private Context mContext;
 
     private int Multiple = 1;//倍数
-    public static final int MAX_VALUE = 10000;
+    public static final int MAX_VALUE = 888888;
     public AmountEditText(Context context) {
         super(context);
         init(context);
@@ -99,8 +99,9 @@ public class AmountEditText extends EditText {
             return "";
         }
         double resultDouble = Double.parseDouble(result) * Multiple;
-        DecimalFormat df   =   new   DecimalFormat("#####0.00");
+        DecimalFormat df   =   new   DecimalFormat("######0.00");
         String resultDo = df.format(resultDouble);//返回的是String类型的数据
         return resultDo;
     }
+
 }
