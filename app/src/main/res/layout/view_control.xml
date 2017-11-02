@@ -4,18 +4,33 @@
               android:layout_alignParentBottom="true">
 
 
-    <LinearLayout style="@style/MatchWrap.Horizontal"
+    <LinearLayout
+        style="@style/MatchWrap.Horizontal"
         android:layout_marginBottom="60dp">
-    <TextView
-        android:id="@+id/zfb_pay_text"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textStyle="bold"
-        android:textSize="35dp"
-        android:text="收钱"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="扣款:"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/zfb_pay_text"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="收钱"
+            android:textColor="@color/orangeRed"
+            android:textSize="35dp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
+
     <LinearLayout style="@style/MatchWrap.Horizontal">
 
         <TextView

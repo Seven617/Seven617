@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/skyBlue"
     tools:context="com.example.seven.myapplication.ui.QueryActivity">
@@ -17,30 +18,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="输入单号查询"
-            android:textSize="30dp"
-            android:textStyle="bold"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="输入单号查询"-->
+            <!--android:textSize="30dp"-->
+            <!--android:textStyle="bold"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
+            android:orientation="vertical"
             android:gravity="center">
-
+            <cn.bingoogolapple.qrcode.zxing.ZXingView
+                android:id="@+id/query_zxingview"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                app:qrcv_animTime="1000"
+                app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
+                app:qrcv_barcodeRectHeight="180dp"
+                app:qrcv_borderColor="@android:color/white"
+                app:qrcv_borderSize="1dp"
+                app:qrcv_cornerColor="@color/colorPrimaryDark"
+                app:qrcv_cornerLength="20dp"
+                app:qrcv_cornerSize="3dp"
+                app:qrcv_customScanLineDrawable="@drawable/scan_icon_scanline"
+                app:qrcv_isBarcode="false"
+                app:qrcv_isCenterVertical="false"
+                app:qrcv_isOnlyDecodeScanBoxArea="false"
+                app:qrcv_isScanLineReverse="true"
+                app:qrcv_isShowDefaultGridScanLineDrawable="false"
+                app:qrcv_isShowDefaultScanLineDrawable="true"
+                app:qrcv_isShowTipBackground="true"
+                app:qrcv_isShowTipTextAsSingleLine="false"
+                app:qrcv_isTipTextBelowRect="false"
+                app:qrcv_maskColor="@color/skyBlue"
+                app:qrcv_qrCodeTipText="将二维码/条码放入框内，即可自动扫描"
+                app:qrcv_rectWidth="380dp"
+                app:qrcv_scanLineColor="@color/colorPrimaryDark"
+                app:qrcv_scanLineMargin="0dp"
+                app:qrcv_scanLineSize="0.5dp"
+                app:qrcv_tipTextColor="@android:color/white"
+                app:qrcv_tipTextSize="20dp"
+                app:qrcv_toolbarHeight="60dp"
+                app:qrcv_topOffset="20dp"/>
             <com.example.seven.myapplication.view.ClearEditText
                 android:id="@+id/query_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/round_white_btn_bg"
                 android:gravity="center"
-                android:hint="0000.00"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:hint="请输入单号查询"
+                android:layout_margin="20dp"
                 android:inputType="numberDecimal"
                 android:maxLength="10"
                 android:textSize="30dp"/>
@@ -50,7 +86,7 @@
             android:id="@+id/query_btn_sure"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="100dp"
+            android:layout_margin="60dp"
             android:layout_weight="1"
             android:background="@drawable/sure_btn"
             android:text="确定"

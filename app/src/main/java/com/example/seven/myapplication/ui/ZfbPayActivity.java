@@ -11,25 +11,24 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.model.PayResult;
+import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
+import com.example.seven.myapplication.service.PayService;
 import com.example.seven.myapplication.view.TitleBar;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = ZfbPayActivity.class.getSimpleName();
-    private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
     private QRCodeView mQRCodeView;
     private TitleBar titleBar;
     private String title;
     private TextView zfb_pay_text;
     private String zfbpay_amount;//支付宝支付金额
+    private PayService payService;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
         //getXxxExtra方法获取Intent传递过来的数据
         zfbpay_amount=intent.getStringExtra("data");
         mQRCodeView.setDelegate(this);
-        zfb_pay_text.setText(zfbpay_amount);
+        zfb_pay_text.setText(zfbpay_amount+"元");
     }
 
     //标题
@@ -117,7 +116,23 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.i(TAG, "result:" + result);
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        payService=new PayService();
+        payService.pay(zfbpay_amount, result, new CommonCallback<String>() {
+            @Override
+            public void onSuccess(String data) {
+                PayResult payResult = payService.getPayResult(data);
+                if(payResult.isSuccess()){
+                    ShowToast("显示结果："+payResult.getResult());
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error_code, String error_message) {
+
+            }
+        });
         vibrate();
         mQRCodeView.startSpot();
     }
@@ -137,33 +152,4 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
                 break;
         }
     }
-
-    @SuppressLint("StaticFieldLeak")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        mQRCodeView.showScanRect();
-
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY) {
-            final String picturePath = BGAPhotoPickerActivity.getSelectedImages(data).get(0);
-            new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    return QRCodeDecoder.syncDecodeQRCode(picturePath);
-                }
-
-                @Override
-                protected void onPostExecute(String result) {
-                    if (TextUtils.isEmpty(result)) {
-                        ShowToast("未发现二维码");
-                    } else {
-                        ShowToast(result);
-                    }
-                }
-            }.execute();
-        }
-    }
-
-
 }
