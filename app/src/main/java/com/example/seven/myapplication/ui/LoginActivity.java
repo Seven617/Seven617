@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.model.LoginResult;
+import com.example.seven.myapplication.model.Result;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
@@ -37,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     private LinearLayout gone_login;
     private SelfDialog selfDialog;
     private String showresult;
+    private LoginService loginService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class LoginActivity extends BaseActivity {
         //标题
         titleBar();
     }
+
+
 
     //网络连接状态
     @Override
@@ -76,8 +80,8 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除
-        edt1.setText("617");
-        edt2.setText("123");
+//        edt1.setText("617");
+//        edt2.setText("123");
     }
 
     //btn按钮点击事件
@@ -92,39 +96,40 @@ public class LoginActivity extends BaseActivity {
             } else if (psw.isEmpty()) {
                 ShowToast("密码不能为空");
             } else {
-//                Login();
-                Yesshowdialog();
+
+                Login();
+//                Yesshowdialog();
             }
         }
-        //登陆操作
-        private void Login() {
-            Map<String, String> map = new HashMap<>();
-            map.put("name", name);
-            map.put("password", psw);
-            Api.testPost("post", map, new CommonCallback<String>() {
-                @Override
-                public void onSuccess(String data) {
-                    LoginService loginService = new LoginService();
-                    LoginResult result = loginService.toLoginResult(data);
-                    showresult = result.getResult();
-                    if (result.getCode() == 0) {
-                        Yesshowdialog();
-                    } else {
-                        Noshowdialog();
-                    }
-                }
-
-                @Override
-                public void onFailure(String err_code, String message) {
-
-                }
-            });
-        }
     };
+    //登陆操作
+    private void Login() {
+        loginService = new LoginService();
+        //进行登录操作
+        loginService.login(name,psw,new CommonCallback<String >() {
+            @Override
+            public void onSuccess(String data) {
+                LoginService loginService = new LoginService();
+                LoginResult result = loginService.toLoginResult(data);
+                showresult = result.getResult();
+                if (result.isSuccess()) {
+                    Yesshowdialog();
+                } else {
+                    Noshowdialog();
+                }
+            }
+
+
+            @Override
+            public void onFailure(String err_code, String message) {
+
+            }
+        });
+    }
 
     private void Yesshowdialog() {
         selfDialog = new SelfDialog(LoginActivity.this);
-        selfDialog.setMessage("消息消息消息消息消息消息消息消息消息消息消息")
+        selfDialog.setMessage(showresult)
                 .setTitle("系统提示")
                 .setSingle(true).setOnClickBottomListener(new SelfDialog.OnClickBottomListener() {
             @Override
@@ -171,6 +176,7 @@ public class LoginActivity extends BaseActivity {
         titleBar.setDividerColor(Color.GRAY);
         //设置titleBar背景颜色
         titleBar.setBackgroundResource(R.color.colorPrimaryDark);
+
     }
 
 

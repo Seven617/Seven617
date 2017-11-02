@@ -10,7 +10,12 @@ import java.util.Map;
  */
 
 public class Api {
-    public static void testPost(String url, Map map, HttpCallback callback) {
+    public static void post(String url, Map map, HttpCallback callback) {
         HttpManager.postByBody(url, map, callback);
+    }
+
+
+    public static void get(String url,Map map, HttpCallback httpCallback ){
+        HttpManager.get(url,map,httpCallback);
     }
 }

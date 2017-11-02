@@ -26,6 +26,7 @@ public abstract class CommonCallback<T> extends HttpCallback<T> {
 
     public abstract void onSuccess(T data);
 
+
     public abstract void onFailure(String error_code, String error_message);
 
     public boolean enableShowToast() {

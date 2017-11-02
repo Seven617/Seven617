@@ -5,16 +5,16 @@ package com.example.seven.myapplication.model;
  */
 
 public class LoginResult {
-    private Integer code;
     private String result;
 
+    private boolean success;
 
-    public Integer getCode() {
-        return code;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getResult() {
