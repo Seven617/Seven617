@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="支付宝支付"/>
 
             <Button
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="查询"/>
         </LinearLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="微信支付"/>
 
             <Button
@@ -62,7 +62,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="打印"/>
         </LinearLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="退款"/>
 
             <Button
@@ -86,7 +86,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="管理"/>
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="结算"/>
 
             <Button
@@ -109,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/buttom"
+                android:background="@drawable/main_btn"
                 android:text="版本"/>
         </LinearLayout>
     </LinearLayout>

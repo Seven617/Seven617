@@ -3,6 +3,7 @@ package com.example.seven.myapplication;
 import android.app.Application;
 
 import com.example.seven.myapplication.network.NetStateReceiver;
+import com.jady.retrofitclient.HttpManager;
 
 
 /**
@@ -15,6 +16,7 @@ public class App extends Application {
         super.onCreate();
         /*开启网络广播监听*/
         NetStateReceiver.registerNetworkStateReceiver(this);
+        HttpManager.init(this, "http://192.168.9.145:8880/");
     }
 
     @Override
