@@ -2,10 +2,12 @@ package com.example.seven.myapplication.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.LoginRequest;
 import com.example.seven.myapplication.model.LoginResult;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
+import com.example.seven.myapplication.util.AndroidPosUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class LoginService {
         NetworkResult result = JSONObject.parseObject(data,NetworkResult.class);
 
         LoginResult loginResult = new LoginResult();
-        if(APIConstants.RESULT_SUCCESS_CODE.equals(result.getStatus())){
+        if(APIConstants.CODE_RESULT_SUCCESS.equals(result.getStatus())){
             loginResult.setSuccess(true);
             loginResult.setResult(result.getData());
         }
@@ -30,13 +32,13 @@ public class LoginService {
 
     public void login(String name, String password, CommonCallback commonCallback){
 
+        LoginRequest loginRequest = new LoginRequest();
 
-        Map<String, String> map = new HashMap<>();
-        map.put("name", name);
-        map.put("password", password);
-//        map.put("posSn",AndroidPosUtil.getAndroidPosSn());
+        loginRequest.setName(name);
+        loginRequest.setPassword(password);
+        //联迪POS专用
+//        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
 
-//        map.put()
-        Api.post("post",map,commonCallback);
+        Api.post(APIConstants.URL_USER_LOGIN,loginRequest.getMap(),commonCallback);
     }
 }
