@@ -1,11 +1,12 @@
 package com.example.seven.myapplication.ui;
 
+import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
@@ -13,13 +14,19 @@ import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-public class ZFBActivity extends BaseActivity {
+import java.util.List;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class ZfbActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     private TitleBar titleBar;
     private String title;
     private AmountEditText amountEditText;
     private Button btn_sure;
     private LinearLayout show_zfb;
     private LinearLayout gone_zfb;
+    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +69,10 @@ public class ZFBActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             if (amountEditText.isConformRules()) {
-                ShowToast(amountEditText.getContent());
+//                ShowToast(amountEditText.getContent());
+                Intent  intent=new Intent(ZfbActivity.this, ZfbPayActivity.class);
+                intent.putExtra("data", amountEditText.getContent());
+                startActivity(intent);
             } else {
                 ShowToast("输入内容不符合规则！！！");
             }
@@ -92,7 +102,36 @@ public class ZFBActivity extends BaseActivity {
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ZFBActivity.this.finish();
+            ZfbActivity.this.finish();
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestCodeQRCodePermissions();
+    }
+
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void requestCodeQRCodePermissions() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(this, perms)) {
+            EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
+    }
 }

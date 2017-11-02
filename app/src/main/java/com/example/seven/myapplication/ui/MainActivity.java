@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.zfbpay) {
-                intent = new Intent(MainActivity.this, ZFBActivity.class);
+                intent = new Intent(MainActivity.this, ZfbActivity.class);
             }
             if (v.getId() == R.id.wechatpay) {
                 intent = new Intent(MainActivity.this, WeChatActivity.class);
