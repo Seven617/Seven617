@@ -14,6 +14,7 @@ public abstract class BaseActivity extends Activity {
      * 网络观察者
      */
     protected NetChangeObserver mNetChangeObserver = null;
+    //在基类中初始化Dialog
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public abstract class BaseActivity extends Activity {
                 onNetworkDisConnected();
             }
         };
-
         //开启广播去监听 网络 改变事件
         NetStateReceiver.registerObserver(mNetChangeObserver);
     }

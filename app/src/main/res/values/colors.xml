@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#63B8FF</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="need">#e0000000</color><!--半透明色 -->
+    <color name="app_primary_color">#80c3db</color>
     <color name="lineGray">#E9E9E9</color>
     <color name="backgroundGray">#F3F3F3</color>
     <color name="orangeRed">#EB4F38</color>

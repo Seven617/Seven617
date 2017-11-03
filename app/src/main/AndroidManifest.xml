@@ -49,6 +49,8 @@
         </activity>
         <activity android:name=".ui.ChoseQueryActivity">
         </activity>
+        <activity android:name=".ui.AllQueryActivity">
+        </activity>
     </application>
 
 </manifest>

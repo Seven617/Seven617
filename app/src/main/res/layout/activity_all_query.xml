@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:my="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.example.seven.myapplication.ui.AllQueryActivity">
+
+    <com.example.seven.myapplication.view.TitleBar
+        android:id="@+id/allquery_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"/>
+
+    <com.example.seven.myapplication.view.SwipyRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        my:direction="both">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.example.seven.myapplication.view.SwipyRefreshLayout>
+</LinearLayout>

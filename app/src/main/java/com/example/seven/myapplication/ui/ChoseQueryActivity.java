@@ -34,12 +34,16 @@ public class ChoseQueryActivity extends BaseActivity {
         all_query= (Button) findViewById(R.id.all_query);
 
         one_query.setOnClickListener(todo);
+        all_query.setOnClickListener(todo);
     }
     View.OnClickListener todo=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(v.getId()==R.id.one_query){
                 intent = new Intent(ChoseQueryActivity.this, OneQueryActivity.class);
+            }
+            if(v.getId()==R.id.all_query){
+                intent = new Intent(ChoseQueryActivity.this, AllQueryActivity.class);
             }
             startActivity(intent);
         }
