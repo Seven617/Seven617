@@ -1,5 +1,8 @@
 package com.example.seven.myapplication.service;
 
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.FindRequest;
+import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
 
 /**
@@ -9,13 +12,12 @@ import com.example.seven.myapplication.network.CommonCallback;
 public class FindService {
 
     public void findByOrderNo(String orderNo, CommonCallback commonCallback){
+        FindRequest findRequest = new FindRequest();
+        findRequest.setOrderNo(orderNo);
+        Api.post(APIConstants.URL_ORDER_NO_FIND,findRequest.getMap(),commonCallback);
 
     }
 
-    public void findLastFiveOrder(CommonCallback commonCallback){
-
-
-    }
 
     public void findAllOrder(CommonCallback commonCallback){
 

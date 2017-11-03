@@ -70,9 +70,9 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
         @Override
         public void onClick(View v) {
             findService=new FindService();
-            findService.findByOrderNo(orderSn, new CommonCallback() {
+            findService.findByOrderNo(orderSn, new CommonCallback<String >() {
                 @Override
-                public void onSuccess(Object data) {
+                public void onSuccess(String  data) {
                     ShowToast("成功");
                 }
 

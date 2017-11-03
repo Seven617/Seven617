@@ -8,6 +8,7 @@ import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.util.AndroidPosUtil;
+import com.example.seven.myapplication.util.Md5Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +36,10 @@ public class LoginService {
         LoginRequest loginRequest = new LoginRequest();
 
         loginRequest.setName(name);
-        loginRequest.setPassword(password);
+        loginRequest.setPassword(Md5Util.md5(password));
         //联迪POS专用
-//        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
-
+        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
+        loginRequest.setPosSn("123");
         Api.post(APIConstants.URL_USER_LOGIN,loginRequest.getMap(),commonCallback);
     }
 }
