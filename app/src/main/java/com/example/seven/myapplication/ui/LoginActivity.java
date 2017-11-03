@@ -1,5 +1,6 @@
 package com.example.seven.myapplication.ui;
 
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,8 +18,8 @@ import com.example.seven.myapplication.model.LoginResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
-import com.example.seven.myapplication.view.SelfDialog;
 import com.example.seven.myapplication.view.TitleBar;
+
 
 
 public class LoginActivity extends BaseActivity {
@@ -31,9 +32,9 @@ public class LoginActivity extends BaseActivity {
     private TitleBar titleBar;
     private LinearLayout show_login;
     private LinearLayout gone_login;
-    private SelfDialog selfDialog;
     private String showresult;
     private LoginService loginService;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +45,6 @@ public class LoginActivity extends BaseActivity {
         //标题
         titleBar();
     }
-
-
 
     //网络连接状态
     @Override
@@ -75,8 +74,8 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
 
         //测试使用  记得删除
-//        edt1.setText("617");
-//        edt2.setText("123");
+        edt1.setText("617");
+        edt2.setText("123");
     }
 
     //btn按钮点击事件
@@ -91,73 +90,34 @@ public class LoginActivity extends BaseActivity {
             } else if (psw.isEmpty()) {
                 ShowToast("密码不能为空");
             } else {
-
                 Login();
-//                Yesshowdialog();
             }
         }
     };
+
     //登陆操作
     private void Login() {
         loginService = new LoginService();
         //进行登录操作
-        loginService.login(name,psw,new CommonCallback<String >() {
+        loginService.login(name, psw, new CommonCallback<String>() {
             @Override
             public void onSuccess(String data) {
                 LoginResult result = loginService.getLoginResult(data);
                 showresult = result.getResult();
                 if (result.isSuccess()) {
-                    Yesshowdialog();
+                    ShowToast("登录成功");
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    LoginActivity.this.finish();
                 } else {
-                    Noshowdialog();
+
                 }
             }
 
-
             @Override
             public void onFailure(String err_code, String message) {
-
+                ShowToast("登录失败");
             }
         });
-    }
-
-    private void Yesshowdialog() {
-        selfDialog = new SelfDialog(LoginActivity.this);
-        selfDialog.setMessage(showresult)
-                .setTitle("系统提示")
-                .setSingle(true).setOnClickBottomListener(new SelfDialog.OnClickBottomListener() {
-            @Override
-            public void onPositiveClick() {
-                ShowToast("登录成功");
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                LoginActivity.this.finish();
-                selfDialog.dismiss();
-            }
-
-            @Override
-            public void onNegtiveClick() {
-
-            }
-        }).show();
-    }
-
-    private void Noshowdialog() {
-        selfDialog = new SelfDialog(LoginActivity.this);
-        selfDialog.setTitle("提示");
-        selfDialog.setMessage(showresult);
-        selfDialog.setSingle(true).setOnClickBottomListener(new SelfDialog.OnClickBottomListener() {
-            @Override
-            public void onPositiveClick() {
-                selfDialog.dismiss();
-            }
-
-            @Override
-            public void onNegtiveClick() {
-
-            }
-        }).show();
     }
 
     //标题

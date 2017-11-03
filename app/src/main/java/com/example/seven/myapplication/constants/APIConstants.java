@@ -1,10 +1,14 @@
 package com.example.seven.myapplication.constants;
 
+import com.example.seven.myapplication.model.QueryResult;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
 /**
  * Created by daichen on 2017/11/2.
  */
-
-import com.example.seven.myapplication.R;
 
 
 public  interface APIConstants {
@@ -21,5 +25,8 @@ public  interface APIConstants {
      String STRING_ORDER_NO="orderNo";
 
      String CODE_RESULT_SUCCESS ="0";
-
+     //http://gank.io/api/data/福利/5/1
+     @GET("api/data/福利/{pageCount}/{pageIndex}")
+     Call<QueryResult> getData(@Path("pageCount") int pageCount,
+                               @Path("pageIndex") int pageIndex);
 }
