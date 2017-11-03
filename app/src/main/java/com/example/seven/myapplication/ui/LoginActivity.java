@@ -8,25 +8,30 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.model.LoginResult;
 import com.example.seven.myapplication.network.CommonCallback;
-import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
+import com.roger.catloadinglibrary.CatLoadingView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
-
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText edt1;
     private EditText edt2;
     private Button btn;
@@ -40,38 +45,25 @@ public class LoginActivity extends BaseActivity {
     private LoginService loginService;
     private CheckBox ckb;
     private SharedPreferences sp;
+    private CatLoadingView mView;
+    private Timer timer;
+    private TimerTask task;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sp = LoginActivity.this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         //获取控件
         getview();
         //标题
         titleBar();
     }
 
-    //网络连接状态
-    @Override
-    protected void onNetworkConnected(NetUtils.NetType type) {
-        //ShowToast("网络连接正常\n" + type.name());
-        show_login.setVisibility(View.VISIBLE);
-        gone_login.setVisibility(View.GONE);
-    }
-
-    //网络断开状态
-    @Override
-    protected void onNetworkDisConnected() {
-        //ShowToast("请检测网络连接");
-        //this.finish();
-        show_login.setVisibility(View.GONE);
-        gone_login.setVisibility(View.VISIBLE);
-    }
-
     //获取控件
     private void getview() {
-        sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
-        ckb= (CheckBox) findViewById(R.id.ckb);
+        mView = new CatLoadingView();
+        ckb = (CheckBox) findViewById(R.id.ckb);
         show_login = (LinearLayout) findViewById(R.id.show_login);
         gone_login = (LinearLayout) findViewById(R.id.gone_login);
         edt1 = (EditText) this.findViewById(R.id.name);
@@ -81,21 +73,27 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
         ckb.setOnCheckedChangeListener(ifck);
         //判断是否记住密码
-        if(sp.getBoolean("ISCHECK", false))
-        {
+        if (sp.getBoolean("ISCHECK", false)) {
             //默认记住密码
             ckb.setChecked(true);
             edt1.setText(sp.getString("USER_NAME", ""));
             edt2.setText(sp.getString("PASSWORD", ""));
         }
-
+        timer = new Timer();
+        task = new TimerTask() {
+            public void run() {
+                mView.dismiss();
+                ShowToast("登陆超时");
+            }
+        };
     }
-    CompoundButton.OnCheckedChangeListener ifck=new CompoundButton.OnCheckedChangeListener() {
+
+    CompoundButton.OnCheckedChangeListener ifck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (ckb.isChecked()) {
                 sp.edit().putBoolean("ISCHECK", true).commit();
-            }else {
+            } else {
                 sp.edit().putBoolean("ISCHECK", false).commit();
             }
         }
@@ -117,12 +115,11 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-
-
-
     //登陆操作
     private void Login() {
         loginService = new LoginService();
+        showDialog();
+        timer.schedule(task, 10000);
         //进行登录操作
         loginService.login(name, psw, new CommonCallback<String>() {
             @Override
@@ -130,27 +127,32 @@ public class LoginActivity extends BaseActivity {
                 LoginResult result = loginService.getLoginResult(data);
                 showresult = result.getResult();
                 if (result.isSuccess()) {
-                    if(ckb.isChecked())
-                    {
+                    mView.dismiss();
+                    if (ckb.isChecked()) {
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("USER_NAME", name);
-                        editor.putString("PASSWORD",psw);
+                        editor.putString("PASSWORD", psw);
                         editor.commit();
                     }
                     ShowToast("登录成功");
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
-
+                    mView.dismiss();
                 }
             }
 
             @Override
             public void onFailure(String err_code, String message) {
+                mView.dismiss();
                 ShowToast("登录失败");
             }
         });
+    }
+
+    public void showDialog() {
+        mView.show(getSupportFragmentManager(), "");
     }
 
     //标题
@@ -166,5 +168,24 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    //Toast及时反应
+    private Toast mToast;
+
+    public void ShowToast(String text) {
+        try{
+        if (mToast == null) {
+            mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+        } else {
+            mToast.setText(text);
+            mToast.setDuration(Toast.LENGTH_SHORT);
+        }
+        mToast.show();
+        } catch (Exception e) {
+            //解决在子线程中调用Toast的异常情况处理
+            Looper.prepare();
+            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            Looper.loop();
+        }
+    }
 
 }

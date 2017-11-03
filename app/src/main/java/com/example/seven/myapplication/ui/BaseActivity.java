@@ -2,6 +2,7 @@ package com.example.seven.myapplication.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
@@ -57,12 +58,19 @@ public abstract class BaseActivity extends Activity {
     private Toast mToast;
 
     public void ShowToast(String text) {
-        if (mToast == null) {
-            mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_SHORT);
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            } else {
+                mToast.setText(text);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+        } catch (Exception e) {
+            //解决在子线程中调用Toast的异常情况处理
+            Looper.prepare();
+            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            Looper.loop();
         }
-        mToast.show();
     }
 }
