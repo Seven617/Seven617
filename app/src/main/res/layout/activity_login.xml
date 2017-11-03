@@ -102,6 +102,7 @@
                         android:textColorHint="@color/gainsboro"/>
                 </RelativeLayout>
             </LinearLayout>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -112,7 +113,13 @@
             android:layout_weight="2"
             android:gravity="top"
             android:orientation="vertical">
-
+            <CheckBox
+                android:id="@+id/ckb"
+                android:layout_marginLeft="10dp"
+                android:text="记住密码"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/btn"
                 android:layout_width="match_parent"
@@ -123,7 +130,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/gone_login"
         android:layout_width="match_parent"

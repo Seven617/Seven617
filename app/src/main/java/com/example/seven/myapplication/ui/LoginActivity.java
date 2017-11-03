@@ -1,7 +1,9 @@
 package com.example.seven.myapplication.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -34,7 +38,8 @@ public class LoginActivity extends BaseActivity {
     private LinearLayout gone_login;
     private String showresult;
     private LoginService loginService;
-
+    private CheckBox ckb;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +70,8 @@ public class LoginActivity extends BaseActivity {
 
     //获取控件
     private void getview() {
+        sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
+        ckb= (CheckBox) findViewById(R.id.ckb);
         show_login = (LinearLayout) findViewById(R.id.show_login);
         gone_login = (LinearLayout) findViewById(R.id.gone_login);
         edt1 = (EditText) this.findViewById(R.id.name);
@@ -72,12 +79,27 @@ public class LoginActivity extends BaseActivity {
         titleBar = (TitleBar) findViewById(R.id.login_bar);
         btn = (Button) this.findViewById(R.id.btn);
         btn.setOnClickListener(tonext);
+        ckb.setOnCheckedChangeListener(ifck);
+        //判断是否记住密码
+        if(sp.getBoolean("ISCHECK", false))
+        {
+            //默认记住密码
+            ckb.setChecked(true);
+            edt1.setText(sp.getString("USER_NAME", ""));
+            edt2.setText(sp.getString("PASSWORD", ""));
+        }
 
-        //测试使用  记得删除
-        edt1.setText("617");
-        edt2.setText("123");
     }
-
+    CompoundButton.OnCheckedChangeListener ifck=new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (ckb.isChecked()) {
+                sp.edit().putBoolean("ISCHECK", true).commit();
+            }else {
+                sp.edit().putBoolean("ISCHECK", false).commit();
+            }
+        }
+    };
     //btn按钮点击事件
     View.OnClickListener tonext = new View.OnClickListener() {
         @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -95,6 +117,9 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
+
+
+
     //登陆操作
     private void Login() {
         loginService = new LoginService();
@@ -105,6 +130,14 @@ public class LoginActivity extends BaseActivity {
                 LoginResult result = loginService.getLoginResult(data);
                 showresult = result.getResult();
                 if (result.isSuccess()) {
+                    if(ckb.isChecked())
+                    {
+                        //用户记住账号密码
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("USER_NAME", name);
+                        editor.putString("PASSWORD",psw);
+                        editor.commit();
+                    }
                     ShowToast("登录成功");
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     LoginActivity.this.finish();
