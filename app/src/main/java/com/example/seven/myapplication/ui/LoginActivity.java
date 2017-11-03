@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
 import com.roger.catloadinglibrary.CatLoadingView;
 
+import java.lang.reflect.Field;
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,8 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox ckb;
     private SharedPreferences sp;
     private CatLoadingView mView;
-    private Timer timer;
-    private TimerTask task;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,22 +81,15 @@ public class LoginActivity extends AppCompatActivity {
             edt1.setText(sp.getString("USER_NAME", ""));
             edt2.setText(sp.getString("PASSWORD", ""));
         }
-        timer = new Timer();
-        task = new TimerTask() {
-            public void run() {
-                mView.dismiss();
-                ShowToast("登陆超时");
-            }
-        };
     }
 
     CompoundButton.OnCheckedChangeListener ifck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (ckb.isChecked()) {
-                sp.edit().putBoolean("ISCHECK", true).commit();
+                sp.edit().putBoolean("ISCHECK", true).apply();
             } else {
-                sp.edit().putBoolean("ISCHECK", false).commit();
+                sp.edit().putBoolean("ISCHECK", false).apply();
             }
         }
     };
@@ -110,16 +105,27 @@ public class LoginActivity extends AppCompatActivity {
             } else if (psw.isEmpty()) {
                 ShowToast("密码不能为空");
             } else {
-                Login();
+                try {
+                    Login();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
 
     //登陆操作
-    private void Login() {
+    private void Login() throws NoSuchFieldException, IllegalAccessException {
         loginService = new LoginService();
         showDialog();
-        timer.schedule(task, 10000);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mView.dismiss();
+                ShowToast("登陆超时");
+            }
+        }, 10000);
         //进行登录操作
         loginService.login(name, psw, new CommonCallback<String>() {
             @Override
@@ -172,14 +178,14 @@ public class LoginActivity extends AppCompatActivity {
     private Toast mToast;
 
     public void ShowToast(String text) {
-        try{
-        if (mToast == null) {
-            mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_SHORT);
-        }
-        mToast.show();
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            } else {
+                mToast.setText(text);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
         } catch (Exception e) {
             //解决在子线程中调用Toast的异常情况处理
             Looper.prepare();
