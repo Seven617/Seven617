@@ -28,10 +28,6 @@ import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
 import com.roger.catloadinglibrary.CatLoadingView;
 
-import java.lang.reflect.Field;
-import java.sql.Time;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class LoginActivity extends AppCompatActivity {

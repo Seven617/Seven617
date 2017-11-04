@@ -82,7 +82,7 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
         super.onStart();
         mQRCodeView.startCamera();
 //        mQRCodeView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT);
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
         mQRCodeView.showScanRect();
     }
 
