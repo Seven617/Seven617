@@ -79,7 +79,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
         super.onStart();
         mQRCodeView.startCamera();
 //        mQRCodeView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT);
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
         mQRCodeView.showScanRect();
     }
 

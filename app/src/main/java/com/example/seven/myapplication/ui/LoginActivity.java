@@ -8,14 +8,18 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
@@ -28,7 +32,7 @@ import com.example.seven.myapplication.view.TitleBar;
 
 
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText edt1;
     private EditText edt2;
     private Button btn;
@@ -42,32 +46,19 @@ public class LoginActivity extends BaseActivity {
     private CheckBox ckb;
     private SharedPreferences sp;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sp = LoginActivity.this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         //获取控件
         getview();
         //标题
         titleBar();
     }
 
-    //网络连接状态
-    @Override
-    protected void onNetworkConnected(NetUtils.NetType type) {
-        //showToast("网络连接正常\n" + type.name());
-//        show_login.setVisibility(View.VISIBLE);
-//        gone_login.setVisibility(View.GONE);
-    }
 
-    //网络断开状态
-    @Override
-    protected void onNetworkDisConnected() {
-        showToast("请检测网络连接");
-//        this.finish();
-//        show_login.setVisibility(View.GONE);
-//        gone_login.setVisibility(View.VISIBLE);
-    }
 
     //获取控件
     private void getview() {
@@ -88,15 +79,15 @@ public class LoginActivity extends BaseActivity {
             edt1.setText(sp.getString("USER_NAME", ""));
             edt2.setText(sp.getString("PASSWORD", ""));
         }
-
     }
-    CompoundButton.OnCheckedChangeListener ifck=new CompoundButton.OnCheckedChangeListener() {
+
+    CompoundButton.OnCheckedChangeListener ifck = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (ckb.isChecked()) {
-                sp.edit().putBoolean("ISCHECK", true).commit();
-            }else {
-                sp.edit().putBoolean("ISCHECK", false).commit();
+                sp.edit().putBoolean("ISCHECK", true).apply();
+            } else {
+                sp.edit().putBoolean("ISCHECK", false).apply();
             }
         }
     };
@@ -112,44 +103,63 @@ public class LoginActivity extends BaseActivity {
             } else if (psw.isEmpty()) {
                 showToast("密码不能为空");
             } else {
-                Login();
+                try {
+                    Login();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
 
-
-
-
     //登陆操作
-    private void Login() {
+    private void Login() throws NoSuchFieldException, IllegalAccessException {
         loginService = new LoginService();
+//        showDialog();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+//                mView.dismiss();
+                showToast("登陆超时");
+            }
+        }, 10000);
         //进行登录操作
         loginService.login(name, psw, new CommonCallback<NetworkResult<LoginData>>() {
             @Override
             public void onSuccess(NetworkResult<LoginData> data) {
                 if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
+//                    mView.dismiss();
                     if(ckb.isChecked()) {
+
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         //需要添加加密
                         editor.putString("USER_NAME", name);
-                        editor.putString("PASSWORD",psw);
+                        editor.putString("PASSWORD", psw);
                         editor.commit();
                     }
                     showToast("最近登录时间："+data.getData().getLastLoginTime());
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
-                    showToast(data.getMsg());
+
+//                    mView.dismiss();
                 }
             }
 
             @Override
             public void onFailure(String err_code, String message) {
-                showToast("网络故障请检查网络");
+
+//                mView.dismiss();
+                showToast("登录失败");
             }
         });
     }
+
+//    public void showDialog() {
+//        mView.show(getSupportFragmentManager(), "");
+//    }
 
     //标题
     private void titleBar() {
@@ -164,5 +174,24 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    //Toast及时反应
+    private Toast mToast;
+
+    public void showToast(String text) {
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            } else {
+                mToast.setText(text);
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+        } catch (Exception e) {
+            //解决在子线程中调用Toast的异常情况处理
+            Looper.prepare();
+            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            Looper.loop();
+        }
+    }
 
 }

@@ -126,7 +126,7 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
         super.onStart();
         mQRCodeView.startCamera();
         mQRCodeView.changeToScanBarcodeStyle();
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
         mQRCodeView.showScanRect();
     }
 

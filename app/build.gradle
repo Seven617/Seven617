@@ -57,4 +57,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //loading
+    compile 'com.roger.catloadinglibrary:catloadinglibrary:1.0.1'
 }

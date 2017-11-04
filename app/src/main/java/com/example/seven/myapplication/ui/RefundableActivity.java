@@ -93,7 +93,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
         super.onStart();
         mQRCodeView.startCamera();
         mQRCodeView.changeToScanBarcodeStyle();
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
         mQRCodeView.showScanRect();
     }
 
