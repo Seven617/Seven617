@@ -19,7 +19,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ZfbActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class AmountActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     private TitleBar titleBar;
     private String title;
     private AmountEditText amountEditText;
@@ -67,12 +67,13 @@ public class ZfbActivity extends BaseActivity implements EasyPermissions.Permiss
         @Override
         public void onClick(View v) {
             if (amountEditText.isConformRules()) {
-//                ShowToast(amountEditText.getContent());
-                Intent  intent=new Intent(ZfbActivity.this, ZfbPayActivity.class);
-                intent.putExtra("data", amountEditText.getContent());
+//                showToast(amountEditText.getContent());
+                Intent  intent=new Intent(AmountActivity.this, PayScannerActivity.class);
+                intent.putExtra("amount", amountEditText.getContent());
                 startActivity(intent);
+                AmountActivity.this.finish();
             } else {
-                ShowToast("输入内容不符合规则！！！");
+                showToast("输入内容不符合规则！！！");
             }
         }
     };
@@ -100,7 +101,7 @@ public class ZfbActivity extends BaseActivity implements EasyPermissions.Permiss
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ZfbActivity.this.finish();
+            AmountActivity.this.finish();
         }
     };
 

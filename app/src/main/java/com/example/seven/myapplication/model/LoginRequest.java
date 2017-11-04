@@ -10,16 +10,24 @@ import java.util.Map;
  */
 
 public class LoginRequest {
-    private String name;
+    private String username;
     private String password;
-    private String posSn;
+    private String deviceNo;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDeviceNo() {
+        return deviceNo;
+    }
+
+    public void setDeviceNo(String deviceNo) {
+        this.deviceNo = deviceNo;
     }
 
     public String getPassword() {
@@ -30,20 +38,13 @@ public class LoginRequest {
         this.password = password;
     }
 
-    public String getPosSn() {
-        return posSn;
-    }
-
-    public void setPosSn(String posSn) {
-        this.posSn = posSn;
-    }
 
 
     public Map getMap(){
         Map<String ,String > map = new HashMap<>();
-        map.put(APIConstants.STRING_NAME,this.name);
+        map.put(APIConstants.STRING_USERNAME,this.username);
         map.put(APIConstants.STRING_PASSWORD,this.password);
-        map.put(APIConstants.STRING_POS_SN,this.posSn);
+        map.put(APIConstants.STRING_DEVICE_NO,this.deviceNo);
         return map;
 
     }

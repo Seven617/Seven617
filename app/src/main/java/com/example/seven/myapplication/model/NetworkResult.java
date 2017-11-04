@@ -4,13 +4,15 @@ package com.example.seven.myapplication.model;
  * Created by daichen on 2017/11/2.
  */
 
-public class NetworkResult {
+public class NetworkResult<T> {
 
     private String  status;
 
     private String msg;
 
-    private String  data;
+    private T  data;
+
+    private String success;
 
     public String getStatus() {
         return status;
@@ -28,11 +30,19 @@ public class NetworkResult {
         this.msg = msg;
     }
 
-    public String getData() {
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public T getData() {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
     }
 }

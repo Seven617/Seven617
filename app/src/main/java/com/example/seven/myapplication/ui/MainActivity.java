@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.zfbpay) {
-                intent = new Intent(MainActivity.this, ZfbActivity.class);
+                intent = new Intent(MainActivity.this, AmountActivity.class);
             }
             if (v.getId() == R.id.wechatpay) {
                 intent = new Intent(MainActivity.this, WeChatActivity.class);
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
 
         if (quit == false) {     //询问退出程序
-            ShowToast("再按一次退出程序");
+            showToast("再按一次退出程序");
             new Timer(true).schedule(new TimerTask() {      //启动定时任务
                 @Override
                 public void run() {

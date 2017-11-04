@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PayRequest {
     private String amount;
-    private String payCode;
+    private String barCode;
     private String sign;
 
     public String getAmount() {
@@ -22,12 +22,12 @@ public class PayRequest {
         this.amount = amount;
     }
 
-    public String getPayCode() {
-        return payCode;
+    public String getBarCode() {
+        return barCode;
     }
 
-    public void setPayCode(String payCode) {
-        this.payCode = payCode;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     public String getSign() {
@@ -42,7 +42,7 @@ public class PayRequest {
     public Map getMap(){
         Map map = new HashMap();
         map.put(APIConstants.STRING_AMOUNT,this.amount);
-        map.put(APIConstants.STRING_PAY_CODE,this.payCode);
+        map.put(APIConstants.STRING_BAR_CODE,this.barCode);
         map.put(APIConstants.STRING_SIGN,this.sign);
         return map;
     }

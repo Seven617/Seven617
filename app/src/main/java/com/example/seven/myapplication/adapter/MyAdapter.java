@@ -12,8 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.model.QueryResult;
+import com.example.seven.myapplication.model.QueryOrderData;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,9 @@ import java.util.ArrayList;
  */
 public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListener {
     private Context context;
-    private ArrayList<QueryResult.Info> list;
+    private ArrayList<QueryOrderData> list;
 
-    public MyAdapter(Context context, ArrayList<QueryResult.Info> list) {
+    public MyAdapter(Context context, ArrayList<QueryOrderData> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,13 +36,13 @@ public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListe
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(v, (QueryResult.Info) v.getTag());
+            mOnItemClickListener.onItemClick(v, (QueryOrderData) v.getTag());
         }
     }
 
 
     public  interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, QueryResult.Info data);
+        void onItemClick(View view, QueryOrderData data);
     }
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
         this.mOnItemClickListener = listener;
@@ -63,14 +64,11 @@ public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListe
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHodler mHodler = (ViewHodler) holder;
 
-        mHodler.textview.setText("this is item "+position );
-        Glide.with(context)
-                .load(list.get(position).url)
-                .centerCrop()
-                .placeholder(R.color.app_primary_color)
-                .crossFade()
-                .into(mHodler.imageView);
-        Log.i("aaaa", list.get(position)._id);
+        mHodler.orderView.setText(list.get(position).getOrderSn());
+        mHodler.amountView.setText(list.get(position).getAmount());
+        mHodler.dateView.setText(list.get(position).getModifyDate());
+        mHodler.payTypeView.setText(list.get(position).getPayTypeTxt());
+        mHodler.statusView.setText(OrderStatusEnum.getOrderStatusEnum(list.get(position).getStatus()).getDesc());
         mHodler.itemView.setTag(list.get(position));
 
     }
@@ -81,12 +79,21 @@ public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListe
     }
     class ViewHodler extends RecyclerView.ViewHolder{
 
-        private TextView textview;
-        private ImageView imageView;
+        private TextView amountView;
+        private TextView orderView;
+        private TextView dateView;
+        private TextView payTypeView;
+        private TextView statusView;
+//        private ImageView imageView;
         public ViewHodler(View itemView) {
             super(itemView);
-            textview= (TextView) itemView.findViewById(R.id.textview);
-            imageView= (ImageView) itemView.findViewById(R.id.image);
+
+            amountView= (TextView) itemView.findViewById(R.id.amount_view);
+            orderView= (TextView) itemView.findViewById(R.id.order_view);
+            dateView= (TextView) itemView.findViewById(R.id.date_view);
+            payTypeView= (TextView) itemView.findViewById(R.id.pay_type_view);
+            statusView= (TextView) itemView.findViewById(R.id.status_view);
+//            imageView= (ImageView) itemView.findViewById(R.id.image);
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

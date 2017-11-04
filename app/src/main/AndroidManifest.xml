@@ -32,7 +32,7 @@
             android:name=".ui.MainActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.ZfbActivity"
+            android:name=".ui.AmountActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.WeChatActivity"
@@ -44,13 +44,18 @@
             android:name=".ui.OneQueryActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.ZfbPayActivity"
+            android:name=".ui.PayScannerActivity"
             android:theme="@style/NoBarTheme">
         </activity>
         <activity android:name=".ui.ChoseQueryActivity">
         </activity>
         <activity android:name=".ui.AllQueryActivity">
         </activity>
+        <activity
+            android:name=".ui.PaySuccessActivity"
+            android:theme="@style/NoBarTheme">
+        </activity>
+
     </application>
 
 </manifest>

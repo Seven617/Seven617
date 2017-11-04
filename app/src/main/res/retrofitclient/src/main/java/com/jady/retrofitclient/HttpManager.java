@@ -98,7 +98,7 @@ public class HttpManager {
      */
     public static RetrofitClient.Builder getRetrofitBuilder(String baseUrl) {
         RetrofitClient.Builder builder = new RetrofitClient.Builder()
-//                .addGsonConverterInterceptor(GsonConverterFactory.create())
+                .addGsonConverterInterceptor(GsonConverterFactory.create())
                 .addRxJavaCallAdapterInterceptor(RxJavaCallAdapterFactory.create())
 //                .addRequestJsonInterceptor(RequestJsonInterceptor.create())
                 .addOffLineIntercept(OffLineIntercept.create(mContext))

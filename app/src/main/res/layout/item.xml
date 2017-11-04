@@ -4,21 +4,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:src="@mipmap/touxiang" />
+    <!--<ImageView-->
+        <!--android:id="@+id/image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center"-->
+        <!--android:src="@mipmap/touxiang" />-->
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/amount_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="123"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/order_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="123"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/date_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="123"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/pay_type_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="123"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="123"
+        android:textSize="18sp" />
+
 
     <View
         android:layout_width="match_parent"

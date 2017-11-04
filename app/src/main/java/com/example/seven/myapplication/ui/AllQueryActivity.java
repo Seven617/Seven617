@@ -4,37 +4,37 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.NetworkResult;
+import com.example.seven.myapplication.network.CommonCallback;
+import com.example.seven.myapplication.service.QueryOrderService;
 import com.example.seven.myapplication.view.SwipyRefreshLayout;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.adapter.MyAdapter;
-import com.example.seven.myapplication.model.QueryResult;
+import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.TitleBar;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.List;
 
 public class AllQueryActivity extends BaseActivity implements MyAdapter.OnRecyclerViewItemClickListener, SwipyRefreshLayout.OnRefreshListener {
-    private ArrayList<QueryResult.Info> arrayList;
+    private ArrayList<QueryOrderData> arrayList;
     private RecyclerView recyclerView;
     private TitleBar titleBar;
     private String title;
     private MyAdapter adapter;
+    private QueryOrderService queryOrderService;
 
     private SwipyRefreshLayout refreshLayout;
 
     private LinearLayoutManager linearLayoutManager;
 
-    private int pages = 1;
+    private  int pages = 1;
+
+    private final int pagesSize = 5;
 
     private final int TOP_REFRESH = 1;
     private final int BOTTOM_REFRESH = 2;
@@ -44,19 +44,19 @@ public class AllQueryActivity extends BaseActivity implements MyAdapter.OnRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_query);
         //获取控件
-        getview();
+        getView();
         //标题
         titleBar();
 
     }
 
-    private void getview() {
+    private void getView() {
         titleBar = (TitleBar) findViewById(R.id.allquery_bar);
         recyclerView = (RecyclerView) findViewById(R.id.recyerview);
         refreshLayout = (SwipyRefreshLayout) findViewById(R.id.refreshLayout);
         refreshLayout.setOnRefreshListener(this);
         arrayList = new ArrayList();
-        initData(1);
+        initData(pages);
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -91,46 +91,76 @@ public class AllQueryActivity extends BaseActivity implements MyAdapter.OnRecycl
         }
     };
     private void initData(int pages) {
-        //使用retrofit配置api
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://gank.io/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        APIConstants api = retrofit.create(APIConstants.class);
-        Call<QueryResult> call = api.getData(5, pages);
-        call.enqueue(new Callback<QueryResult>() {
-            @Override
-            public void onResponse(Call<QueryResult> call, Response<QueryResult> response) {
 
-                arrayList.addAll(response.body().results);
-                adapter.notifyDataSetChanged();
-                Log.i("aaaa", arrayList.size() + "");
-                refreshLayout.setRefreshing(false);
+        queryOrderService = new QueryOrderService();
+        queryOrderService.queryOrder(pagesSize, pages, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
 
-            }
 
-            @Override
-            public void onFailure(Call<QueryResult> call, Throwable t) {
-                refreshLayout.setRefreshing(false);
-            }
-        });
+                    @Override
+                    public void onSuccess(NetworkResult<List<QueryOrderData>> data) {
+                        if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                            if(null == data.getData() || data.getData().size()==0){
+                                showToast("没有更多信息");
+                            }else {
+                                arrayList.addAll(data.getData());
+                                adapter.notifyDataSetChanged();
+
+                            }
+                            refreshLayout.setRefreshing(false);
+                        }else {
+                            showToast(data.getMsg());
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(String error_code, String error_message) {
+
+                    }
+                });
+
+
+//                //使用retrofit配置api
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("http://gank.io/")
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//        APIConstants api = retrofit.create(APIConstants.class);
+//        Call<QueryOrderData> call = api.getData(5, pages);
+//        call.enqueue(new Callback<QueryOrderData>() {
+//            @Override
+//            public void onResponse(Call<QueryOrderData> call, Response<QueryOrderData> response) {
+//
+////                arrayList.addAll(response.body().getAmount());
+//                adapter.notifyDataSetChanged();
+//                Log.i("aaaa", arrayList.size() + "");
+//                refreshLayout.setRefreshing(false);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<QueryOrderData> call, Throwable t) {
+//                refreshLayout.setRefreshing(false);
+//            }
+//        });
     }
 
     @Override
-    public void onItemClick(View view, QueryResult.Info data) {
-        ShowToast("click item " + data);
+    public void onItemClick(View view, QueryOrderData data) {
+        //显示订单具体内容
+        showToast(data.toString());
     }
 
     @Override
     public void onRefresh(int index) {
         dataOption(TOP_REFRESH);
-        ShowToast("已经是最新数据");
+        showToast("已经是最新数据");
     }
 
     @Override
     public void onLoad(int index) {
         dataOption(BOTTOM_REFRESH);
-        ShowToast("加载完成");
+        showToast("加载完成");
     }
 
     private void dataOption(int option) {
@@ -138,7 +168,7 @@ public class AllQueryActivity extends BaseActivity implements MyAdapter.OnRecycl
             case TOP_REFRESH:
                 //下拉刷新
                 arrayList.clear();
-                initData(1);
+                initData(pages);
                 break;
             case BOTTOM_REFRESH:
                 //上拉加载更多

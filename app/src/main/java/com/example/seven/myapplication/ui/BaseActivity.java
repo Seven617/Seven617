@@ -53,10 +53,12 @@ public abstract class BaseActivity extends Activity {
      */
     protected abstract void onNetworkDisConnected();
 
+
+
     //Toast及时反应
     private Toast mToast;
 
-    public void ShowToast(String text) {
+    public void showToast(String text) {
         if (mToast == null) {
             mToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
         } else {

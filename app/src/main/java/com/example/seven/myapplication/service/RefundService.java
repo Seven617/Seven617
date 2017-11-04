@@ -1,6 +1,6 @@
 package com.example.seven.myapplication.service;
 
-import com.example.seven.myapplication.model.RefundResult;
+import com.example.seven.myapplication.model.RefundData;
 import com.example.seven.myapplication.network.CommonCallback;
 
 /**
@@ -12,9 +12,9 @@ public class RefundService {
 
     }
 
-    public RefundResult getRefundResult(String data){
-        RefundResult refundResult = new RefundResult();
+    public RefundData getRefundResult(String data){
+        RefundData refundData = new RefundData();
 
-        return refundResult;
+        return refundData;
     }
 }

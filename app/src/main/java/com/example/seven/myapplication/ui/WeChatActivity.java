@@ -59,9 +59,9 @@ public class WeChatActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             if (amountEditText.isConformRules()) {
-                ShowToast(amountEditText.getContent());
+                showToast(amountEditText.getContent());
             } else {
-                ShowToast("输入内容不符合规则！！！");
+                showToast("输入内容不符合规则！！！");
             }
         }
     };

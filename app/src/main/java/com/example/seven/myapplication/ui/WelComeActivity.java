@@ -86,13 +86,13 @@ public class WelComeActivity extends BaseActivity {
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
             if (result == SUCCESS) {
-            //ShowToast("54617");
+            //showToast("54617");
                 Intent intent = new Intent(WelComeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 WelComeActivity.this.finish();
             } else {
-                ShowToast("请检测网络连接");
+                showToast("请检测网络连接");
                 timer.schedule(task, 2000);
             }
         }

@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.model.LoginResult;
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.LoginData;
+import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
@@ -36,7 +38,6 @@ public class LoginActivity extends BaseActivity {
     private TitleBar titleBar;
     private LinearLayout show_login;
     private LinearLayout gone_login;
-    private String showresult;
     private LoginService loginService;
     private CheckBox ckb;
     private SharedPreferences sp;
@@ -54,23 +55,23 @@ public class LoginActivity extends BaseActivity {
     //网络连接状态
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-        //ShowToast("网络连接正常\n" + type.name());
-        show_login.setVisibility(View.VISIBLE);
-        gone_login.setVisibility(View.GONE);
+        //showToast("网络连接正常\n" + type.name());
+//        show_login.setVisibility(View.VISIBLE);
+//        gone_login.setVisibility(View.GONE);
     }
 
     //网络断开状态
     @Override
     protected void onNetworkDisConnected() {
-        //ShowToast("请检测网络连接");
-        //this.finish();
-        show_login.setVisibility(View.GONE);
-        gone_login.setVisibility(View.VISIBLE);
+        showToast("请检测网络连接");
+//        this.finish();
+//        show_login.setVisibility(View.GONE);
+//        gone_login.setVisibility(View.VISIBLE);
     }
 
     //获取控件
     private void getview() {
-        sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
+        sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         ckb= (CheckBox) findViewById(R.id.ckb);
         show_login = (LinearLayout) findViewById(R.id.show_login);
         gone_login = (LinearLayout) findViewById(R.id.gone_login);
@@ -81,8 +82,7 @@ public class LoginActivity extends BaseActivity {
         btn.setOnClickListener(tonext);
         ckb.setOnCheckedChangeListener(ifck);
         //判断是否记住密码
-        if(sp.getBoolean("ISCHECK", false))
-        {
+        if(sp.getBoolean("ISCHECK", false)) {
             //默认记住密码
             ckb.setChecked(true);
             edt1.setText(sp.getString("USER_NAME", ""));
@@ -108,9 +108,9 @@ public class LoginActivity extends BaseActivity {
             name = edt1.getText().toString();
             psw = edt2.getText().toString();
             if (name.isEmpty()) {
-                ShowToast("账号不能为空");
+                showToast("账号不能为空");
             } else if (psw.isEmpty()) {
-                ShowToast("密码不能为空");
+                showToast("密码不能为空");
             } else {
                 Login();
             }
@@ -124,31 +124,29 @@ public class LoginActivity extends BaseActivity {
     private void Login() {
         loginService = new LoginService();
         //进行登录操作
-        loginService.login(name, psw, new CommonCallback<String>() {
+        loginService.login(name, psw, new CommonCallback<NetworkResult<LoginData>>() {
             @Override
-            public void onSuccess(String data) {
-                LoginResult result = loginService.getLoginResult(data);
-                showresult = result.getResult();
-                if (result.isSuccess()) {
-                    if(ckb.isChecked())
-                    {
+            public void onSuccess(NetworkResult<LoginData> data) {
+                if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
+                    if(ckb.isChecked()) {
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
+                        //需要添加加密
                         editor.putString("USER_NAME", name);
                         editor.putString("PASSWORD",psw);
                         editor.commit();
                     }
-                    ShowToast("登录成功");
+                    showToast("最近登录时间："+data.getData().getLastLoginTime());
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
-
+                    showToast(data.getMsg());
                 }
             }
 
             @Override
             public void onFailure(String err_code, String message) {
-                ShowToast("登录失败");
+                showToast("网络故障请检查网络");
             }
         });
     }

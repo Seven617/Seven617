@@ -1,45 +1,39 @@
 package com.example.seven.myapplication.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.LoginRequest;
-import com.example.seven.myapplication.model.LoginResult;
-import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
-import com.example.seven.myapplication.util.AndroidPosUtil;
 import com.example.seven.myapplication.util.Md5Util;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by seven617 on 2017/11/1.
  */
 
 public class LoginService {
-    public LoginResult getLoginResult(String  data){
-        NetworkResult result = JSONObject.parseObject(data,NetworkResult.class);
-
-        LoginResult loginResult = new LoginResult();
-        if(APIConstants.CODE_RESULT_SUCCESS.equals(result.getStatus())){
-            loginResult.setSuccess(true);
-            loginResult.setResult(result.getData());
-        }
-
-        return loginResult;
-    }
+//    public LoginResult getLoginResult(String  data){
+//        NetworkResult result = JSONObject.parseObject(data,NetworkResult.class);
+//        LoginResult loginResult = new LoginResult();
+//        if(APIConstants.CODE_RESULT_SUCCESS.equals(result.getStatus())){
+//            loginResult.setSuccess(true);
+////            loginResult.setResult(JSONObject.parseObject(result.getData(), LoginData.class));
+//        }else {
+//            loginResult.setMsg(result.getMsg());
+//        }
+//
+//        return loginResult;
+//    }
 
 
     public void login(String name, String password, CommonCallback commonCallback){
 
         LoginRequest loginRequest = new LoginRequest();
 
-        loginRequest.setName(name);
+        loginRequest.setUsername(name);
         loginRequest.setPassword(Md5Util.md5(password));
         //联迪POS专用
-        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
-        loginRequest.setPosSn("123");
+//        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
+        loginRequest.setDeviceNo("123");
         Api.post(APIConstants.URL_USER_LOGIN,loginRequest.getMap(),commonCallback);
     }
 }

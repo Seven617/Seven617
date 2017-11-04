@@ -1,6 +1,6 @@
 package com.example.seven.myapplication.constants;
 
-import com.example.seven.myapplication.model.QueryResult;
+import com.example.seven.myapplication.model.QueryOrderData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,20 +13,24 @@ import retrofit2.http.Path;
 
 public  interface APIConstants {
 
-     String URL_USER_LOGIN="post";
-     String URL_SCAN_PAY = "postAliPay";
-     String URL_ORDER_NO_FIND ="find";
-     String STRING_NAME="name";
+     String URL_USER_LOGIN="pos/signon/dologin";
+     String URL_SCAN_PAY = "pos/pay";
+     String URL_QUERY_ORDER ="pos/order/list";
+     String STRING_USERNAME="username";
      String STRING_PASSWORD="password";
-     String STRING_POS_SN="posSn";
+     String STRING_DEVICE_NO="deviceNo";
      String STRING_AMOUNT="amount";
-     String STRING_PAY_CODE="payCode";
+     String STRING_BAR_CODE="barCode";
      String STRING_SIGN="sign";
      String STRING_ORDER_NO="orderNo";
+     String STRING_FILTER="filter";
+
+
+
 
      String CODE_RESULT_SUCCESS ="0";
      //http://gank.io/api/data/福利/5/1
      @GET("api/data/福利/{pageCount}/{pageIndex}")
-     Call<QueryResult> getData(@Path("pageCount") int pageCount,
-                               @Path("pageIndex") int pageIndex);
+     Call<QueryOrderData> getData(@Path("pageCount") int pageCount,
+                                  @Path("pageIndex") int pageIndex);
 }

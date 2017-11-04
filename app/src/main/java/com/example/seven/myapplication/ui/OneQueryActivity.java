@@ -9,11 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.NetworkResult;
+import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
-import com.example.seven.myapplication.service.FindService;
+import com.example.seven.myapplication.service.QueryOrderService;
 import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
+
+import java.util.List;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
@@ -28,7 +33,7 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
     private LinearLayout show_query;
     private LinearLayout gone_query;
     private QRCodeView mQRCodeView;
-    private FindService findService;
+    private QueryOrderService queryOrderService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +74,15 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
     View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            findService=new FindService();
-            findService.findByOrderNo(orderSn, new CommonCallback<String >() {
+            queryOrderService =new QueryOrderService();
+            orderSn = clearEditText.getText().toString();
+            queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
                 @Override
-                public void onSuccess(String  data) {
-                    ShowToast("成功");
+                public void onSuccess(NetworkResult<List<QueryOrderData>>  data) {
+                    if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                        showToast(data.getData().get(0).getAmount());
+                    }
+
                 }
 
                 @Override

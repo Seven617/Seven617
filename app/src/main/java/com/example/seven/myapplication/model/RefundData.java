@@ -4,7 +4,7 @@ package com.example.seven.myapplication.model;
  * Created by daichen on 2017/11/2.
  */
 
-public class RefundResult {
+public class RefundData {
     private String result;
 
     private boolean success;

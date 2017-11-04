@@ -1,18 +1,15 @@
 package com.example.seven.myapplication.ui;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.model.PayResult;
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PayService;
@@ -21,13 +18,13 @@ import com.example.seven.myapplication.view.TitleBar;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
-public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate {
-    private static final String TAG = ZfbPayActivity.class.getSimpleName();
+public class PayScannerActivity extends BaseActivity implements QRCodeView.Delegate {
+    private static final String TAG = PayScannerActivity.class.getSimpleName();
     private QRCodeView mQRCodeView;
     private TitleBar titleBar;
     private String title;
-    private TextView zfb_pay_text;
-    private String zfbpay_amount;//支付宝支付金额
+    private TextView zfbPayText;
+    private String zfbpayAmount;//支付宝支付金额
     private PayService payService;
     @Override
 
@@ -42,12 +39,12 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
     public void getview() {
         mQRCodeView = (ZXingView) findViewById(R.id.zxingview);
         titleBar = (TitleBar) findViewById(R.id.Ttoolbar);
-        zfb_pay_text = (TextView) findViewById(R.id.zfb_pay_text);
+        zfbPayText = (TextView) findViewById(R.id.zfb_pay_text);
         Intent intent =getIntent();
         //getXxxExtra方法获取Intent传递过来的数据
-        zfbpay_amount=intent.getStringExtra("data");
+        zfbpayAmount =intent.getStringExtra("amount");
         mQRCodeView.setDelegate(this);
-        zfb_pay_text.setText(zfbpay_amount+"元");
+        zfbPayText.setText(zfbpayAmount +"元");
     }
 
     //标题
@@ -57,7 +54,7 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "支付宝二维码/条码";
+        title = "进行扫码";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -73,7 +70,7 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ZfbPayActivity.this.finish();
+            PayScannerActivity.this.finish();
         }
     };
 
@@ -118,19 +115,28 @@ public class ZfbPayActivity extends BaseActivity implements QRCodeView.Delegate 
         Log.i(TAG, "result:" + result);
 //        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         payService=new PayService();
-        payService.pay(zfbpay_amount, result, new CommonCallback<String>() {
+        payService.pay(zfbpayAmount, result, new CommonCallback<NetworkResult<String>>() {
             @Override
-            public void onSuccess(String data) {
-                PayResult payResult = payService.getPayResult(data);
-                if(payResult.isSuccess()){
-                    ShowToast("显示结果："+payResult.getResult());
+            public void onSuccess(NetworkResult<String> data) {
+
+                if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                    //扫码成功跳转到下一个页面
+                    Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
+                    intent.putExtra("amount", zfbpayAmount);
+                    startActivity(intent);
+                    PayScannerActivity.this.finish();
+
+                }else {
+                    //失败则跳出失败原因
+                    showToast(data.getMsg());
                 }
 
             }
 
             @Override
             public void onFailure(String error_code, String error_message) {
-
+                //网络连接故障时的响应
+                showToast("网络故障请检查网络");
             }
         });
         vibrate();
