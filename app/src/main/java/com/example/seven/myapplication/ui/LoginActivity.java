@@ -26,9 +26,9 @@ import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.LoginData;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
-import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 
 
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
     private CheckBox ckb;
     private SharedPreferences sp;
-
+    private CatLoadingView mView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         btn = (Button) this.findViewById(R.id.btn);
         btn.setOnClickListener(tonext);
         ckb.setOnCheckedChangeListener(ifck);
+        mView=new CatLoadingView();
         //判断是否记住密码
         if(sp.getBoolean("ISCHECK", false)) {
             //默认记住密码
@@ -117,10 +118,10 @@ public class LoginActivity extends AppCompatActivity {
     //登陆操作
     private void Login() throws NoSuchFieldException, IllegalAccessException {
         loginService = new LoginService();
-//        showDialog();
+        showDialog();
         new Handler().postDelayed(new Runnable() {
             public void run() {
-//                mView.dismiss();
+                mView.dismiss();
                 showToast("登陆超时");
             }
         }, 10000);
@@ -129,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NetworkResult<LoginData> data) {
                 if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
-//                    mView.dismiss();
+                    mView.dismiss();
                     if(ckb.isChecked()) {
 
                         //用户记住账号密码
@@ -144,22 +145,22 @@ public class LoginActivity extends AppCompatActivity {
                     LoginActivity.this.finish();
                 } else {
 
-//                    mView.dismiss();
+                    mView.dismiss();
                 }
             }
 
             @Override
             public void onFailure(String err_code, String message) {
 
-//                mView.dismiss();
+                mView.dismiss();
                 showToast("登录失败");
             }
         });
     }
 
-//    public void showDialog() {
-//        mView.show(getSupportFragmentManager(), "");
-//    }
+    public void showDialog() {
+        mView.show(getSupportFragmentManager(), "");
+    }
 
     //标题
     private void titleBar() {

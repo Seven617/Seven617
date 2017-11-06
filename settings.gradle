@@ -1,1 +1,1 @@
-include ':app', ':retrofitclient'
+include ':app', ':retrofitclient', ':posDemo'

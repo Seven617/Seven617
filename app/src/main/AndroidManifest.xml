@@ -47,9 +47,11 @@
             android:name=".ui.PayScannerActivity"
             android:theme="@style/NoBarTheme">
         </activity>
-        <activity android:name=".ui.ChoseQueryActivity">
+        <activity android:name=".ui.ChoseQueryActivity"
+                  android:theme="@style/NoBarTheme">
         </activity>
-        <activity android:name=".ui.AllQueryActivity">
+        <activity android:name=".ui.AllQueryActivity"
+                  android:theme="@style/NoBarTheme">
         </activity>
         <activity
             android:name=".ui.PaySuccessActivity"
