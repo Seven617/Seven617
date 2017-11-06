@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/module_description"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BR200外接扫码枪"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/btnStartBrScanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start BR200 Scanner"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <Button
+        android:id="@+id/btnStopBrScanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop BR200 Scanner"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#888888"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="串口外接扫码枪"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/btnStartScanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Scanner"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <include layout="@layout/message" />
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<include layout="@layout/module_description"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<Button
+			android:id="@+id/btnCardPower"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Card Power" />
+		<Button
+			android:id="@+id/btnCardHalt"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Card Halt" />
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<Button
+			android:id="@+id/btnExchangeApdu"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Exchange Apdu" />
+
+		<Button
+			android:id="@+id/btnExist"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="Exist" />
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp">
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left"
+			android:text="卡座号"/>
+		<RadioGroup
+			android:id="@+id/rgSlot"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+			<RadioButton
+				android:id="@+id/rbSlot1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卡座1"
+				android:checked="true"/>
+			<RadioButton
+				android:id="@+id/rbSlot2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卡座2" />
+			<RadioButton
+				android:id="@+id/rbSlot3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卡座3" />
+			<RadioButton
+				android:id="@+id/rbSlot4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卡座4" />
+		</RadioGroup>
+	</LinearLayout>
+
+	<include layout="@layout/message"/>
+
+</LinearLayout>

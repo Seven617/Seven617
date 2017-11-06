@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/module_description"/>
+    <Button
+        android:id="@+id/btnFrontScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Front Scan"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <Button
+        android:id="@+id/btnBackScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back Scan"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <include layout="@layout/message" />
+
+</LinearLayout>
