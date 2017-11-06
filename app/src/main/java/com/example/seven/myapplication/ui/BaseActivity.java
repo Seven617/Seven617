@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.seven.myapplication.network.NetChangeObserver;
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // 网络改变的一个回掉类
         mNetChangeObserver = new NetChangeObserver() {
             @Override

@@ -13,6 +13,7 @@ import com.example.seven.myapplication.view.TitleBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 //主界面
 public class MainActivity extends BaseActivity {
     private TitleBar titleBar;
@@ -20,6 +21,7 @@ public class MainActivity extends BaseActivity {
     private Button wechatpay;
     private Button refunds;
     private Button query;
+    private Button print;
     private String title;
     private Intent intent;
     private LinearLayout show_main;
@@ -53,11 +55,13 @@ public class MainActivity extends BaseActivity {
         zfbpay = (Button) findViewById(R.id.zfbpay);
         wechatpay = (Button) findViewById(R.id.wechatpay);
         refunds = (Button) findViewById(R.id.refunds);
-        query= (Button) findViewById(R.id.query);
+        query = (Button) findViewById(R.id.query);
+        print = (Button) findViewById(R.id.print);
         zfbpay.setOnClickListener(next);
         wechatpay.setOnClickListener(next);
         refunds.setOnClickListener(next);
         query.setOnClickListener(next);
+        print.setOnClickListener(next);
     }
 
     View.OnClickListener next = new View.OnClickListener() {
@@ -74,6 +78,9 @@ public class MainActivity extends BaseActivity {
             }
             if (v.getId() == R.id.query) {
                 intent = new Intent(MainActivity.this, ChoseQueryActivity.class);
+            }
+            if (v.getId() == R.id.print) {
+                intent = new Intent(MainActivity.this, PrintActivity.class);
             }
             startActivity(intent);
         }

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     signingConfigs {
@@ -11,7 +11,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "cn.eas.national.ldapisample"
+//        applicationId "cn.eas.national.ldapisample"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
