@@ -113,7 +113,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         orderSn=result;
         clearEditText.setText(orderSn);
         vibrate();
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(5000);
     }
 
 

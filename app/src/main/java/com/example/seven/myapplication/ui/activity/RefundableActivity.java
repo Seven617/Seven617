@@ -121,7 +121,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
         refundsSn=result;
         refunds_edittext.setText(refundsSn);
         vibrate();
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(5000);
     }
 
 

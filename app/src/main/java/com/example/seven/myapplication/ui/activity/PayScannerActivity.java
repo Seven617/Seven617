@@ -145,7 +145,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
             }
         });
         vibrate();
-        mQRCodeView.startSpot();
+        mQRCodeView.startSpotDelay(5000);
     }
 
     @Override
