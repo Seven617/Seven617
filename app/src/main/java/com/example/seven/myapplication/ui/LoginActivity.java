@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private String psw;
     private String title;
     private TitleBar titleBar;
-    private LinearLayout show_login;
-    private LinearLayout gone_login;
+    private LinearLayout showLogin;
+    private LinearLayout goneLogin;
     private LoginService loginService;
     private CheckBox ckb;
     private SharedPreferences sp;
@@ -65,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
     private void getview() {
         sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         ckb= (CheckBox) findViewById(R.id.ckb);
-        show_login = (LinearLayout) findViewById(R.id.show_login);
-        gone_login = (LinearLayout) findViewById(R.id.gone_login);
+        showLogin = (LinearLayout) findViewById(R.id.show_login);
+        goneLogin = (LinearLayout) findViewById(R.id.gone_login);
         edt1 = (EditText) this.findViewById(R.id.name);
         edt2 = (EditText) this.findViewById(R.id.psd);
         titleBar = (TitleBar) findViewById(R.id.login_bar);
