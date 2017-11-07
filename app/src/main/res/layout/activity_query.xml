@@ -21,7 +21,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <cn.bingoogolapple.qrcode.zxing.ZXingView
+            <cn.bingoogolapple.qrcode.zbar.ZBarView
                 android:id="@+id/query_zxingview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -29,7 +29,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:layout_weight="5"
-                app:qrcv_animTime="1000"
+                app:qrcv_animTime="500"
                 app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
                 app:qrcv_barcodeRectHeight="180dp"
                 app:qrcv_borderColor="@android:color/white"
@@ -55,7 +55,7 @@
                 app:qrcv_scanLineSize="0.5dp"
                 app:qrcv_tipTextColor="@android:color/white"
                 app:qrcv_tipTextSize="20dp"
-                app:qrcv_toolbarHeight="60dp"
+                app:qrcv_toolbarHeight="40dp"
                 app:qrcv_topOffset="20dp"/>
             <com.example.seven.myapplication.view.ClearEditText
                 android:id="@+id/query_edittext"
@@ -66,8 +66,8 @@
                 android:hint="请输入单号查询"
                 android:layout_margin="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="10"
-                android:textSize="30dp"/>
+                android:maxLength="20"
+                android:textSize="18dp"/>
         </LinearLayout>
 
         <Button

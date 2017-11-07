@@ -3,6 +3,7 @@ package com.example.seven.myapplication.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,7 +15,8 @@ import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
+
+import static android.content.ContentValues.TAG;
 
 //退款
 public class RefundableActivity extends BaseActivity implements QRCodeView.Delegate{
@@ -57,7 +59,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
         refunds_edittext= (ClearEditText) findViewById(R.id.refunds_edittext);
         show_refundable = (LinearLayout) findViewById(R.id.show_refundable);
         gone_refundable = (LinearLayout) findViewById(R.id.gone_refundable);
-        mQRCodeView = (ZXingView) findViewById(R.id.refunds_zxingview);
+        mQRCodeView = (QRCodeView) findViewById(R.id.refunds_zxingview);
         mQRCodeView.setDelegate(this);
     }
 
@@ -115,7 +117,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        showToast(result);
         refundsSn=result;
         refunds_edittext.setText(refundsSn);
         vibrate();
@@ -125,6 +127,17 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
 
     @Override
     public void onScanQRCodeOpenCameraError() {
+        Log.e(TAG, "打开相机出错");
+    }
 
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.scan_barcode:
+                mQRCodeView.changeToScanBarcodeStyle();
+                break;
+            case R.id.scan_qrcode:
+                mQRCodeView.changeToScanQRCodeStyle();
+                break;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.seven.myapplication.ui.fragment;
 
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 /**
@@ -47,7 +48,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         clearEditText = findView(R.id.query_edittext);
         show_query = findView(R.id.show_query);
         gone_query = findView(R.id.gone_query);
-        mQRCodeView = (ZXingView) findView(R.id.query_zxingview);
+        mQRCodeView = findView(R.id.query_zxingview);
         mQRCodeView.setDelegate(this);
         btn_sure.setOnClickListener(OK);
     }
@@ -118,6 +119,17 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
 
     @Override
     public void onScanQRCodeOpenCameraError() {
+        Log.e(TAG, "打开相机出错");
+    }
 
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.scan_barcode:
+                mQRCodeView.changeToScanBarcodeStyle();
+                break;
+            case R.id.scan_qrcode:
+                mQRCodeView.changeToScanQRCodeStyle();
+                break;
+        }
     }
 }

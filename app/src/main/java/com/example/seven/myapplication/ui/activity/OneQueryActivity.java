@@ -21,7 +21,7 @@ import com.example.seven.myapplication.view.TitleBar;
 import java.util.List;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
+
 
 //单号查询
 public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegate{
@@ -62,7 +62,7 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
         clearEditText = (ClearEditText) findViewById(R.id.query_edittext);
         show_query = (LinearLayout) findViewById(R.id.show_query);
         gone_query = (LinearLayout) findViewById(R.id.gone_query);
-        mQRCodeView = (ZXingView) findViewById(R.id.query_zxingview);
+        mQRCodeView = (QRCodeView) findViewById(R.id.query_zxingview);
         mQRCodeView.setDelegate(this);
         btn_sure.setOnClickListener(OK);
     }

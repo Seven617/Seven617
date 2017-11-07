@@ -49,7 +49,7 @@
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.ChoseQueryActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.AllQueryActivity"

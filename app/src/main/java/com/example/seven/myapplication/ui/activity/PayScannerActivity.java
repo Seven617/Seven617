@@ -16,7 +16,6 @@ import com.example.seven.myapplication.service.PayService;
 import com.example.seven.myapplication.view.TitleBar;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 public class PayScannerActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = PayScannerActivity.class.getSimpleName();
@@ -37,7 +36,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     }
 
     public void getview() {
-        mQRCodeView = (ZXingView) findViewById(R.id.zxingview);
+        mQRCodeView = (QRCodeView) findViewById(R.id.zbarview);
         titleBar = (TitleBar) findViewById(R.id.Ttoolbar);
         zfbPayText = (TextView) findViewById(R.id.zfb_pay_text);
         Intent intent =getIntent();
