@@ -7,13 +7,9 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.seven.myapplication.ui.AllQueryActivity">
+    tools:context="com.example.seven.myapplication.ui.activity.AllQueryActivity">
 
-    <com.example.seven.myapplication.view.TitleBar
-        android:id="@+id/allquery_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"/>
+
 
     <com.example.seven.myapplication.view.SwipyRefreshLayout
         android:id="@+id/refreshLayout"

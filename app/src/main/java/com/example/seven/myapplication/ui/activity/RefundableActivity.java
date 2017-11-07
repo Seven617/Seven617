@@ -1,9 +1,8 @@
-package com.example.seven.myapplication.ui;
+package com.example.seven.myapplication.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.seven.myapplication">
+          package="com.example.seven.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -17,46 +17,47 @@
         android:supportsRtl="true"
         android:theme="@style/NoBarTheme">
         <activity
-            android:name=".ui.WelComeActivity"
+            android:name=".ui.activity.WelComeActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:theme="@style/NoBarTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan" />
+            android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"/>
         <activity
-            android:name=".ui.MainActivity"
-            android:theme="@style/NoBarTheme" />
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.AmountActivity"
-            android:theme="@style/NoBarTheme" />
+            android:name=".ui.activity.AmountActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.WeChatActivity"
-            android:theme="@style/NoBarTheme" />
+            android:name=".ui.activity.WeChatActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.RefundableActivity"
-            android:theme="@style/NoBarTheme" />
+            android:name=".ui.activity.RefundableActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.OneQueryActivity"
-            android:theme="@style/NoBarTheme" />
+            android:name=".ui.activity.OneQueryActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.PayScannerActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:name=".ui.activity.PayScannerActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.ChoseQueryActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:name=".ui.activity.ChoseQueryActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.AllQueryActivity"
-            android:theme="@style/NoBarTheme"></activity>
+            android:name=".ui.activity.AllQueryActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.PaySuccessActivity"
-            android:theme="@style/NoBarTheme"></activity>
-        <activity android:name=".ui.PrintActivity"></activity>
+            android:name=".ui.activity.PaySuccessActivity"
+            android:theme="@style/NoBarTheme"/>
+        <activity android:name=".ui.activity.PrintActivity"/>
     </application>
 
 </manifest>

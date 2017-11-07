@@ -4,6 +4,7 @@ import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.LoginRequest;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
+import com.example.seven.myapplication.util.AndroidPosUtil;
 import com.example.seven.myapplication.util.Md5Util;
 
 /**
@@ -32,8 +33,8 @@ public class LoginService {
         loginRequest.setUsername(name);
         loginRequest.setPassword(Md5Util.md5(password));
         //联迪POS专用
-//        loginRequest.setPosSn(AndroidPosUtil.getAndroidPosSn());
-        loginRequest.setDeviceNo("123");
+        loginRequest.setDeviceNo(AndroidPosUtil.getAndroidPosSn());
+//        loginRequest.setDeviceNo("123");
         Api.post(APIConstants.URL_USER_LOGIN,loginRequest.getMap(),commonCallback);
     }
 }

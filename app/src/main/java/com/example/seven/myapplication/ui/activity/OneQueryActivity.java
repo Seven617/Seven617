@@ -1,4 +1,4 @@
-package com.example.seven.myapplication.ui;
+package com.example.seven.myapplication.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,8 +25,7 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 //单号查询
 public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegate{
-    private TitleBar titleBar;
-    private String title;
+
     private ClearEditText clearEditText;
     private String orderSn;
     private Button btn_sure;
@@ -40,8 +39,7 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
         setContentView(R.layout.activity_query);
         //获取控件
         getview();
-        //标题
-        titleBar();
+
     }
 
     //网络连接状态（一切正常显示）
@@ -60,7 +58,6 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
 
     //获取控件
     private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.query_bar);
         btn_sure = (Button) findViewById(R.id.query_btn_sure);
         clearEditText = (ClearEditText) findViewById(R.id.query_edittext);
         show_query = (LinearLayout) findViewById(R.id.show_query);
@@ -90,34 +87,6 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
 
                 }
             });
-        }
-    };
-
-    //标题
-    private void titleBar() {
-        //左边返回按钮
-        //titleBar.setLeftImageResource(R.mipmap.back);
-        titleBar.setLeftText("返回");
-        titleBar.setLeftTextColor(Color.WHITE);
-        titleBar.setLeftTextSize(15);
-        title = "单号查询";
-        titleBar.setTitle(title);
-        titleBar.setTitleSize(20);
-        titleBar.setTitleColor(Color.WHITE);
-        //下滑分割线
-        titleBar.setDividerColor(Color.GRAY);
-        //设置titleBar背景颜色
-        titleBar.setBackgroundResource(R.color.colorPrimaryDark);
-        //左边返回按钮点击事件
-        titleBar.setLeftClickListener(ck);
-    }
-
-
-    //左边返回按钮点击事件
-    View.OnClickListener ck = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            OneQueryActivity.this.finish();
         }
     };
 

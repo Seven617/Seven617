@@ -7,17 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/skyBlue"
-    tools:context="com.example.seven.myapplication.ui.OneQueryActivity">
+    tools:context="com.example.seven.myapplication.ui.activity.OneQueryActivity">
     <LinearLayout
         android:id="@+id/show_query"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.example.seven.myapplication.view.TitleBar
-            android:id="@+id/query_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"

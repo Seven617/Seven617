@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.seven.myapplication.ui.PaySuccessActivity">
+    tools:context="com.example.seven.myapplication.ui.activity.PaySuccessActivity">
 
     <LinearLayout
         android:id="@+id/pay_success"
