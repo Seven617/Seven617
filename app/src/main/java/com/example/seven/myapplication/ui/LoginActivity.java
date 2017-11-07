@@ -28,6 +28,7 @@ import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
+import com.landicorp.android.eptapi.utils.SystemInfomation;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 
@@ -117,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //登陆操作
     private void Login() throws NoSuchFieldException, IllegalAccessException {
+        SystemInfomation.DeviceInfo deviceInfo = SystemInfomation.getDeviceInfo();
+        System.out.println(deviceInfo.getSerialNo());
         loginService = new LoginService();
         showDialog();
         new Handler().postDelayed(new Runnable() {
