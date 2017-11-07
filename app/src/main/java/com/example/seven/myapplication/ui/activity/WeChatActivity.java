@@ -1,4 +1,4 @@
-package com.example.seven.myapplication.ui;
+package com.example.seven.myapplication.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;

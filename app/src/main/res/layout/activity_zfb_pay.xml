@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 style="@style/MatchMatch">
-    <cn.bingoogolapple.qrcode.zxing.ZXingView
-        android:id="@+id/zxingview"
+    <cn.bingoogolapple.qrcode.zbar.ZBarView
+        android:id="@+id/zbarview"
         style="@style/MatchMatch"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -19,8 +19,7 @@
         app:qrcv_customScanLineDrawable="@drawable/scan_icon_scanline"
         app:qrcv_isBarcode="false"
         app:qrcv_isCenterVertical="false"
-        app:qrcv_isOnlyDecodeScanBoxArea="false"
-        app:qrcv_isScanLineReverse="true"
+        app:qrcv_isOnlyDecodeScanBoxArea="true"
         app:qrcv_isShowDefaultGridScanLineDrawable="false"
         app:qrcv_isShowDefaultScanLineDrawable="true"
         app:qrcv_isShowTipBackground="true"

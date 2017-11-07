@@ -1,4 +1,5 @@
-package com.example.seven.myapplication.ui;
+
+package com.example.seven.myapplication.ui.activity;
 
 
 import android.content.Context;
@@ -50,7 +51,7 @@ public class LoginActivity extends BaseActivity {
     private CheckBox ckb;
     private SharedPreferences sp;
     private CatLoadingView mView;
-    private PrinterImpl printer ;
+    private PrinterImpl printer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class LoginActivity extends BaseActivity {
     //获取控件
     private void getview() {
         sp = this.getSharedPreferences(Md5Util.md5(APIConstants.STRING_USER_INFO), Context.MODE_PRIVATE);
-        ckb= (CheckBox) findViewById(R.id.ckb);
+        ckb = (CheckBox) findViewById(R.id.ckb);
         show_login = (LinearLayout) findViewById(R.id.show_login);
         gone_login = (LinearLayout) findViewById(R.id.gone_login);
         edt1 = (EditText) this.findViewById(R.id.name);
@@ -88,9 +89,9 @@ public class LoginActivity extends BaseActivity {
         btn = (Button) this.findViewById(R.id.btn);
         btn.setOnClickListener(tonext);
         ckb.setOnCheckedChangeListener(ifck);
-        mView=new CatLoadingView();
+        mView = new CatLoadingView();
         //判断是否记住密码
-        if(sp.getBoolean(APIConstants.STRING_IS_CHECK, false)) {
+        if (sp.getBoolean(APIConstants.STRING_IS_CHECK, false)) {
             //默认记住密码
             ckb.setChecked(true);
             edt1.setText(sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), ""));
@@ -141,7 +142,6 @@ public class LoginActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 mView.dismiss();
-                showToast("登陆超时");
             }
         }, 10000);
         //进行登录操作
@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity {
             public void onSuccess(NetworkResult<LoginData> data) {
                 if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
                     mView.dismiss();
-                    if(ckb.isChecked()) {
+                    if (ckb.isChecked()) {
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         //需要添加加密
@@ -158,8 +158,8 @@ public class LoginActivity extends BaseActivity {
                         editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD), psw);
                         editor.commit();
                     }
-                    showToast("最近登录时间："+data.getData().getLastLoginTime());
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    showToast("最近登录时间：" + data.getData().getLastLoginTime());
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
                     mView.dismiss();
@@ -217,55 +217,16 @@ public class LoginActivity extends BaseActivity {
         super.onResume();
         bindDeviceService();
 
-         printer= new PrinterImpl(this) {
-             @Override
-             protected void onDeviceServiceCrash() {
+        printer = new PrinterImpl(this) {
+            @Override
+            protected void onDeviceServiceCrash() {
 
-             }
+            }
 
-             @Override
-             protected void displayInfo(String info) {
+            @Override
+            protected void displayInfo(String info) {
 
-             }
-         };
-    }
-
-    public void start(String comName,String amount,String orderNo ) {
-        int ret = printer.getPrinterStatus();
-        if (ret != Printer.ERROR_NONE) {
-            showToast(printer.getDescribe(ret));
-            return;
-        }
-        printer.init();
-        if(!printer.addBitmap()) {
-            showToast("add bitmap fail");
-            return;
-        }
-        if (!printer.addText(comName,amount)) {
-            showToast("add text fail");
-            return;
-        }
-        if (!printer.addBarcode(orderNo)) {
-            showToast("add barcode fail");
-            return;
-        }
-
-        if (!printer.addText(orderNo)) {
-            showToast("add text fail");
-            return;
-        }
-//        if (!printer.addQRcode()) {
-//            showToast("add qrcode fail");
-//            return;
-//        }
-        if (!printer.feedLine(3)) {
-            showToast("feed line fail");
-            return;
-        }
-        if (!printer.cutPage()) {
-            showToast("cut page fail");
-            return;
-        }
-        printer.startPrint();
+            }
+        };
     }
 }

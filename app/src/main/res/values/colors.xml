@@ -163,4 +163,8 @@
     <color name="transparent_background">#90000000</color><!--黑色 -->
     <!-- 西红柿色 -->
     <color name="orangered">#ff4500</color>
+    <color name="red_deep">#B61F1B</color>
+
+    <color name="font_red">#D64948</color>
+    <color name="font_white">#FFFFFF</color>
 </resources>

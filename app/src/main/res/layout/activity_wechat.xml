@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/skyBlue"
-    tools:context="com.example.seven.myapplication.ui.WeChatActivity">
+    tools:context="com.example.seven.myapplication.ui.activity.WeChatActivity">
 <LinearLayout
     android:id="@+id/show_wechat"
     android:orientation="vertical"

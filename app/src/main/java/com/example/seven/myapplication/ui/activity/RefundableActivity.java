@@ -1,43 +1,37 @@
-package com.example.seven.myapplication.ui;
+package com.example.seven.myapplication.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
-import com.example.seven.myapplication.constants.APIConstants;
-import com.example.seven.myapplication.model.NetworkResult;
-import com.example.seven.myapplication.model.QueryOrderData;
-import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
-import com.example.seven.myapplication.service.QueryOrderService;
 import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
-import java.util.List;
-
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
-//单号查询
-public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegate{
+import static android.content.ContentValues.TAG;
+
+//退款
+public class RefundableActivity extends BaseActivity implements QRCodeView.Delegate{
     private TitleBar titleBar;
     private String title;
-    private ClearEditText clearEditText;
-    private String orderSn;
+    private String refundsSn;
     private Button btn_sure;
-    private LinearLayout show_query;
-    private LinearLayout gone_query;
+    private LinearLayout show_refundable;
+    private LinearLayout gone_refundable;
     private QRCodeView mQRCodeView;
-    private QueryOrderService queryOrderService;
+    private ClearEditText refunds_edittext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_query);
+        setContentView(R.layout.activity_refundable);
         //获取控件
         getview();
         //标题
@@ -47,60 +41,34 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
     //网络连接状态（一切正常显示）
     @Override
     protected void onNetworkConnected(NetUtils.NetType type) {
-        show_query.setVisibility(View.VISIBLE);
-        gone_query.setVisibility(View.GONE);
+        show_refundable.setVisibility(View.VISIBLE);
+        gone_refundable.setVisibility(View.GONE);
     }
 
     //网络断开状态（原本界面隐藏 显示"当前网络不可用"）
     @Override
     protected void onNetworkDisConnected() {
-        show_query.setVisibility(View.GONE);
-        gone_query.setVisibility(View.VISIBLE);
+        show_refundable.setVisibility(View.GONE);
+        gone_refundable.setVisibility(View.VISIBLE);
     }
 
     //获取控件
     private void getview() {
-        titleBar = (TitleBar) findViewById(R.id.query_bar);
-        btn_sure = (Button) findViewById(R.id.query_btn_sure);
-        clearEditText = (ClearEditText) findViewById(R.id.query_edittext);
-        show_query = (LinearLayout) findViewById(R.id.show_query);
-        gone_query = (LinearLayout) findViewById(R.id.gone_query);
-        mQRCodeView = (ZXingView) findViewById(R.id.query_zxingview);
+        titleBar = (TitleBar) findViewById(R.id.refunds_bar);
+        btn_sure = (Button) findViewById(R.id.refundable_btn_sure);
+        refunds_edittext= (ClearEditText) findViewById(R.id.refunds_edittext);
+        show_refundable = (LinearLayout) findViewById(R.id.show_refundable);
+        gone_refundable = (LinearLayout) findViewById(R.id.gone_refundable);
+        mQRCodeView = (QRCodeView) findViewById(R.id.refunds_zxingview);
         mQRCodeView.setDelegate(this);
-        btn_sure.setOnClickListener(OK);
     }
-
-    //btn按钮点击事件
-    View.OnClickListener OK = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            queryOrderService =new QueryOrderService();
-            orderSn = clearEditText.getText().toString();
-            queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
-                @Override
-                public void onSuccess(NetworkResult<List<QueryOrderData>>  data) {
-                    if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
-                        showToast(data.getData().get(0).getAmount());
-                    }
-
-                }
-
-                @Override
-                public void onFailure(String error_code, String error_message) {
-
-                }
-            });
-        }
-    };
 
     //标题
     private void titleBar() {
-        //左边返回按钮
-        //titleBar.setLeftImageResource(R.mipmap.back);
         titleBar.setLeftText("返回");
         titleBar.setLeftTextColor(Color.WHITE);
         titleBar.setLeftTextSize(15);
-        title = "单号查询";
+        title = "退款界面";
         titleBar.setTitle(title);
         titleBar.setTitleSize(20);
         titleBar.setTitleColor(Color.WHITE);
@@ -112,14 +80,14 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
         titleBar.setLeftClickListener(ck);
     }
 
-
     //左边返回按钮点击事件
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            OneQueryActivity.this.finish();
+            RefundableActivity.this.finish();
         }
     };
+
 
     @Override
     protected void onStart() {
@@ -149,9 +117,9 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        orderSn=result;
-        clearEditText.setText(orderSn);
+        showToast(result);
+        refundsSn=result;
+        refunds_edittext.setText(refundsSn);
         vibrate();
         mQRCodeView.startSpot();
     }
@@ -159,7 +127,17 @@ public class OneQueryActivity extends BaseActivity implements QRCodeView.Delegat
 
     @Override
     public void onScanQRCodeOpenCameraError() {
-
+        Log.e(TAG, "打开相机出错");
     }
 
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.scan_barcode:
+                mQRCodeView.changeToScanBarcodeStyle();
+                break;
+            case R.id.scan_qrcode:
+                mQRCodeView.changeToScanQRCodeStyle();
+                break;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.seven.myapplication.ui;
+package com.example.seven.myapplication.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,7 +18,6 @@ import com.example.seven.myapplication.view.TitleBar;
 import com.landicorp.android.eptapi.device.Printer;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 public class PayScannerActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = PayScannerActivity.class.getSimpleName();
@@ -40,7 +39,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     }
 
     public void getview() {
-        mQRCodeView = (ZXingView) findViewById(R.id.zxingview);
+        mQRCodeView = (QRCodeView) findViewById(R.id.zbarview);
         titleBar = (TitleBar) findViewById(R.id.Ttoolbar);
         zfbPayText = (TextView) findViewById(R.id.zfb_pay_text);
         Intent intent =getIntent();
