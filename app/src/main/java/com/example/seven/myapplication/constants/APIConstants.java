@@ -24,6 +24,9 @@ public  interface APIConstants {
      String STRING_SIGN="sign";
      String STRING_ORDER_NO="orderNo";
      String STRING_FILTER="filter";
+     String STRING_USER_INFO="userInfo";
+
+     String STRING_IS_CHECK="ISCHECK";
 
 
 

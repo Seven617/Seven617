@@ -23,17 +23,20 @@ import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.device.PrinterImpl;
 import com.example.seven.myapplication.model.LoginData;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
+import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
+import com.example.seven.myapplication.util.Md5Util;
 import com.example.seven.myapplication.view.TitleBar;
-import com.landicorp.android.eptapi.utils.SystemInfomation;
+import com.landicorp.android.eptapi.device.Printer;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private EditText edt1;
     private EditText edt2;
     private Button btn;
@@ -47,23 +50,35 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox ckb;
     private SharedPreferences sp;
     private CatLoadingView mView;
+    private PrinterImpl printer ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sp = LoginActivity.this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        sp = LoginActivity.this.getSharedPreferences(Md5Util.md5(APIConstants.STRING_USER_INFO), Context.MODE_PRIVATE);
         //获取控件
         getview();
         //标题
         titleBar();
+        edt1.setText("cashier");
+        edt2.setText("123456");
     }
 
+    @Override
+    protected void onNetworkConnected(NetUtils.NetType type) {
+
+    }
+
+    @Override
+    protected void onNetworkDisConnected() {
+
+    }
 
 
     //获取控件
     private void getview() {
-        sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        sp = this.getSharedPreferences(Md5Util.md5(APIConstants.STRING_USER_INFO), Context.MODE_PRIVATE);
         ckb= (CheckBox) findViewById(R.id.ckb);
         show_login = (LinearLayout) findViewById(R.id.show_login);
         gone_login = (LinearLayout) findViewById(R.id.gone_login);
@@ -75,11 +90,11 @@ public class LoginActivity extends AppCompatActivity {
         ckb.setOnCheckedChangeListener(ifck);
         mView=new CatLoadingView();
         //判断是否记住密码
-        if(sp.getBoolean("ISCHECK", false)) {
+        if(sp.getBoolean(APIConstants.STRING_IS_CHECK, false)) {
             //默认记住密码
             ckb.setChecked(true);
-            edt1.setText(sp.getString("USER_NAME", ""));
-            edt2.setText(sp.getString("PASSWORD", ""));
+            edt1.setText(sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), ""));
+            edt2.setText(sp.getString(Md5Util.md5(APIConstants.STRING_PASSWORD), ""));
         }
     }
 
@@ -87,9 +102,9 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (ckb.isChecked()) {
-                sp.edit().putBoolean("ISCHECK", true).apply();
+                sp.edit().putBoolean(APIConstants.STRING_IS_CHECK, true).apply();
             } else {
-                sp.edit().putBoolean("ISCHECK", false).apply();
+                sp.edit().putBoolean(APIConstants.STRING_IS_CHECK, false).apply();
             }
         }
     };
@@ -118,8 +133,9 @@ public class LoginActivity extends AppCompatActivity {
 
     //登陆操作
     private void Login() throws NoSuchFieldException, IllegalAccessException {
-        SystemInfomation.DeviceInfo deviceInfo = SystemInfomation.getDeviceInfo();
-        System.out.println(deviceInfo.getSerialNo());
+
+
+//        start("快便付信息技术有限公司","100","KC10001020202023");
         loginService = new LoginService();
         showDialog();
         new Handler().postDelayed(new Runnable() {
@@ -135,28 +151,26 @@ public class LoginActivity extends AppCompatActivity {
                 if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
                     mView.dismiss();
                     if(ckb.isChecked()) {
-
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         //需要添加加密
-                        editor.putString("USER_NAME", name);
-                        editor.putString("PASSWORD", psw);
+                        editor.putString(Md5Util.md5(APIConstants.STRING_USERNAME), name);
+                        editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD), psw);
                         editor.commit();
                     }
                     showToast("最近登录时间："+data.getData().getLastLoginTime());
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
-
                     mView.dismiss();
+                    showToast(data.getMsg());
                 }
             }
 
             @Override
             public void onFailure(String err_code, String message) {
-
                 mView.dismiss();
-                showToast("登录失败");
+                showToast("网络连接失败");
             }
         });
     }
@@ -198,4 +212,60 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindDeviceService();
+
+         printer= new PrinterImpl(this) {
+             @Override
+             protected void onDeviceServiceCrash() {
+
+             }
+
+             @Override
+             protected void displayInfo(String info) {
+
+             }
+         };
+    }
+
+    public void start(String comName,String amount,String orderNo ) {
+        int ret = printer.getPrinterStatus();
+        if (ret != Printer.ERROR_NONE) {
+            showToast(printer.getDescribe(ret));
+            return;
+        }
+        printer.init();
+        if(!printer.addBitmap()) {
+            showToast("add bitmap fail");
+            return;
+        }
+        if (!printer.addText(comName,amount)) {
+            showToast("add text fail");
+            return;
+        }
+        if (!printer.addBarcode(orderNo)) {
+            showToast("add barcode fail");
+            return;
+        }
+
+        if (!printer.addText(orderNo)) {
+            showToast("add text fail");
+            return;
+        }
+//        if (!printer.addQRcode()) {
+//            showToast("add qrcode fail");
+//            return;
+//        }
+        if (!printer.feedLine(3)) {
+            showToast("feed line fail");
+            return;
+        }
+        if (!printer.cutPage()) {
+            showToast("cut page fail");
+            return;
+        }
+        printer.startPrint();
+    }
 }

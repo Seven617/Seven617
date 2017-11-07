@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.device.PrinterImpl;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PayService;
 import com.example.seven.myapplication.view.TitleBar;
+import com.landicorp.android.eptapi.device.Printer;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
@@ -26,6 +28,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     private TextView zfbPayText;
     private String zfbpayAmount;//支付宝支付金额
     private PayService payService;
+    private PrinterImpl printer ;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.i(TAG, "result:" + result);
+
 //        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         payService=new PayService();
         payService.pay(zfbpayAmount, result, new CommonCallback<NetworkResult<String>>() {
@@ -120,6 +124,8 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
             public void onSuccess(NetworkResult<String> data) {
 
                 if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                    start("快变富信息技术有限公司",zfbpayAmount,data.getData());
+
                     //扫码成功跳转到下一个页面
                     Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
                     intent.putExtra("amount", zfbpayAmount);
@@ -157,5 +163,63 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
                 mQRCodeView.changeToScanQRCodeStyle();
                 break;
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindDeviceService();
+
+        printer= new PrinterImpl(this) {
+            @Override
+            protected void onDeviceServiceCrash() {
+
+            }
+
+            @Override
+            protected void displayInfo(String info) {
+
+            }
+        };
+    }
+
+    public void start(String comName,String amount,String orderNo ) {
+        int ret = printer.getPrinterStatus();
+        if (ret != Printer.ERROR_NONE) {
+            showToast(printer.getDescribe(ret));
+            return;
+        }
+        printer.init();
+        if(!printer.addBitmap()) {
+            showToast("add bitmap fail");
+            return;
+        }
+        if (!printer.addText(comName,amount)) {
+            showToast("add text fail");
+            return;
+        }
+        if (!printer.addBarcode(orderNo)) {
+            showToast("add barcode fail");
+            return;
+        }
+
+        if (!printer.addText(orderNo)) {
+            showToast("add text fail");
+            return;
+        }
+//        if (!printer.addQRcode()) {
+//            showToast("add qrcode fail");
+//            return;
+//        }
+        if (!printer.feedLine(3)) {
+            showToast("feed line fail");
+            return;
+        }
+        if (!printer.cutPage()) {
+            showToast("cut page fail");
+            return;
+        }
+        printer.startPrint();
     }
 }

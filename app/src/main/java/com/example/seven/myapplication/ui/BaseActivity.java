@@ -1,17 +1,24 @@
 package com.example.seven.myapplication.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.seven.myapplication.network.NetChangeObserver;
 import com.example.seven.myapplication.network.NetStateReceiver;
 import com.example.seven.myapplication.network.NetUtils;
+import com.landicorp.android.eptapi.DeviceService;
+import com.landicorp.android.eptapi.exception.ReloginException;
+import com.landicorp.android.eptapi.exception.RequestException;
+import com.landicorp.android.eptapi.exception.ServiceOccupiedException;
+import com.landicorp.android.eptapi.exception.UnsupportMultiProcess;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
+
+    private boolean isDeviceServiceLogined;
     /**
      * 网络观察者
      */
@@ -77,5 +84,37 @@ public abstract class BaseActivity extends Activity {
             Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             Looper.loop();
         }
+    }
+
+    public void bindDeviceService() {
+        try {
+            isDeviceServiceLogined = false;
+            DeviceService.login(this);
+            isDeviceServiceLogined = true;
+        } catch (RequestException e) {
+            // Rebind after a few milliseconds,
+            // If you want this application keep the right of the device service
+//			runOnUiThreadDelayed(new Runnable() {
+//				@Override
+//				public void run() {
+//					bindDeviceService();
+//				}
+//			}, 300);
+            e.printStackTrace();
+        } catch (ServiceOccupiedException e) {
+            e.printStackTrace();
+        } catch (ReloginException e) {
+            e.printStackTrace();
+        } catch (UnsupportMultiProcess e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Release the right of using the device.
+     */
+    public void unbindDeviceService() {
+        DeviceService.logout();
+        isDeviceServiceLogined = false;
     }
 }
