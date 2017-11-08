@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
@@ -19,7 +18,7 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 import static android.content.ContentValues.TAG;
 
 //退款
-public class RefundableActivity extends BaseActivity implements QRCodeView.Delegate{
+public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     private TitleBar titleBar;
     private String title;
     private String refundsSn;
@@ -33,7 +32,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refundable);
         //获取控件
-        getview();
+        getView();
         //标题
         titleBar();
     }
@@ -53,7 +52,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
     }
 
     //获取控件
-    private void getview() {
+    private void getView() {
         titleBar = (TitleBar) findViewById(R.id.refunds_bar);
         btn_sure = (Button) findViewById(R.id.refundable_btn_sure);
         refunds_edittext= (ClearEditText) findViewById(R.id.refunds_edittext);
@@ -84,7 +83,7 @@ public class RefundableActivity extends BaseActivity implements QRCodeView.Deleg
     View.OnClickListener ck = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            RefundableActivity.this.finish();
+            RefundActivity.this.finish();
         }
     };
 

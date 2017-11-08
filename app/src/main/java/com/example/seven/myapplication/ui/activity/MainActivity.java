@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
                 intent = new Intent(MainActivity.this, WeChatActivity.class);
             }
             if (v.getId() == R.id.refunds) {
-                intent = new Intent(MainActivity.this, RefundableActivity.class);
+                intent = new Intent(MainActivity.this, RefundActivity.class);
             }
             if (v.getId() == R.id.query) {
                 intent = new Intent(MainActivity.this, ChoseQueryActivity.class);

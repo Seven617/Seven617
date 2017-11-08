@@ -39,7 +39,7 @@
             android:name=".ui.activity.WeChatActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.activity.RefundableActivity"
+            android:name=".ui.activity.RefundActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.PayScannerActivity"

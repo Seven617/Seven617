@@ -12,9 +12,5 @@ public class RefundService {
 
     }
 
-    public RefundData getRefundResult(String data){
-        RefundData refundData = new RefundData();
 
-        return refundData;
-    }
 }
