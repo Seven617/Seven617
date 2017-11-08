@@ -18,7 +18,6 @@ import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.service.QueryOrderService;
-import com.example.seven.myapplication.ui.activity.RefundableActivity;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.SwipyRefreshLayout;

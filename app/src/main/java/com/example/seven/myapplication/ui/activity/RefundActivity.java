@@ -88,7 +88,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     private void showpopupWindow(View v) {
         refundsSn = refunds_edittext.getText().toString();
         LayoutInflater layoutInflater = LayoutInflater.from(RefundActivity.this);
-        View view = layoutInflater.inflate(R.layout.popupwindow, null);
+        View view = layoutInflater.inflate(R.layout.refundpopupwindow, null);
         popupWindow = new PopupWindow(view, 500, 500, true);
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow_background));
