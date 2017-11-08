@@ -99,14 +99,12 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
         popPassword = (EditText) view.findViewById(R.id.pop_edt);
         Button popbtn = (Button) view.findViewById(R.id.pop_btn);
         poptxt.setText(refundsSn);
-//
         poptitle.setText("当前单号是");
 
         popbtn.setOnClickListener(doit);
         // PopupWindow弹出位置
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-
-        backgroundAlpha(0f);
+        backgroundAlpha(0.7f);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
             @Override
