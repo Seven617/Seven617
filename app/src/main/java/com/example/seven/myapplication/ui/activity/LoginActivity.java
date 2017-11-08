@@ -63,8 +63,8 @@ public class LoginActivity extends BaseActivity {
         getview();
         //标题
         titleBar();
-        edt1.setText("cashier");
-        edt2.setText("123456");
+//        edt1.setText("cashier");
+//        edt2.setText("123456");
     }
 
     @Override

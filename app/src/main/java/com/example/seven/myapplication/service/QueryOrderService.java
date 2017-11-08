@@ -13,7 +13,7 @@ public class QueryOrderService {
 
     public void queryByOrderNo(String orderNo, CommonCallback commonCallback){
         QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
-//        queryOrderRequest.setOrderSn(orderNo);
+        queryOrderRequest.setOrderSn(orderNo);
         Api.get(APIConstants.URL_QUERY_ORDER, queryOrderRequest.getMapByFilter(),commonCallback);
 
     }

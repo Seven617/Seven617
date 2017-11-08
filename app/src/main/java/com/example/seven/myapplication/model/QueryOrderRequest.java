@@ -105,7 +105,6 @@ public class QueryOrderRequest {
     public Map getMapByFilter(){
         Map<String,String > map = new HashMap<>();
         map.put(APIConstants.STRING_FILTER, getJson());
-
         return map;
     }
 
