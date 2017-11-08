@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="订单号"/>
+        android:textSize="18dp"
+        android:text="当前单号是"/>
     <View
         android:background="@color/skyblue"
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
         android:id="@+id/poprefundssn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:textSize="16dp"
         android:layout_weight="1"
         android:text="订单号"/>
     <View
@@ -41,6 +43,7 @@
         android:id="@+id/pop_btn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:textSize="18dp"
         android:layout_weight="1"
         android:text="确定"/>
 </LinearLayout>
