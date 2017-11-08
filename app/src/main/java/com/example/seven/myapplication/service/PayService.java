@@ -1,7 +1,7 @@
 package com.example.seven.myapplication.service;
 
 import com.example.seven.myapplication.constants.APIConstants;
-import com.example.seven.myapplication.model.PayRequest;
+import com.example.seven.myapplication.model.ScannerPayRequest;
 import com.example.seven.myapplication.network.Api;
 import com.example.seven.myapplication.network.CommonCallback;
 
@@ -15,14 +15,14 @@ public class PayService {
 
     public void pay(String amount,String  barCode,CommonCallback commonCallback){
 
-        PayRequest payRequest = new PayRequest();
+        ScannerPayRequest scannerPayRequest = new ScannerPayRequest();
         BigDecimal bigDecimal = new BigDecimal(amount);
         amount = String.valueOf(bigDecimal.multiply(new BigDecimal(100)).intValue());
 
-        payRequest.setAmount(amount);
-        payRequest.setBarCode(barCode);
+        scannerPayRequest.setAmount(amount);
+        scannerPayRequest.setBarCode(barCode);
 
-        Api.post(APIConstants.URL_SCAN_PAY,payRequest.getMap(),commonCallback);
+        Api.post(APIConstants.URL_SCAN_PAY, scannerPayRequest.getMap(),commonCallback);
     }
 
 

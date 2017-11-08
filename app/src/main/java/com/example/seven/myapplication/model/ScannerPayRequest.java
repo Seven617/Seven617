@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by daichen on 2017/11/2.
  */
 
-public class PayRequest {
+public class ScannerPayRequest {
     private String amount;
     private String barCode;
     private String sign;

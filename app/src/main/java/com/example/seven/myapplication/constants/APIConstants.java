@@ -16,6 +16,8 @@ public  interface APIConstants {
      String URL_USER_LOGIN="pos/signon/dologin";
      String URL_SCAN_PAY = "pos/pay";
      String URL_QUERY_ORDER ="pos/order/list";
+     String URL_REFUND_ORDER="/pos/refund";
+
      String STRING_USERNAME="username";
      String STRING_PASSWORD="password";
      String STRING_DEVICE_NO="deviceNo";
@@ -25,8 +27,10 @@ public  interface APIConstants {
      String STRING_ORDER_NO="orderNo";
      String STRING_FILTER="filter";
      String STRING_USER_INFO="userInfo";
+     String STRING_CONFIRM_PASSWORD="confirmPassword";
 
      String STRING_IS_CHECK="ISCHECK";
+
 
 
 

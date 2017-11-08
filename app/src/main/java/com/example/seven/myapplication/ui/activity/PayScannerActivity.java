@@ -7,15 +7,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.device.PrinterImpl;
 import com.example.seven.myapplication.model.NetworkResult;
+import com.example.seven.myapplication.model.ScannerPayData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PayService;
 import com.example.seven.myapplication.view.TitleBar;
 import com.landicorp.android.eptapi.device.Printer;
+
+import org.json.JSONObject;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 
@@ -117,17 +122,18 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
         Log.i(TAG, "result:" + result);
 
 //        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        payService=new PayService();
-        payService.pay(zfbpayAmount, result, new CommonCallback<NetworkResult<String>>() {
+        payService = new PayService();
+        payService.pay(zfbpayAmount, result, new CommonCallback<NetworkResult<ScannerPayData>>() {
             @Override
-            public void onSuccess(NetworkResult<String> data) {
+            public void onSuccess(NetworkResult<ScannerPayData> data) {
 
                 if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
-                    start("快变富信息技术有限公司",zfbpayAmount,data.getData());
+//                    start("快变富信息技术有限公司",zfbpayAmount,data.getData());
 
-                    //扫码成功跳转到下一个页面
+                    //扫码成功跳转到下一个页面,将返回参数传到下一个页面
                     Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
-                    intent.putExtra("amount", zfbpayAmount);
+                    intent.putExtra("data",JSON.toJSONString(data.getData()));
+                    intent.putExtra(APIConstants.STRING_AMOUNT,zfbpayAmount);
                     startActivity(intent);
                     PayScannerActivity.this.finish();
 
@@ -183,42 +189,5 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
         };
     }
 
-    public void start(String comName,String amount,String orderNo ) {
-        int ret = printer.getPrinterStatus();
-        if (ret != Printer.ERROR_NONE) {
-            showToast(printer.getDescribe(ret));
-            return;
-        }
-        printer.init();
-        if(!printer.addBitmap()) {
-            showToast("add bitmap fail");
-            return;
-        }
-        if (!printer.addText(comName,amount)) {
-            showToast("add text fail");
-            return;
-        }
-        if (!printer.addBarcode(orderNo)) {
-            showToast("add barcode fail");
-            return;
-        }
 
-        if (!printer.addText(orderNo)) {
-            showToast("add text fail");
-            return;
-        }
-//        if (!printer.addQRcode()) {
-//            showToast("add qrcode fail");
-//            return;
-//        }
-        if (!printer.feedLine(3)) {
-            showToast("feed line fail");
-            return;
-        }
-        if (!printer.cutPage()) {
-            showToast("cut page fail");
-            return;
-        }
-        printer.startPrint();
-    }
 }

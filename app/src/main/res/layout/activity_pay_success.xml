@@ -24,7 +24,7 @@
             android:gravity="center"
             android:textSize="40dp"
             android:text="收款成功"
-            android:layout_weight="14"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -33,25 +33,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="收钱"
+            android:text="金额"
             android:textColor="@color/orangeRed"
             android:textSize="35dp"
             android:textStyle="bold"
             tools:ignore="DuplicateIds" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_weight="1">
 
             <Button
                 android:id="@+id/pay_success_sure"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:layout_margin="130dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginLeft="70dp"
                 android:background="@drawable/sure_btn"
                 android:text="确定"
                 android:textSize="30dp"/>
+            <Button
+                android:id="@+id/pay_success_printf"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+
+                android:layout_marginTop="150dp"
+                android:background="@drawable/sure_btn"
+                android:text="打印"
+                android:textSize="30dp"
+                android:layout_marginLeft="60dp" />
         </LinearLayout>
 
 

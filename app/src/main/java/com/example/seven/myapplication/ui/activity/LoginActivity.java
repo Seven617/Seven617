@@ -30,6 +30,7 @@ import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
+import com.example.seven.myapplication.util.AesUtils;
 import com.example.seven.myapplication.util.Md5Util;
 import com.example.seven.myapplication.view.TitleBar;
 import com.landicorp.android.eptapi.device.Printer;
@@ -94,8 +95,8 @@ public class LoginActivity extends BaseActivity {
         if (sp.getBoolean(APIConstants.STRING_IS_CHECK, false)) {
             //默认记住密码
             ckb.setChecked(true);
-            edt1.setText(sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), ""));
-            edt2.setText(sp.getString(Md5Util.md5(APIConstants.STRING_PASSWORD), ""));
+            edt1.setText(AesUtils.decrypt(APIConstants.STRING_USERNAME,sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), "")));
+            edt2.setText(AesUtils.decrypt(APIConstants.STRING_PASSWORD,sp.getString(Md5Util.md5(APIConstants.STRING_PASSWORD), "")));
         }
     }
 
@@ -154,11 +155,15 @@ public class LoginActivity extends BaseActivity {
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         //需要添加加密
-                        editor.putString(Md5Util.md5(APIConstants.STRING_USERNAME), name);
-                        editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD), psw);
+                        editor.putString(Md5Util.md5(APIConstants.STRING_USERNAME),  AesUtils.encrypt(APIConstants.STRING_USERNAME,name));
+                        editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD),AesUtils.encrypt(APIConstants.STRING_PASSWORD,psw));
                         editor.commit();
                     }
-                    showToast("最近登录时间：" + data.getData().getLastLoginTime());
+
+                    LoginData loginData = data.getData();
+                    showToast("登录商户："+loginData.getMerName()+"\n"+"操作员："+loginData.getName()+"\n"+"最近登录时间：" +loginData.getLastLoginTime());
+//                    showToast("操作员："+loginData.getName());
+//                    showToast("最近登录时间：" +loginData.getLastLoginTime());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
