@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class QueryOrderRequest {
 
-    private int current;
-    private int pageSize;
+    private Integer current;
+    private Integer pageSize;
     private String orderSn;
     private String startDate;
     private String endDate;
@@ -22,19 +22,19 @@ public class QueryOrderRequest {
     private String type;
     private String status;
 
-    public int getCurrent() {
+    public Integer getCurrent() {
         return current;
     }
 
-    public void setCurrent(int current) {
+    public void setCurrent(Integer current) {
         this.current = current;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 

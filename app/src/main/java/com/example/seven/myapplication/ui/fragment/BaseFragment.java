@@ -13,11 +13,18 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.seven.myapplication.util.LogUtil;
+import com.landicorp.android.eptapi.DeviceService;
+import com.landicorp.android.eptapi.exception.ReloginException;
+import com.landicorp.android.eptapi.exception.RequestException;
+import com.landicorp.android.eptapi.exception.ServiceOccupiedException;
+import com.landicorp.android.eptapi.exception.UnsupportMultiProcess;
 
 /**
  * Created by asus on 2016/3/26.
  */
 public abstract class BaseFragment extends Fragment {
+
+    private boolean isDeviceServiceLogined;
 
     private boolean isVisible = false;//当前Fragment是否可见
     private boolean isInitView = false;//是否与View建立起映射关系
@@ -132,6 +139,31 @@ public abstract class BaseFragment extends Fragment {
             Looper.prepare();
             Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
             Looper.loop();
+        }
+    }
+
+
+    public void bindDeviceService() {
+        try {
+            isDeviceServiceLogined = false;
+            DeviceService.login(null);
+            isDeviceServiceLogined = true;
+        } catch (RequestException e) {
+            // Rebind after a few milliseconds,
+            // If you want this application keep the right of the device service
+//			runOnUiThreadDelayed(new Runnable() {
+//				@Override
+//				public void run() {
+//					bindDeviceService();
+//				}
+//			}, 300);
+            e.printStackTrace();
+        } catch (ServiceOccupiedException e) {
+            e.printStackTrace();
+        } catch (ReloginException e) {
+            e.printStackTrace();
+        } catch (UnsupportMultiProcess e) {
+            e.printStackTrace();
         }
     }
 }

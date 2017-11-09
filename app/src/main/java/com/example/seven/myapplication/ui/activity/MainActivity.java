@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getview();
+        getView();
         titleBar();
     }
 
@@ -48,20 +48,19 @@ public class MainActivity extends BaseActivity {
         gone_main.setVisibility(View.VISIBLE);
     }
 
-    private void getview() {
+    private void getView() {
         show_main = (LinearLayout) findViewById(R.id.show_main);
         gone_main = (LinearLayout) findViewById(R.id.gone_main);
         titleBar = (TitleBar) findViewById(R.id.main_bar);
         zfbpay = (Button) findViewById(R.id.zfbpay);
-        wechatpay = (Button) findViewById(R.id.wechatpay);
         refunds = (Button) findViewById(R.id.refunds);
         query = (Button) findViewById(R.id.query);
         print = (Button) findViewById(R.id.print);
         zfbpay.setOnClickListener(next);
-        wechatpay.setOnClickListener(next);
+//        wechatpay.setOnClickListener(next);
         refunds.setOnClickListener(next);
         query.setOnClickListener(next);
-        print.setOnClickListener(next);
+//        print.setOnClickListener(next);
     }
 
     View.OnClickListener next = new View.OnClickListener() {
@@ -69,9 +68,6 @@ public class MainActivity extends BaseActivity {
         public void onClick(View v) {
             if (v.getId() == R.id.zfbpay) {
                 intent = new Intent(MainActivity.this, AmountActivity.class);
-            }
-            if (v.getId() == R.id.wechatpay) {
-                intent = new Intent(MainActivity.this, WeChatActivity.class);
             }
             if (v.getId() == R.id.refunds) {
                 intent = new Intent(MainActivity.this, RefundActivity.class);

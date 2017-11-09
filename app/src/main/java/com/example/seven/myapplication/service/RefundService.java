@@ -17,9 +17,7 @@ public class RefundService {
         RefundRequest refundRequest = new RefundRequest();
         refundRequest.setOrderSn(orderSn);
         refundRequest.setConfirmPassword(confirmPassword);
-        System.out.println("发送了退款请求");
         Api.post(APIConstants.URL_REFUND_ORDER,refundRequest.getMap(), commonCallback);
-
     }
 
 

@@ -31,7 +31,7 @@ public class RefundRequest {
 
     public Map getMap(){
         Map<String,String > map = new HashMap<>();
-        map.put(APIConstants.STRING_ORDER_NO,this.orderSn);
+        map.put(APIConstants.STRING_ORDER_SN,this.orderSn);
         map.put(APIConstants.STRING_CONFIRM_PASSWORD,this.confirmPassword);
         return map;
     }

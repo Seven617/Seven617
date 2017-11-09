@@ -8,15 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
-import com.example.seven.myapplication.device.PrinterImpl;
+import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.model.ScannerPayData;
 import com.example.seven.myapplication.network.NetUtils;
+import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.view.TitleBar;
-import com.landicorp.android.eptapi.device.Printer;
 
 /**
  * Created by daichen on 2017/11/4.
@@ -30,15 +29,16 @@ public class PaySuccessActivity extends BaseActivity{
     private Button buttonPrintf;
     private String dataString;
     private String amount;
-    private ScannerPayData scannerPayData;
+    private QueryOrderData queryOrderData;
     private TextView paySuccessAmountTextView;
-    public PrinterImpl printer ;
+    private PrintPosService printPosService ;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_success);
-        getview();
+        getView();
         titleBar();
 
     }
@@ -54,7 +54,7 @@ public class PaySuccessActivity extends BaseActivity{
     }
 
 
-    private void getview() {
+    private void getView() {
         titleBar = (TitleBar) findViewById(R.id.pay_success_bar);
         buttonTrue= (Button) findViewById(R.id.pay_success_sure);
         buttonPrintf = (Button) findViewById(R.id.pay_success_printf);
@@ -63,7 +63,8 @@ public class PaySuccessActivity extends BaseActivity{
         //获取上个页面传来的参数
         dataString=intent.getStringExtra("data");
         amount = intent.getStringExtra(APIConstants.STRING_AMOUNT);
-        scannerPayData= JSONObject.parseObject(dataString, ScannerPayData.class);
+        queryOrderData= JSONObject.parseObject(dataString, QueryOrderData.class);
+        queryOrderData.setAmount(amount);
         paySuccessAmountTextView.setText(amount);
         buttonPrintf.setOnClickListener(printf);
         buttonTrue.setOnClickListener(ck);
@@ -101,51 +102,13 @@ public class PaySuccessActivity extends BaseActivity{
     View.OnClickListener printf = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            printfStart(scannerPayData.getShopName(),amount, scannerPayData.getOrderSn());
-
+            printPosService.printfStart(queryOrderData);
 
         }
     };
 
 
-    private   void printfStart(String comName,String amount,String orderNo ) {
-        int ret = printer.getPrinterStatus();
-        if (ret != Printer.ERROR_NONE) {
-            showToast(printer.getDescribe(ret));
-            return;
-        }
-        printer.init();
-        if(!printer.addBitmap()) {
-            showToast("add bitmap fail");
-            return;
-        }
-        if (!printer.addText(comName,amount)) {
-            showToast("add text fail");
-            return;
-        }
-        if (!printer.addBarcode(orderNo)) {
-            showToast("add barcode fail");
-            return;
-        }
 
-        if (!printer.addText(orderNo)) {
-            showToast("add text fail");
-            return;
-        }
-//        if (!printer.addQRcode()) {
-//            showToast("add qrcode fail");
-//            return;
-//        }
-        if (!printer.feedLine(3)) {
-            showToast("feed line fail");
-            return;
-        }
-        if (!printer.cutPage()) {
-            showToast("cut page fail");
-            return;
-        }
-        printer.startPrint();
-    }
 
     @Override
     protected void onResume() {
@@ -153,16 +116,6 @@ public class PaySuccessActivity extends BaseActivity{
         //绑定设备开启
         bindDeviceService();
         //实现printer方法
-        printer= new PrinterImpl(this) {
-            @Override
-            protected void onDeviceServiceCrash() {
-
-            }
-
-            @Override
-            protected void displayInfo(String info) {
-
-            }
-        };
+        printPosService  = new PrintPosService(this);
     }
 }

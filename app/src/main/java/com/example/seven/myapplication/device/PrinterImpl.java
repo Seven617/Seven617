@@ -2,6 +2,7 @@ package com.example.seven.myapplication.device;
 
 import android.content.Context;
 
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.landicorp.android.eptapi.device.Printer;
 import com.landicorp.android.eptapi.device.Printer.Format;
 import com.landicorp.android.eptapi.exception.RequestException;
@@ -42,7 +43,7 @@ public abstract class PrinterImpl extends BaseDevice {
         stepList = new ArrayList<Printer.Step>();
     }
 
-    public boolean addText(final String comName,final String amount) {
+    public boolean addText(final String merName,final String shopName,final  String address,final String operatorName,final String modifyDate,final String amount,final String payTypeText) {
         if (stepList == null) {
             displayInfo("printer has not inited!");
             return false;
@@ -55,22 +56,57 @@ public abstract class PrinterImpl extends BaseDevice {
                 format.setAscScale(Format.ASC_SC2x2);
                 format.setAscSize(Format.ASC_DOT24x12);
                 format.setHzScale(Format.HZ_SC2x2);
-                format.setHzSize(Format.HZ_DOT16x16);
+                format.setHzSize(Format.HZ_DOT24x24);
                 printer.setFormat(format);
                 Printer.Alignment alignment = Printer.Alignment.CENTER;
-                printer.printText(alignment,comName+"\n");//公司名
-                printer.printText(" \n");
+                printer.printText(alignment,merName+"\n");//公司名
+                //门店信息
                 format.setAscScale(Format.ASC_SC1x1);
                 format.setAscSize(Format.ASC_DOT24x12);
                 format.setHzScale(Format.HZ_SC1x1);
                 format.setHzSize(HZ_DOT24x24);
                 printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "店铺名:"+shopName+"\n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "地址:"+address+"\n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "操作员:"+operatorName+"\n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "时间:"+modifyDate+"\n");
+                printer.printText(" \n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT32x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
                 alignment = Printer.Alignment.CENTER;
-                printer.printText(alignment, "付款金额"+"      "+amount+"元\n");
+                if("退款".equals(payTypeText)){
+                    printer.printText("退款:"+"      "+amount+"元\n");
+                }else {
+                    printer.printText("实付:"+"      "+amount+"元\n");
+                }
                 printer.printText(" \n");
 //                printer.printText(alignment, amount+"元\n");
-
-
 //                //付款金额
 //                format.setAscScale(Format.ASC_SC2x2);
 //                format.setAscSize(Format.ASC_DOT24x12);

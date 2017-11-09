@@ -11,12 +11,14 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.adapter.MyAdapter;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
+import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.service.QueryOrderService;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
@@ -36,7 +38,9 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
     private SwipyRefreshLayout refreshLayout;
     private LinearLayoutManager linearLayoutManager;
     private PopupWindow popupWindow;
+    private PrintPosService printPosService ;
     private int pages = 1;
+    private QueryOrderData queryOrderData;
     private final int pagesSize = 8;
     private final int TOP_REFRESH = 1;
     private final int BOTTOM_REFRESH = 2;
@@ -63,7 +67,10 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
 
     @Override
     protected void initData() {
-
+        //绑定设备开启
+        bindDeviceService();
+        //实现printer方法
+        printPosService  = new PrintPosService(getActivity());
     }
 
     private void initData(int pages) {
@@ -78,15 +85,8 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
                     if (null == data.getData() || data.getData().size() == 0) {
                         showToast("没有更多信息");
                     } else {
-                        List<QueryOrderData> queryOrderDataList = new ArrayList<>();
-                        for (QueryOrderData queryOrderData : data.getData()) {
-                            queryOrderData.setModifyDate(DateUtil.TimestampToString(Long.valueOf(queryOrderData.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
-                            queryOrderDataList.add(queryOrderData);
-                        }
-
-                        arrayList.addAll(queryOrderDataList);
+                        arrayList.addAll(data.getData());
                         adapter.notifyDataSetChanged();
-
                     }
                     refreshLayout.setRefreshing(false);
                 } else {
@@ -104,22 +104,33 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
 
     @Override
     public void onItemClick(View view, QueryOrderData data) {
-        //显示订单具体内容
-        showToast(data.toString());
-        showpopupWindow(view);// 显示PopupWindow
+
+        showpopupWindow(view,data);// 显示PopupWindow
     }
 
-    private void showpopupWindow(View v) {
+    private void showpopupWindow(View v,QueryOrderData data) {
+        queryOrderData = data;
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View view = layoutInflater.inflate(R.layout.querypopupwindow, null);
-        popupWindow = new PopupWindow(view, 500, 500, true);
+        popupWindow = new PopupWindow(view, 500, 700, true);
+
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow_background));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.MyPopupWindow_anim_style);
         //这里获取悬浮框的控件
-        TextView jine = (TextView) view.findViewById(R.id.pop_jine);//左边的付款金额
-        TextView pop_amount = (TextView) view.findViewById(R.id.pop_amount);//右边的0.01金额
+        TextView orderSnTextView = (TextView)view.findViewById(R.id.order_sn_text);
+//        TextView tradeNoTextView = (TextView)view.findViewById(R.id.trade_no_text);
+        TextView amountTextView = (TextView)view.findViewById(R.id.pop_amount);
+        TextView payTimeTextView = (TextView)view.findViewById(R.id.pay_time_text);
+        TextView payTypeTextView = (TextView)view.findViewById(R.id.pay_type_text);
+        TextView payStatusTextView = (TextView)view.findViewById(R.id.pay_status_text);
+        orderSnTextView.setText(data.getOrderSn());
+//        tradeNoTextView.setText(data.getTradeNo());
+        amountTextView.setText(data.getAmount());
+        payTimeTextView.setText(DateUtil.TimestampToString(Long.valueOf(data.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
+        payTypeTextView.setText(data.getPayTypeTxt());
+        payStatusTextView.setText(data.getStatus());
         //下面的那些控件你自己获取一下
         Button querypopbtnsure = (Button) view.findViewById(R.id.query_popsure);//左边确定按钮
         Button querypopprint = (Button) view.findViewById(R.id.query_popprint);//右边打印按钮
@@ -143,7 +154,9 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
                 popupWindow.dismiss();
             }
             else{
-                showToast("打印");
+                printPosService.printfStart(queryOrderData);
+
+//                showToast("打印");
             }
         }
     };

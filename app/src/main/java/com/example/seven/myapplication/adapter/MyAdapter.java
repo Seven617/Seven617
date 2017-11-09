@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.model.QueryOrderData;
+import com.example.seven.myapplication.util.DateStyle;
+import com.example.seven.myapplication.util.DateUtil;
 
 import java.util.ArrayList;
 
@@ -66,9 +68,9 @@ public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListe
 
         mHodler.orderView.setText(list.get(position).getOrderSn());
         mHodler.amountView.setText(list.get(position).getAmount());
-        mHodler.dateView.setText(list.get(position).getModifyDate());
+        mHodler.dateView.setText((DateUtil.TimestampToString(Long.valueOf(list.get(position).getModifyDate()),DateStyle.YYYY_MM_DD_HH_MM_SS_EN)));
         mHodler.payTypeView.setText(list.get(position).getPayTypeTxt());
-        mHodler.statusView.setText(OrderStatusEnum.getOrderStatusEnum(list.get(position).getStatus()).getDesc());
+        mHodler.statusView.setText(list.get(position).getStatus());
         mHodler.itemView.setTag(list.get(position));
 
     }

@@ -14,12 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
+import com.example.seven.myapplication.model.QueryOrderData;
+import com.example.seven.myapplication.model.RefundData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
+import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.service.RefundService;
+import com.example.seven.myapplication.util.DateStyle;
+import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
 
@@ -40,7 +46,9 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     private ClearEditText refunds_edittext;
     private PopupWindow popupWindow;
     private RefundService refundService;
-    EditText popPassword;
+    private EditText popPassword;
+    private PrintPosService printPosService;
+    private QueryOrderData queryOrderData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,17 +124,15 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
 
     View.OnClickListener doit = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-//            showToast("点击了确定");
+        public void onClick(final View v) {
             refundService = new RefundService();
-            refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<String>>() {
-
+            refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
 
                 @Override
-                public void onSuccess(NetworkResult<String> data) {
+                public void onSuccess(NetworkResult<QueryOrderData> data) {
                     if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                        showPrintfpopupWindow(v,data.getData());
                         //退款成功跳到新页面
-                        data.getStatus();
                     }else {
                         showToast(data.getMsg());
                     }
@@ -141,6 +147,68 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
             popupWindow.dismiss();
         }
     };
+
+    View.OnClickListener doPrint = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId()==R.id.query_popsure)
+
+            {
+                popupWindow.dismiss();
+            }
+            else
+
+            {
+                printPosService.printfStart(queryOrderData);
+            }
+        }
+
+
+    };
+
+    private void  showPrintfpopupWindow(View v,QueryOrderData data){
+        queryOrderData = data;
+        LayoutInflater layoutInflater = LayoutInflater.from(RefundActivity.this);
+        View view = layoutInflater.inflate(R.layout.querypopupwindow, null);
+        popupWindow = new PopupWindow(view, 500, 700, true);
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow_background));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setAnimationStyle(R.style.MyPopupWindow_anim_style);
+        //这里获取悬浮框的控件
+        TextView jineTextView = (TextView)view.findViewById(R.id.pop_jine);
+        TextView orderSnTextView = (TextView)view.findViewById(R.id.order_sn_text);
+//        TextView tradeNoTextView = (TextView)view.findViewById(R.id.trade_no_text);
+        TextView amountTextView = (TextView)view.findViewById(R.id.pop_amount);
+        TextView payTimeTextView = (TextView)view.findViewById(R.id.pay_time_text);
+        TextView payTypeTextView = (TextView)view.findViewById(R.id.pay_type_text);
+        TextView payStatusTextView = (TextView)view.findViewById(R.id.pay_status_text);
+        orderSnTextView.setText(data.getOrderSn());
+
+        amountTextView.setText(data.getAmount());
+        payTimeTextView.setText(DateUtil.TimestampToString(Long.valueOf(data.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
+        payTypeTextView.setText(data.getPayTypeTxt());
+        payStatusTextView.setText("已退款");
+        jineTextView.setText("退款金额");
+
+        //下面的那些控件你自己获取一下
+        Button querypopbtnsure = (Button) view.findViewById(R.id.query_popsure);//左边确定按钮
+        Button querypopprint = (Button) view.findViewById(R.id.query_popprint);//右边打印按钮
+        querypopbtnsure.setOnClickListener(doPrint);//确定按钮
+        querypopprint.setOnClickListener(doPrint);//打印按钮
+        // PopupWindow弹出位置
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+        backgroundAlpha(0.7f);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1f);
+            }
+        });
+
+    }
 
     // 设置屏幕透明度
     public void backgroundAlpha(float bgAlpha) {
@@ -208,7 +276,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
         refunds_edittext.setText(refundsSn);
         vibrate();
 
-//        mQRCodeView.startSpotDelay(5000);
+        mQRCodeView.startSpotDelay(5000);
     }
 
 
@@ -226,5 +294,14 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
                 mQRCodeView.changeToScanQRCodeStyle();
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //绑定设备开启
+        bindDeviceService();
+        //实现printer方法
+        printPosService  = new PrintPosService(this);
     }
 }

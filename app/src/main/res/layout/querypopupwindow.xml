@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal"
@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:gravity="left|center"
             android:text="付款金额"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/pop_amount"
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="right|center"
-            android:text="￥0.01"
+            android:text="未知"
             android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -57,24 +57,24 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="left|center"
-                android:text="商品"
-                android:textSize="18dp" />
+                android:text="商户订单"
+                android:textSize="15dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="商户简称"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:text="交易订单号"-->
+                <!--android:textSize="15dp" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="商户全称"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:text="交易金额"-->
+                <!--android:textSize="15dp" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="当前状态"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="支付时间"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -98,24 +98,24 @@
                 android:layout_weight="1"
                 android:gravity="left|center"
                 android:text="支付方式"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="交易单号"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:text="交易单号"-->
+                <!--android:textSize="15dp" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="left|center"
-                android:text="商户单号"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="left|center"-->
+                <!--android:text="商户单号"-->
+                <!--android:textSize="15dp" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -125,69 +125,76 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/order_sn_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="right|center"
-                android:text="这里是商品信息"
-                android:textSize="18dp" />
+                android:text="未知"
+                android:textSize="15dp" />
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/trade_no_text"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="right|center"-->
+                <!--android:text="未知"-->
+                <!--android:textSize="15dp" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/amount_text"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="right|center"-->
+                <!--android:text="未知"-->
+                <!--android:textSize="15dp" />-->
 
             <TextView
+                android:id="@+id/pay_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="right|center"
-                android:text="快便付"
-                android:textSize="18dp" />
+                android:text="未知"
+                android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/pay_time_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="right|center"
-                android:text="杭州快便付信息技术有限公司"
-                android:textSize="18dp" />
+                android:text="未知"
+                android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/pay_type_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="right|center"
-                android:text="支付成功"
-                android:textSize="18dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="2017-11-08 17:27:28"
-                android:textSize="18dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="广发银行"
-                android:textSize="18dp" />
+                android:text="未知"
+                android:textSize="15dp" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="3745435453454535435"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="right|center"-->
+                <!--android:text="3745435453454535435"-->
+                <!--android:textSize="15dp" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="可在支付的商户扫码退款"
-                android:textSize="18dp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="right|center"-->
+                <!--android:text="可在支付的商户扫码退款"-->
+                <!--android:textSize="15dp" />-->
         </LinearLayout>
 
     </LinearLayout>
@@ -199,7 +206,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="8dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 

@@ -24,7 +24,7 @@ public  interface APIConstants {
      String STRING_AMOUNT="amount";
      String STRING_BAR_CODE="barCode";
      String STRING_SIGN="sign";
-     String STRING_ORDER_NO="orderNo";
+     String STRING_ORDER_SN="orderSn";
      String STRING_FILTER="filter";
      String STRING_USER_INFO="userInfo";
      String STRING_CONFIRM_PASSWORD="confirmPassword";

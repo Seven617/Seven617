@@ -1,5 +1,8 @@
 package com.example.seven.myapplication.model;
 
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -8,44 +11,68 @@ import java.util.ArrayList;
 
 public class QueryOrderData {
 
-  private String id;
-  private String merSn;
-  private String createDate;
-  private String modifyDate;
-  private String orderSn;
-  private String tradeNo;
-  private String description;
-  private String payType;
-  private String payTypeTxt;
-  private String channelSn;
-  private String channelText;
-  private String amount;
-  private Integer status;
-  private String remark;
-  private String createUser;
+    private String orderSn;
+    private String payType;
+    private String payTypeTxt;
+    private String shopName;
+    private String buyerId;
+    private String operatorName;
+    private String merName;
+    private String address;
+    private String modifyDate;
+    private String amount;
+    private Integer status;
 
-    public String getId() {
-        return id;
+    public String getStatus() {
+        if(null != status){
+            return OrderStatusEnum.getOrderStatusEnum(this.status).getDesc();
+        }
+
+        return null;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getShopName() {
+        return shopName;
     }
 
-    public String getMerSn() {
-        return merSn;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public void setMerSn(String merSn) {
-        this.merSn = merSn;
+    public String getBuyerId() {
+        return buyerId;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public String getOperatorName() {
+        return operatorName;
+    }
+
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
+    }
+
+    public String getMerName() {
+        return merName;
+    }
+
+    public void setMerName(String merName) {
+        this.merName = merName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getModifyDate() {
@@ -64,21 +91,7 @@ public class QueryOrderData {
         this.orderSn = orderSn;
     }
 
-    public String getTradeNo() {
-        return tradeNo;
-    }
 
-    public void setTradeNo(String tradeNo) {
-        this.tradeNo = tradeNo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getPayType() {
         return payType;
@@ -96,23 +109,14 @@ public class QueryOrderData {
         this.payTypeTxt = payTypeTxt;
     }
 
-    public String getChannelSn() {
-        return channelSn;
-    }
 
-    public void setChannelSn(String channelSn) {
-        this.channelSn = channelSn;
-    }
-
-    public String getChannelText() {
-        return channelText;
-    }
-
-    public void setChannelText(String channelText) {
-        this.channelText = channelText;
-    }
 
     public String getAmount() {
+        if(null != amount){
+            BigDecimal bigDecimal = new BigDecimal(amount);
+            return bigDecimal.divide(new BigDecimal(100)).toString();
+
+        }
         return amount;
     }
 
@@ -120,48 +124,5 @@ public class QueryOrderData {
         this.amount = amount;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    @Override
-    public String toString() {
-        return "QueryOrderData{" +
-                "id='" + id + '\'' +
-                ", merSn='" + merSn + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", modifyDate='" + modifyDate + '\'' +
-                ", orderSn='" + orderSn + '\'' +
-                ", tradeNo='" + tradeNo + '\'' +
-                ", description='" + description + '\'' +
-                ", payType='" + payType + '\'' +
-                ", payTypeTxt='" + payTypeTxt + '\'' +
-                ", channelSn='" + channelSn + '\'' +
-                ", channelText='" + channelText + '\'' +
-                ", amount='" + amount + '\'' +
-                ", status=" + status +
-                ", remark='" + remark + '\'' +
-                ", createUser='" + createUser + '\'' +
-                '}';
-    }
 }

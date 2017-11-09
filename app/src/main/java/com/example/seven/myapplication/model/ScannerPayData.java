@@ -1,30 +1,32 @@
 package com.example.seven.myapplication.model;
 
+import com.example.seven.myapplication.Enums.OrderStatusEnum;
+
+import java.math.BigDecimal;
+
 /**
  * Created by daichen on 2017/11/8.
  */
 
 public class ScannerPayData {
     private String orderSn;
-    private Integer payType;
+    private String payType;
+    private String payTypeTxt;
     private String shopName;
     private String buyerId;
     private String operatorName;
+    private String merName;
+    private String address;
+    private String modifyDate;
+    private String amount;
+    private Integer status;
 
-    public String getOrderSn() {
-        return orderSn;
-    }
+    public String getStatus() {
+        if(null != status){
+            return OrderStatusEnum.getOrderStatusEnum(this.status).getDesc();
+        }
 
-    public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn;
-    }
-
-    public Integer getPayType() {
-        return payType;
-    }
-
-    public void setPayType(Integer payType) {
-        this.payType = payType;
+        return null;
     }
 
     public String getShopName() {
@@ -50,4 +52,75 @@ public class ScannerPayData {
     public void setOperatorName(String operatorName) {
         this.operatorName = operatorName;
     }
+
+    public String getMerName() {
+        return merName;
+    }
+
+    public void setMerName(String merName) {
+        this.merName = merName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(String modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    public String getOrderSn() {
+        return orderSn;
+    }
+
+    public void setOrderSn(String orderSn) {
+        this.orderSn = orderSn;
+    }
+
+
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getPayTypeTxt() {
+        return payTypeTxt;
+    }
+
+    public void setPayTypeTxt(String payTypeTxt) {
+        this.payTypeTxt = payTypeTxt;
+    }
+
+
+
+    public String getAmount() {
+        if(null != amount){
+            BigDecimal bigDecimal = new BigDecimal(amount);
+            return bigDecimal.divide(new BigDecimal(100)).toString();
+
+        }
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+
 }
