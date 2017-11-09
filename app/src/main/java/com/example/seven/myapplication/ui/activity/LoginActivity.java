@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.seven.myapplication.App;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.device.PrinterImpl;
@@ -35,7 +36,6 @@ import com.example.seven.myapplication.util.Md5Util;
 import com.example.seven.myapplication.view.TitleBar;
 import com.landicorp.android.eptapi.device.Printer;
 import com.roger.catloadinglibrary.CatLoadingView;
-
 
 
 public class LoginActivity extends BaseActivity {
@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity {
     private SharedPreferences sp;
     private CatLoadingView mView;
     private PrinterImpl printer;
+    private App app;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,8 +96,8 @@ public class LoginActivity extends BaseActivity {
         if (sp.getBoolean(APIConstants.STRING_IS_CHECK, false)) {
             //默认记住密码
             ckb.setChecked(true);
-            edt1.setText(AesUtils.decrypt(APIConstants.STRING_USERNAME,sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), "")));
-            edt2.setText(AesUtils.decrypt(APIConstants.STRING_PASSWORD,sp.getString(Md5Util.md5(APIConstants.STRING_PASSWORD), "")));
+            edt1.setText(AesUtils.decrypt(APIConstants.STRING_USERNAME, sp.getString(Md5Util.md5(APIConstants.STRING_USERNAME), "")));
+            edt2.setText(AesUtils.decrypt(APIConstants.STRING_PASSWORD, sp.getString(Md5Util.md5(APIConstants.STRING_PASSWORD), "")));
         }
     }
 
@@ -155,15 +156,21 @@ public class LoginActivity extends BaseActivity {
                         //用户记住账号密码
                         SharedPreferences.Editor editor = sp.edit();
                         //需要添加加密
-                        editor.putString(Md5Util.md5(APIConstants.STRING_USERNAME),  AesUtils.encrypt(APIConstants.STRING_USERNAME,name));
-                        editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD),AesUtils.encrypt(APIConstants.STRING_PASSWORD,psw));
+                        editor.putString(Md5Util.md5(APIConstants.STRING_USERNAME), AesUtils.encrypt(APIConstants.STRING_USERNAME, name));
+                        editor.putString(Md5Util.md5(APIConstants.STRING_PASSWORD), AesUtils.encrypt(APIConstants.STRING_PASSWORD, psw));
                         editor.commit();
                     }
 
                     LoginData loginData = data.getData();
-                    showToast("登录商户："+loginData.getMerName()+"\n"+"操作员："+loginData.getName()+"\n"+"最近登录时间：" +loginData.getLastLoginTime());
+//                    showToast("登录商户：" + loginData.getMerName() + "\n" + "操作员：" + loginData.getName() + "\n" + "最近登录时间：" + loginData.getLastLoginTime());
 //                    showToast("操作员："+loginData.getName());
 //                    showToast("最近登录时间：" +loginData.getLastLoginTime());
+                    app = (App) getApplication();
+                    app.setUserName(loginData.getUserName());
+                    app.setUserTypeName(loginData.getUserTypeName());
+                    app.setUserlastLoginTime(loginData.getLastLoginTime());
+                    app.setUsershopSn(loginData.getShopSn());
+                    app.setUsername(loginData.getName());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
                 } else {
