@@ -47,7 +47,7 @@ public class AboutActivity extends AppCompatActivity {
         getVersion();
         tversion = (TextView) findViewById(R.id.version);
         titleBar = (TitleBar) findViewById(R.id.about_bar);
-        tversion.setText(version);
+        tversion.setText("当前版本是："+version);
     }
 
 
