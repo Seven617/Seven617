@@ -4,6 +4,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -47,6 +48,10 @@ public class AmountFilter implements InputFilter {
 
         String sourceText = source.toString();
         String destText = dest.toString();
+
+        if(!mPattern.matcher(sourceText).matches()){
+            return null;
+        }
 
         //验证删除等按键
         if (TextUtils.isEmpty(sourceText)) {

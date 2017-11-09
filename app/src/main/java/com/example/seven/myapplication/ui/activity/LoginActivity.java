@@ -33,7 +33,6 @@ import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.util.AesUtils;
 import com.example.seven.myapplication.util.Md5Util;
 import com.example.seven.myapplication.view.TitleBar;
-import com.landicorp.android.eptapi.device.Printer;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 

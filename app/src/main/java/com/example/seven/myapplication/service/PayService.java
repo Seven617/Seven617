@@ -16,8 +16,7 @@ public class PayService {
     public void pay(String amount,String  barCode,CommonCallback commonCallback){
 
         ScannerPayRequest scannerPayRequest = new ScannerPayRequest();
-        BigDecimal bigDecimal = new BigDecimal(amount);
-        amount = String.valueOf(bigDecimal.multiply(new BigDecimal(100)).intValue());
+        amount = String.valueOf(new BigDecimal(amount).multiply(new BigDecimal(100)).intValue());
 
         scannerPayRequest.setAmount(amount);
         scannerPayRequest.setBarCode(barCode);

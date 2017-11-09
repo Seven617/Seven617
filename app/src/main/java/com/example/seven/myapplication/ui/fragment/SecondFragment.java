@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.adapter.MyAdapter;
 import com.example.seven.myapplication.constants.APIConstants;
@@ -154,7 +152,7 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
                 popupWindow.dismiss();
             }
             else{
-                printPosService.printfStart(queryOrderData);
+                printPosService.printQueryOrder(queryOrderData);
 
 //                showToast("打印");
             }

@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.QueryOrderData;
-import com.example.seven.myapplication.model.ScannerPayData;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.view.TitleBar;
@@ -102,7 +101,7 @@ public class PaySuccessActivity extends BaseActivity{
     View.OnClickListener printf = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            printPosService.printfStart(queryOrderData);
+            printPosService.printQueryOrder(queryOrderData);
 
         }
     };

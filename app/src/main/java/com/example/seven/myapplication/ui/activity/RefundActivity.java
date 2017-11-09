@@ -14,12 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.model.QueryOrderData;
-import com.example.seven.myapplication.model.RefundData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PrintPosService;
@@ -160,7 +158,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
             else
 
             {
-                printPosService.printfStart(queryOrderData);
+                printPosService.printQueryOrder(queryOrderData);
             }
         }
 

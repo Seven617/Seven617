@@ -49,9 +49,11 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".ui.activity.PaySuccessActivity"
+        android:name=".ui.activity.PaySuccessActivity"
+        android:theme="@style/NoBarTheme"/>
+        <activity
+            android:name=".ui.activity.TodayOrderActivity"
             android:theme="@style/NoBarTheme"/>
-        <activity android:name=".ui.activity.PrintActivity"/>
     </application>
 
 </manifest>

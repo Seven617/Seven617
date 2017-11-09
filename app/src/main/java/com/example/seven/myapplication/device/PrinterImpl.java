@@ -3,6 +3,7 @@ package com.example.seven.myapplication.device;
 import android.content.Context;
 
 import com.example.seven.myapplication.Enums.OrderStatusEnum;
+import com.example.seven.myapplication.model.TodayOrderData;
 import com.landicorp.android.eptapi.device.Printer;
 import com.landicorp.android.eptapi.device.Printer.Format;
 import com.landicorp.android.eptapi.exception.RequestException;
@@ -101,11 +102,12 @@ public abstract class PrinterImpl extends BaseDevice {
                 printer.setFormat(format);
                 alignment = Printer.Alignment.CENTER;
                 if("退款".equals(payTypeText)){
-                    printer.printText("退款:"+"      "+amount+"元\n");
+                    printer.printText(alignment,"退款:"+"      "+amount+"元\n");
                 }else {
-                    printer.printText("实付:"+"      "+amount+"元\n");
+                    printer.printText(alignment,"实付:"+"      "+amount+"元\n");
                 }
                 printer.printText(" \n");
+
 //                printer.printText(alignment, amount+"元\n");
 //                //付款金额
 //                format.setAscScale(Format.ASC_SC2x2);
@@ -167,6 +169,128 @@ public abstract class PrinterImpl extends BaseDevice {
         });
         return true;
     }
+
+    public boolean addText(final TodayOrderData todayOrderData) {
+        if (stepList == null) {
+            displayInfo("printer has not inited!");
+            return false;
+        }
+        stepList.add(new com.landicorp.android.eptapi.device.Printer.Step() {
+            @Override
+            public void doPrint(com.landicorp.android.eptapi.device.Printer printer) throws Exception {
+                printer.setAutoTrunc(false);
+                Format format = new Format();
+                format.setAscScale(Format.ASC_SC2x2);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC2x2);
+                format.setHzSize(Format.HZ_DOT24x24);
+                printer.setFormat(format);
+                Printer.Alignment alignment = Printer.Alignment.CENTER;
+                printer.printText(alignment,"今日结算\n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "交易金额:"+todayOrderData.getSuccessAmount()+"元\n");
+
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "交易笔数:"+todayOrderData.getSuccessCount()+"\n");
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "退款金额:"+todayOrderData.getRefundAmount()+"元\n");
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.setFormat(format);
+                alignment = Printer.Alignment.LEFT;
+                printer.printText(alignment, "退款笔数:"+todayOrderData.getRefundCount()+"\n");
+
+
+
+//                printer.printText(alignment, amount+"元\n");
+
+
+//                //付款金额
+//                format.setAscScale(Format.ASC_SC2x2);
+//                format.setAscSize(Format.ASC_DOT24x12);
+//                format.setHzScale(Format.HZ_SC2x2);
+//                format.setHzSize(Format.HZ_DOT32x24);
+//                printer.setFormat(format);
+//                alignment = Printer.Alignment.LEFT;
+//                printer.printText(alignment, "付款金额");
+//                format.setAscScale(Format.ASC_SC2x2);
+//                format.setAscSize(Format.ASC_DOT24x12);
+//                format.setHzScale(Format.HZ_SC2x2);
+//                format.setHzSize(Format.HZ_DOT24x24);
+//                printer.setFormat(format);
+//                alignment = Printer.Alignment.RIGHT;
+//                printer.printText(alignment, amount+"元\n");
+//                //下面的广告
+//
+//                format.setAscScale(Format.ASC_SC1x1);
+//                format.setAscSize(Format.ASC_DOT16x8);
+//                format.setHzScale(Format.HZ_SC1x1);
+//                format.setHzSize(Format.HZ_DOT16x16);
+//                printer.setFormat(format);
+//                 alignment = Printer.Alignment.LEFT;
+//                printer.printText(alignment, "第二行\n");
+//                printer.printText(alignment, "www.landicorp.com\n");
+//                format.setAscScale(Format.ASC_SC1x1);
+//                format.setAscSize(Format.ASC_DOT24x12);
+//                format.setHzScale(Format.HZ_SC1x1);
+//                format.setHzSize(HZ_DOT24x24);
+//                printer.setFormat(format);
+//                alignment = Printer.Alignment.LEFT;
+//                printer.printText(alignment, "第三行\n");
+//                printer.printText(alignment, "www.landicorp.com\n");
+//                format.setAscScale(Format.ASC_SC2x2);
+//                format.setAscSize(Format.ASC_DOT24x12);
+//                format.setHzScale(Format.HZ_SC2x2);
+//                format.setHzSize(Format.HZ_DOT24x24);
+//                printer.setFormat(format);
+//                alignment = Printer.Alignment.RIGHT;
+//                printer.printText(alignment, "福建联迪\n");
+//                printer.printText(alignment, "landicorp\n");
+//                format.setAscScale(Format.ASC_SC1x1);
+//                format.setAscSize(Format.ASC_DOT16x8);
+//                format.setHzScale(Format.HZ_SC1x1);
+//                format.setHzSize(Format.HZ_DOT16x16);
+                printer.printMixText(format, "有电子支付的");
+                format.setAscScale(Format.ASC_SC1x1);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC1x1);
+                format.setHzSize(HZ_DOT24x24);
+                printer.printMixText(format, "地方就有");
+                format.setAscScale(Format.ASC_SC2x2);
+                format.setAscSize(Format.ASC_DOT24x12);
+                format.setHzScale(Format.HZ_SC2x2);
+                format.setHzSize(HZ_DOT24x24);
+                printer.printMixText(format, "快便付\n");
+                printer.printText("\n");
+            }
+        });
+        return true;
+    }
+
+
+
+
+
+
+
 
     public boolean addText(final String orderNo) {
         if (stepList == null) {

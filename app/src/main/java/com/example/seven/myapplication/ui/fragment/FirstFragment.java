@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.seven.myapplication.Enums.OrderStatusEnum;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
@@ -21,12 +18,10 @@ import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.service.QueryOrderService;
-import com.example.seven.myapplication.ui.activity.ChoseQueryActivity;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.ClearEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
@@ -152,7 +147,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
                 popupWindow.dismiss();
             }
             else{
-                printPosService.printfStart(queryOrderData);
+                printPosService.printQueryOrder(queryOrderData);
             }
         }
     };

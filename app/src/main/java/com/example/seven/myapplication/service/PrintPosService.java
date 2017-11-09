@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.seven.myapplication.device.PrinterImpl;
 import com.example.seven.myapplication.model.QueryOrderData;
+import com.example.seven.myapplication.model.TodayOrderData;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.landicorp.android.eptapi.device.Printer;
@@ -31,7 +32,7 @@ public class PrintPosService {
     }
 
 
-    public    String printfStart(QueryOrderData queryOrderData) {
+    public String printQueryOrder(QueryOrderData queryOrderData) {
         int ret = printer.getPrinterStatus();
         if (ret != Printer.ERROR_NONE) {
             return  printer.getDescribe(ret);
@@ -67,6 +68,33 @@ public class PrintPosService {
         return null;
     }
 
+    public String printTodayOrder(TodayOrderData todayOrderData) {
+        int ret = printer.getPrinterStatus();
+        if (ret != Printer.ERROR_NONE) {
+            return  printer.getDescribe(ret);
+        }
+        printer.init();
+        if(!printer.addBitmap()) {
+            return "add bitmap fail";
 
+        }
+        if (!printer.addText(todayOrderData)){
+            return "add text fail";
+        }
+
+//        if (!printer.addQRcode()) {
+//            showToast("add qrcode fail");
+//            return;
+//        }
+        if (!printer.feedLine(3)) {
+            return "feed line fail";
+
+        }
+        if (!printer.cutPage()) {
+            return "cut page fail";
+        }
+        printer.startPrint();
+        return null;
+    }
 
 }

@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity {
     private Button print;
     private String title;
     private Intent intent;
+    private Button todayOrder;
     private LinearLayout show_main;
     private LinearLayout gone_main;
     private boolean quit = false; //设置退出的标识
@@ -55,11 +56,13 @@ public class MainActivity extends BaseActivity {
         zfbpay = (Button) findViewById(R.id.zfbpay);
         refunds = (Button) findViewById(R.id.refunds);
         query = (Button) findViewById(R.id.query);
-        print = (Button) findViewById(R.id.print);
+//        print = (Button) findViewById(R.id.print);
+        todayOrder = (Button) findViewById(R.id.today_order);
         zfbpay.setOnClickListener(next);
 //        wechatpay.setOnClickListener(next);
         refunds.setOnClickListener(next);
         query.setOnClickListener(next);
+        todayOrder.setOnClickListener(next);
 //        print.setOnClickListener(next);
     }
 
@@ -75,9 +78,13 @@ public class MainActivity extends BaseActivity {
             if (v.getId() == R.id.query) {
                 intent = new Intent(MainActivity.this, ChoseQueryActivity.class);
             }
-            if (v.getId() == R.id.print) {
-                intent = new Intent(MainActivity.this, PrintActivity.class);
+//            if (v.getId() == R.id.print) {
+//                intent = new Intent(MainActivity.this, PrintActivity.class);
+//            }
+            if(v.getId() == R.id.today_order){
+                intent = new Intent(MainActivity.this, TodayOrderActivity.class);
             }
+
             startActivity(intent);
         }
     };

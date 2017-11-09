@@ -58,7 +58,7 @@
                 android:text="订单退款"/>
 
             <Button
-                android:id="@+id/print"
+                android:id="@+id/today_order"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

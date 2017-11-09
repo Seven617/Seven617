@@ -17,6 +17,7 @@ public  interface APIConstants {
      String URL_SCAN_PAY = "pos/pay";
      String URL_QUERY_ORDER ="pos/order/list";
      String URL_REFUND_ORDER="/pos/refund";
+     String URL_TODAY_ORDER="/pos/order/today";
 
      String STRING_USERNAME="username";
      String STRING_PASSWORD="password";
