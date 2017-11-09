@@ -46,14 +46,17 @@
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.ChoseQueryActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"
-            android:theme="@style/NoBarTheme"/>
+            android:theme="@style/NoBarTheme"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"/>
         <activity
         android:name=".ui.activity.PaySuccessActivity"
         android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.TodayOrderActivity"
             android:theme="@style/NoBarTheme"/>
+
+        <activity android:name=".ui.activity.UserInfoActivity">
+        </activity>
     </application>
 
 </manifest>
