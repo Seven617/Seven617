@@ -1,5 +1,6 @@
 package com.example.seven.myapplication.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -72,12 +73,9 @@ public class UserInfoActivity extends BaseActivity {
     View.OnClickListener exit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            app = (App) getApplication();
-            app.setUserName("");
-            app.setUserTypeName("");
-            app.setUserlastLoginTime("");
-            app.setUsershopSn("");
-            app.setUsername("");
+            Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
+            startActivity(intent);
+            UserInfoActivity.this.finish();
             exit();
         }
     };
@@ -90,6 +88,13 @@ public class UserInfoActivity extends BaseActivity {
         username.setText(tusername);
     }
     private void exit(){
+        app = (App) getApplication();
+        app.setUserName("");
+        app.setUserTypeName("");
+        app.setUserlastLoginTime("");
+        app.setUsershopSn("");
+        app.setUsername("");
+
         userName.setText("");
         userTypeName.setText("");
         userlastLoginTime.setText("");

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.seven.myapplication">
+          package="com.example.seven.myapplication"
+    >
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -27,10 +28,12 @@
         </activity>
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask"
             android:theme="@style/NoBarTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"/>
         <activity
             android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.AmountActivity"
@@ -49,13 +52,14 @@
             android:theme="@style/NoBarTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden|adjustPan"/>
         <activity
-        android:name=".ui.activity.PaySuccessActivity"
-        android:theme="@style/NoBarTheme"/>
+            android:name=".ui.activity.PaySuccessActivity"
+            android:theme="@style/NoBarTheme"/>
         <activity
             android:name=".ui.activity.TodayOrderActivity"
             android:theme="@style/NoBarTheme"/>
-
         <activity android:name=".ui.activity.UserInfoActivity">
+        </activity>
+        <activity android:name=".ui.activity.AboutActivity">
         </activity>
     </application>
 
