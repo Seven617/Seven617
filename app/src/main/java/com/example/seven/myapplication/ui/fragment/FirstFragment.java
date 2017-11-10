@@ -1,5 +1,6 @@
 package com.example.seven.myapplication.ui.fragment;
 
+import android.Manifest;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +27,8 @@ import com.roger.catloadinglibrary.CatLoadingView;
 import java.util.List;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -34,6 +37,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
  * Created by asus on 2016/3/26.
  */
 public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
+    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
     private ClearEditText clearEditText;
     private String orderSn;
     private Button btn_sure;
@@ -142,6 +146,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     @Override
     public void onStart() {
         super.onStart();
+        requestCodeQRCodePermissions();
         mQRCodeView.startCamera();
         mQRCodeView.changeToScanBarcodeStyle();
         mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
@@ -192,7 +197,13 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
                 break;
         }
     }
-
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void requestCodeQRCodePermissions() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(getActivity(), perms)) {
+            EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
+        }
+    }
     private void forresult() {
         showDialog();
         queryOrderService = new QueryOrderService();
