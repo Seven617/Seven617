@@ -1,5 +1,6 @@
 package com.example.seven.myapplication.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import com.example.seven.myapplication.view.TitleBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 //主界面
 public class MainActivity extends BaseActivity {
@@ -30,6 +34,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout show_main;
     private LinearLayout gone_main;
     private boolean quit = false; //设置退出的标识
+    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,7 @@ public class MainActivity extends BaseActivity {
         query = (Button) findViewById(R.id.query);
         about = (Button) findViewById(R.id.main_about);
         todayOrder = (Button) findViewById(R.id.today_order);
-        userinfo= (Button) findViewById(R.id.user_info);
+        userinfo = (Button) findViewById(R.id.user_info);
         zfbpay.setOnClickListener(next);
         about.setOnClickListener(next);
         refunds.setOnClickListener(next);
@@ -85,7 +90,7 @@ public class MainActivity extends BaseActivity {
             if (v.getId() == R.id.main_about) {
                 intent = new Intent(MainActivity.this, AboutActivity.class);
             }
-            if(v.getId() == R.id.today_order){
+            if (v.getId() == R.id.today_order) {
                 intent = new Intent(MainActivity.this, TodayOrderActivity.class);
             }
             if (v.getId() == R.id.user_info) {
@@ -94,6 +99,20 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestCodeQRCodePermissions();
+    }
+
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void requestCodeQRCodePermissions() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(this, perms)) {
+            EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
+        }
+    }
 
     private void titleBar() {
         title = "支付主界面";
