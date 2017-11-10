@@ -1,5 +1,6 @@
 package com.example.seven.myapplication.ui.activity;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -26,14 +27,18 @@ import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.ClearEditText;
 import com.example.seven.myapplication.view.TitleBar;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.ContentValues.TAG;
 
 //退款
-public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
-
+public class RefundActivity extends BaseActivity implements QRCodeView.Delegate {
+    private static final String TAG = PayScannerActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
     private TitleBar titleBar;
     private String title;
     private String refundsSn;
@@ -46,8 +51,8 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     private RefundService refundService;
     private EditText popPassword;
     private PrintPosService printPosService;
-    private QueryOrderData queryOrderData ;
-
+    private QueryOrderData queryOrderData;
+    private CatLoadingView mView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +85,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
         show_refundable = (LinearLayout) findViewById(R.id.show_refundable);
         gone_refundable = (LinearLayout) findViewById(R.id.gone_refundable);
         mQRCodeView = (QRCodeView) findViewById(R.id.refunds_zxingview);
+        mView = new CatLoadingView();
         btn_sure.setOnClickListener(todo);
         mQRCodeView.setDelegate(this);
     }
@@ -123,27 +129,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     View.OnClickListener doit = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            refundService = new RefundService();
-            refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
-
-                @Override
-                public void onSuccess(NetworkResult<QueryOrderData> data) {
-                    if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
-                        showPrintfpopupWindow(v,data.getData());
-                        //退款成功跳到新页面
-                    }else {
-                        checkoutTokenLost(data.getStatus(),RefundActivity.this);
-                        showToast(data.getMsg());
-                    }
-                }
-
-                @Override
-                public void onFailure(String error_code, String error_message) {
-                    showToast("返回错误的结果");
-                }
-            });
-//            showToast("点击了密码");
-            popupWindow.dismiss();
+            foresult();
         }
     };
 
@@ -151,12 +137,11 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
 
         @Override
         public void onClick(View v) {
-            if(v.getId()==R.id.query_popsure)
+            if (v.getId() == R.id.query_popsure)
 
             {
                 popupWindow.dismiss();
-            }
-            else
+            } else
 
             {
                 printPosService.printQueryOrder(queryOrderData);
@@ -166,7 +151,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
 
     };
 
-    private void  showPrintfpopupWindow(View v,QueryOrderData data){
+    private void showPrintfpopupWindow(View v, QueryOrderData data) {
         queryOrderData = data;
         LayoutInflater layoutInflater = LayoutInflater.from(RefundActivity.this);
         View view = layoutInflater.inflate(R.layout.querypopupwindow, null);
@@ -177,13 +162,13 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
         popupWindow.setOutsideTouchable(true);
         popupWindow.setAnimationStyle(R.style.MyPopupWindow_anim_style);
         //这里获取悬浮框的控件
-        TextView jineTextView = (TextView)view.findViewById(R.id.pop_jine);
-        TextView orderSnTextView = (TextView)view.findViewById(R.id.order_sn_text);
+        TextView jineTextView = (TextView) view.findViewById(R.id.pop_jine);
+        TextView orderSnTextView = (TextView) view.findViewById(R.id.order_sn_text);
 //        TextView tradeNoTextView = (TextView)view.findViewById(R.id.trade_no_text);
-        TextView amountTextView = (TextView)view.findViewById(R.id.pop_amount);
-        TextView payTimeTextView = (TextView)view.findViewById(R.id.pay_time_text);
-        TextView payTypeTextView = (TextView)view.findViewById(R.id.pay_type_text);
-        TextView payStatusTextView = (TextView)view.findViewById(R.id.pay_status_text);
+        TextView amountTextView = (TextView) view.findViewById(R.id.pop_amount);
+        TextView payTimeTextView = (TextView) view.findViewById(R.id.pay_time_text);
+        TextView payTypeTextView = (TextView) view.findViewById(R.id.pay_type_text);
+        TextView payStatusTextView = (TextView) view.findViewById(R.id.pay_status_text);
         orderSnTextView.setText(data.getOrderSn());
 
         amountTextView.setText(data.getAmount());
@@ -245,6 +230,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
     @Override
     protected void onStart() {
         super.onStart();
+        requestCodeQRCodePermissions();
         mQRCodeView.startCamera();
         mQRCodeView.changeToScanBarcodeStyle();
         mQRCodeView.startSpotDelay(100);//延迟100毫秒开始识别
@@ -294,6 +280,13 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
                 break;
         }
     }
+    @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
+    private void requestCodeQRCodePermissions() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(this, perms)) {
+            EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -301,6 +294,36 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
         //绑定设备开启
         bindDeviceService();
         //实现printer方法
-        printPosService  = new PrintPosService(this);
+        printPosService = new PrintPosService(this);
+    }
+
+    private void foresult() {
+        showDialog();
+        refundService = new RefundService();
+        refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
+
+            @Override
+            public void onSuccess(NetworkResult<QueryOrderData> data) {
+                mView.dismiss();
+                if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
+                    showPrintfpopupWindow(btn_sure, data.getData());
+                    //退款成功跳到新页面
+                } else {
+                    checkoutTokenLost(data.getStatus(),RefundActivity.this);
+                    showToast(data.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(String error_code, String error_message) {
+                mView.dismiss();
+                showToast("返回错误的结果");
+            }
+        });
+//            showToast("点击了密码");
+        popupWindow.dismiss();
+    }
+    public void showDialog() {
+        mView.show(getSupportFragmentManager(), "");
     }
 }

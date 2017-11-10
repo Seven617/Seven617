@@ -19,6 +19,7 @@ import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PayService;
 import com.example.seven.myapplication.view.TitleBar;
 import com.landicorp.android.eptapi.device.Printer;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import org.json.JSONObject;
 
@@ -35,6 +36,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     private String zfbpayAmount;//支付宝支付金额
     private PayService payService;
     private PrinterImpl printer ;
+    private CatLoadingView mView;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
         mQRCodeView = (QRCodeView) findViewById(R.id.zbarview);
         titleBar = (TitleBar) findViewById(R.id.Ttoolbar);
         zfbPayText = (TextView) findViewById(R.id.zfb_pay_text);
+        mView = new CatLoadingView();
         Intent intent =getIntent();
         //getXxxExtra方法获取Intent传递过来的数据
         zfbpayAmount =intent.getStringExtra("amount");
@@ -122,7 +125,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     public void onScanQRCodeSuccess(String result) {
         Log.i(TAG, "result:" + result);
-
+        showDialog();
 //        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         payService = new PayService();
         payService.pay(zfbpayAmount, result, new CommonCallback<NetworkResult<ScannerPayData>>() {
@@ -130,8 +133,13 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
             public void onSuccess(NetworkResult<ScannerPayData> data) {
 
                 if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+<<<<<<< HEAD
 
 
+=======
+//                    start("快变富信息技术有限公司",zfbpayAmount,data.getData());
+                    mView.dismiss();
+>>>>>>> 45d2f08299b4b1c8281162f2ee26b10c04ef6c6f
                     //扫码成功跳转到下一个页面,将返回参数传到下一个页面
                     Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
                     intent.putExtra("data",JSON.toJSONString(data.getData()));
@@ -140,7 +148,11 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
                     PayScannerActivity.this.finish();
 
                 }else {
+<<<<<<< HEAD
                     checkoutTokenLost(data.getStatus(),PayScannerActivity.this);
+=======
+                    mView.dismiss();
+>>>>>>> 45d2f08299b4b1c8281162f2ee26b10c04ef6c6f
                     //失败则跳出失败原因
                     showToast(data.getMsg());
                 }
@@ -156,7 +168,9 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
         vibrate();
         mQRCodeView.startSpotDelay(5000);
     }
-
+    public void showDialog() {
+        mView.show(getSupportFragmentManager(), "");
+    }
     @Override
     public void onScanQRCodeOpenCameraError() {
         Log.e(TAG, "打开相机出错");
