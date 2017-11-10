@@ -1,5 +1,10 @@
 package com.example.seven.myapplication.service;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.LoginRequest;
 import com.example.seven.myapplication.network.Api;
@@ -11,7 +16,7 @@ import com.example.seven.myapplication.util.Md5Util;
  * Created by seven617 on 2017/11/1.
  */
 
-public class LoginService {
+public class LoginService  extends Service{
 
     public void login(String name, String password, CommonCallback commonCallback){
 
@@ -31,4 +36,9 @@ public class LoginService {
 
     }
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

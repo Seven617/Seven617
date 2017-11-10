@@ -130,7 +130,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
             public void onSuccess(NetworkResult<ScannerPayData> data) {
 
                 if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
-//                    start("快变富信息技术有限公司",zfbpayAmount,data.getData());
+
 
                     //扫码成功跳转到下一个页面,将返回参数传到下一个页面
                     Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
@@ -140,6 +140,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
                     PayScannerActivity.this.finish();
 
                 }else {
+                    checkoutTokenLost(data.getStatus(),PayScannerActivity.this);
                     //失败则跳出失败原因
                     showToast(data.getMsg());
                 }

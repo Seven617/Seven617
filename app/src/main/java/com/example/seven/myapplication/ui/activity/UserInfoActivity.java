@@ -89,7 +89,6 @@ public class UserInfoActivity extends BaseActivity {
                         UserInfoActivity.this.finish();
                         exit();
 
-
                 }
 
                 @Override

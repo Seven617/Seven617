@@ -1,6 +1,10 @@
 package com.example.seven.myapplication.service;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 
 import com.example.seven.myapplication.device.PrinterImpl;
 import com.example.seven.myapplication.model.QueryOrderData;
@@ -13,7 +17,7 @@ import com.landicorp.android.eptapi.device.Printer;
  * Created by daichen on 2017/11/9.
  */
 
-public class PrintPosService {
+public class PrintPosService extends Service {
     public PrinterImpl printer ;
 
     public PrintPosService(Context context){
@@ -97,4 +101,9 @@ public class PrintPosService {
         return null;
     }
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

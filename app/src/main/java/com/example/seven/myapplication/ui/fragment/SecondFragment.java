@@ -88,6 +88,7 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
                     }
                     refreshLayout.setRefreshing(false);
                 } else {
+                    checkoutTokenLost(data.getStatus(),getActivity());
                     showToast(data.getMsg());
                 }
 

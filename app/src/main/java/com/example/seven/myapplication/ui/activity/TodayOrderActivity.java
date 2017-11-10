@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
 import com.example.seven.myapplication.model.TodayOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
@@ -79,11 +80,17 @@ public class TodayOrderActivity extends BaseActivity {
         todayOrderServer.refund(new CommonCallback<NetworkResult<TodayOrderData>>() {
             @Override
             public void onSuccess(NetworkResult<TodayOrderData> data) {
-                todayOrderData=data.getData();
-                refundAmount.setText(todayOrderData.getRefundAmount());
-                refundCount.setText(todayOrderData.getRefundCount());
-                successAmount.setText(todayOrderData.getSuccessAmount());
-                successCount.setText(todayOrderData.getSuccessCount());
+                if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
+                    todayOrderData=data.getData();
+                    refundAmount.setText(todayOrderData.getRefundAmount());
+                    refundCount.setText(todayOrderData.getRefundCount());
+                    successAmount.setText(todayOrderData.getSuccessAmount());
+                    successCount.setText(todayOrderData.getSuccessCount());
+                }else {
+                    checkoutTokenLost(data.getStatus(),TodayOrderActivity.this);
+                    showToast(data.getMsg());
+                }
+
 //                showToast("返回成功的信息");
             }
 

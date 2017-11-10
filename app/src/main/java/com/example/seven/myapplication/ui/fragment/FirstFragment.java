@@ -18,6 +18,7 @@ import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.service.QueryOrderService;
+import com.example.seven.myapplication.ui.activity.RefundActivity;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.ClearEditText;
@@ -86,6 +87,8 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
                         showpopupWindow(v,data.getData().get(0));
                         }
                     }else {
+                        checkoutTokenLost(data.getStatus(),getActivity());
+
                         showToast(data.getMsg());
                     }
 

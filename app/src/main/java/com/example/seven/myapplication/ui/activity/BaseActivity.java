@@ -1,5 +1,7 @@
 package com.example.seven.myapplication.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -118,5 +120,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void unbindDeviceService() {
         DeviceService.logout();
         isDeviceServiceLogined = false;
+    }
+
+    public void checkoutTokenLost(String status, Activity activity){
+        if(APIConstants.CODE_RESULT_NO_LOGIN_ERROR.equals(status) || APIConstants.CODE_RESULT_SESSION_TIMEOUT_ERROR.equals(status)){
+            Intent intent  =  new Intent(activity,LoginActivity.class);
+            startActivity(intent);
+            activity.finish();
+        }
+
     }
 }

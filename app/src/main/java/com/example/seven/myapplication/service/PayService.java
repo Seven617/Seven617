@@ -20,6 +20,7 @@ public class PayService  extends Service{
 
     public void pay(String amount,String  barCode,CommonCallback commonCallback){
 
+
         ScannerPayRequest scannerPayRequest = new ScannerPayRequest();
         amount = String.valueOf(new BigDecimal(amount).multiply(new BigDecimal(100)).intValue());
 

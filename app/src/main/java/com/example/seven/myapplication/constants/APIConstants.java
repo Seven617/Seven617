@@ -33,10 +33,13 @@ public  interface APIConstants {
 
      String STRING_IS_CHECK="ISCHECK";
 
+
+
      String MSG_RESULT_NO_LOGIN_ERROR="请先登陆后再进行操作!";
      String MSG_RESULT_SESSION_TIMEOUT_ERROR="用户登陆已失效,请重新登陆!";
 
 
-
+     String CODE_RESULT_NO_LOGIN_ERROR="4";
+     String CODE_RESULT_SESSION_TIMEOUT_ERROR="5";
      String CODE_RESULT_SUCCESS ="0";
 }

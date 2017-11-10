@@ -1,5 +1,10 @@
 package com.example.seven.myapplication.service;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.QueryOrderRequest;
 import com.example.seven.myapplication.network.Api;
@@ -9,7 +14,7 @@ import com.example.seven.myapplication.network.CommonCallback;
  * Created by daichen on 2017/11/2.
  */
 
-public class QueryOrderService {
+public class QueryOrderService extends Service {
 
     public void queryByOrderNo(String orderNo, CommonCallback commonCallback){
         QueryOrderRequest queryOrderRequest = new QueryOrderRequest();
@@ -27,4 +32,9 @@ public class QueryOrderService {
     }
 
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

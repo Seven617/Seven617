@@ -1,6 +1,8 @@
 package com.example.seven.myapplication.ui.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.ui.activity.LoginActivity;
 import com.example.seven.myapplication.util.LogUtil;
 import com.landicorp.android.eptapi.DeviceService;
 import com.landicorp.android.eptapi.exception.ReloginException;
@@ -165,5 +169,16 @@ public abstract class BaseFragment extends Fragment {
         } catch (UnsupportMultiProcess e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void checkoutTokenLost(String status, Activity activity){
+        if(APIConstants.CODE_RESULT_NO_LOGIN_ERROR.equals(status) || APIConstants.CODE_RESULT_SESSION_TIMEOUT_ERROR.equals(status)){
+            Intent intent  =  new Intent(activity,LoginActivity.class);
+            startActivity(intent);
+            activity.finish();
+
+        }
+
     }
 }

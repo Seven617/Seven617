@@ -132,6 +132,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate{
                         showPrintfpopupWindow(v,data.getData());
                         //退款成功跳到新页面
                     }else {
+                        checkoutTokenLost(data.getStatus(),RefundActivity.this);
                         showToast(data.getMsg());
                     }
                 }
