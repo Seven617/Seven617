@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
     private Button query;
     private Button print;
     private Button userinfo;
+    private Button about;
     private String title;
     private Intent intent;
     private Button todayOrder;
@@ -57,11 +58,11 @@ public class MainActivity extends BaseActivity {
         zfbpay = (Button) findViewById(R.id.zfbpay);
         refunds = (Button) findViewById(R.id.refunds);
         query = (Button) findViewById(R.id.query);
-//        print = (Button) findViewById(R.id.print);
+        about = (Button) findViewById(R.id.main_about);
         todayOrder = (Button) findViewById(R.id.today_order);
         userinfo= (Button) findViewById(R.id.user_info);
         zfbpay.setOnClickListener(next);
-//        wechatpay.setOnClickListener(next);
+        about.setOnClickListener(next);
         refunds.setOnClickListener(next);
         query.setOnClickListener(next);
         todayOrder.setOnClickListener(next);
@@ -81,9 +82,9 @@ public class MainActivity extends BaseActivity {
             if (v.getId() == R.id.query) {
                 intent = new Intent(MainActivity.this, ChoseQueryActivity.class);
             }
-//            if (v.getId() == R.id.print) {
-//                intent = new Intent(MainActivity.this, PrintActivity.class);
-//            }
+            if (v.getId() == R.id.main_about) {
+                intent = new Intent(MainActivity.this, AboutActivity.class);
+            }
             if(v.getId() == R.id.today_order){
                 intent = new Intent(MainActivity.this, TodayOrderActivity.class);
             }

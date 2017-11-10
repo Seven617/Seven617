@@ -74,12 +74,12 @@
 
             <Button
 
-                android:id="@+id/system_setting"
+                android:id="@+id/main_about"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/main_btn"
-                android:text="系统设置"/>
+                android:text="关于"/>
 
             <Button
                 android:id="@+id/user_info"
