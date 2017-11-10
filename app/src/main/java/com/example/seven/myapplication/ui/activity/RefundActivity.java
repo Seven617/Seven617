@@ -34,7 +34,7 @@ import static android.content.ContentValues.TAG;
 
 //退款
 public class RefundActivity extends BaseActivity implements QRCodeView.Delegate {
-
+    private static final String TAG = PayScannerActivity.class.getSimpleName();
     private TitleBar titleBar;
     private String title;
     private String refundsSn;
@@ -251,7 +251,6 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        foresult();
         showToast(result);
         refundsSn = result;
         refunds_edittext.setText(refundsSn);
