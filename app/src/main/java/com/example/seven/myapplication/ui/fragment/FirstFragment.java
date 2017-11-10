@@ -21,6 +21,7 @@ import com.example.seven.myapplication.service.QueryOrderService;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
 import com.example.seven.myapplication.view.ClearEditText;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     private QueryOrderService queryOrderService;
     private PrintPosService printPosService ;
     private QueryOrderData queryOrderData ;
-
+    private CatLoadingView mView;
 
     @Override
     protected int getLayoutId() {
@@ -57,6 +58,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         show_query = findView(R.id.show_query);
         gone_query = findView(R.id.gone_query);
         mQRCodeView = findView(R.id.query_zxingview);
+        mView = new CatLoadingView();
         mQRCodeView.setDelegate(this);
         btn_sure.setOnClickListener(OK);
     }
@@ -73,29 +75,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            queryOrderService =new QueryOrderService();
-            orderSn = clearEditText.getText().toString();
-            queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
-                @Override
-                public void onSuccess(NetworkResult<List<QueryOrderData>>  data) {
-                    if(APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())){
-                        if( null == data.getData() || data.getData().size() == 0){
-                            showToast("未找到该订单");
-                        }else {
-//                        showToast(data.getData().get(0).getAmount());
-                        showpopupWindow(v,data.getData().get(0));
-                        }
-                    }else {
-                        showToast(data.getMsg());
-                    }
-
-                }
-
-                @Override
-                public void onFailure(String error_code, String error_message) {
-
-                }
-            });
+            forresult();
         }
     };
 
@@ -187,11 +167,13 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        showToast(result);
+//        showToast(result);
+        forresult();
         orderSn=result;
         clearEditText.setText(orderSn);
         vibrate();
         mQRCodeView.startSpotDelay(5000);
+
     }
 
 
@@ -211,7 +193,35 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         }
     }
 
+    private void forresult() {
+        showDialog();
+        queryOrderService = new QueryOrderService();
+        orderSn = clearEditText.getText().toString();
+        queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
+            @Override
+            public void onSuccess(NetworkResult<List<QueryOrderData>> data) {
+                mView.dismiss();
+                if (APIConstants.CODE_RESULT_SUCCESS.equals(data.getStatus())) {
+                    if (null == data.getData() || data.getData().size() == 0) {
+                        showToast("未找到该订单");
+                    } else {
+//                        showToast(data.getData().get(0).getAmount());
+                        showpopupWindow(btn_sure, data.getData().get(0));
+                    }
+                } else {
+                    showToast(data.getMsg());
+                }
 
+            }
 
+            @Override
+            public void onFailure(String error_code, String error_message) {
+                mView.dismiss();
+            }
+        });
+    }
+    public void showDialog() {
+        mView.show(getFragmentManager(), "");
+    }
 
 }
