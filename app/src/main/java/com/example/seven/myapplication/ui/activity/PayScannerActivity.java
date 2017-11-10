@@ -135,7 +135,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
                     //扫码成功跳转到下一个页面,将返回参数传到下一个页面
                     Intent  intent=new Intent(PayScannerActivity.this, PaySuccessActivity.class);
                     intent.putExtra("data",JSON.toJSONString(data.getData()));
-                    intent.putExtra(APIConstants.STRING_AMOUNT,String.valueOf(new BigDecimal(zfbpayAmount).multiply(new BigDecimal(100)).intValue()));
+                    intent.putExtra(APIConstants.STRING_AMOUNT,zfbpayAmount);
                     startActivity(intent);
                     PayScannerActivity.this.finish();
 

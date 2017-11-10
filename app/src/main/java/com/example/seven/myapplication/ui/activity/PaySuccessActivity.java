@@ -16,6 +16,8 @@ import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.view.TitleBar;
 
+import java.math.BigDecimal;
+
 /**
  * Created by daichen on 2017/11/4.
  */
@@ -63,8 +65,8 @@ public class PaySuccessActivity extends BaseActivity{
         dataString=intent.getStringExtra("data");
         amount = intent.getStringExtra(APIConstants.STRING_AMOUNT);
         queryOrderData= JSONObject.parseObject(dataString, QueryOrderData.class);
-        queryOrderData.setAmount(amount);
-        paySuccessAmountTextView.setText(amount);
+        queryOrderData.setAmount(String.valueOf(new BigDecimal(amount).multiply(new BigDecimal(100)).intValue()));
+        paySuccessAmountTextView.setText(amount+"元");
         buttonPrintf.setOnClickListener(printf);
         buttonTrue.setOnClickListener(ck);
     }

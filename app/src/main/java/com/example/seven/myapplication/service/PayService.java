@@ -1,5 +1,10 @@
 package com.example.seven.myapplication.service;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.ScannerPayRequest;
 import com.example.seven.myapplication.network.Api;
@@ -11,7 +16,7 @@ import java.math.BigDecimal;
  * Created by daichen on 2017/11/2.
  */
 
-public class PayService {
+public class PayService  extends Service{
 
     public void pay(String amount,String  barCode,CommonCallback commonCallback){
 
@@ -22,6 +27,12 @@ public class PayService {
         scannerPayRequest.setBarCode(barCode);
 
         Api.post(APIConstants.URL_SCAN_PAY, scannerPayRequest.getMap(),commonCallback);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
 
