@@ -59,7 +59,7 @@ public class RetrofitClient {
     /**
      * 默认超时时间：30秒
      */
-    private static final int DEFAULT_TIMEOUT = 30;
+    private static final int DEFAULT_TIMEOUT = 40;
     /**
      * retrofit缓存文件夹大小：10M
      */
@@ -177,10 +177,9 @@ public class RetrofitClient {
         }
 
         public RetrofitClient build() {
-            if(okHttpClient ==null){
+            if(okHttpClient == null){
                 createHttpClient();
             }
-
 
             // retrofit
             if (this.javaCallAdapterInterceptor != null) {

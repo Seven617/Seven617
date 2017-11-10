@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import com.example.seven.myapplication.App;
 import com.example.seven.myapplication.R;
+import com.example.seven.myapplication.constants.APIConstants;
+import com.example.seven.myapplication.model.NetworkResult;
+import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.network.NetUtils;
+import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
 
 
@@ -28,6 +32,7 @@ public class UserInfoActivity extends BaseActivity {
     private TextView username;//操作员
     private TitleBar titleBar;
     private String title;
+    private  LoginService loginService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +78,29 @@ public class UserInfoActivity extends BaseActivity {
     View.OnClickListener exit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
-            startActivity(intent);
-            UserInfoActivity.this.finish();
-            exit();
+            loginService = new  LoginService();
+            loginService.logout(new CommonCallback<NetworkResult<String>>() {
+
+                @Override
+                public void onSuccess(NetworkResult<String> data) {
+
+                        Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        UserInfoActivity.this.finish();
+                        exit();
+
+
+                }
+
+                @Override
+                public void onFailure(String error_code, String error_message) {
+                    Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    UserInfoActivity.this.finish();
+                    exit();
+                }
+            });
+
         }
     };
 

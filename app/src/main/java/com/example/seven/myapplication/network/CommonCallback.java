@@ -2,6 +2,7 @@ package com.example.seven.myapplication.network;
 
 import android.widget.Toast;
 
+import com.example.seven.myapplication.model.NetworkResult;
 import com.jady.retrofitclient.HttpManager;
 import com.jady.retrofitclient.callback.HttpCallback;
 
@@ -12,6 +13,8 @@ import com.jady.retrofitclient.callback.HttpCallback;
 public abstract class CommonCallback<T> extends HttpCallback<T> {
     @Override
     public void onResolve(T t) {
+        NetworkResult networkResult= (NetworkResult)t;
+
         onSuccess(t);
     }
 

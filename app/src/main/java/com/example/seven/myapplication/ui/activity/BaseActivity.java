@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.network.NetChangeObserver;
 import com.example.seven.myapplication.network.NetStateReceiver;
 import com.example.seven.myapplication.network.NetUtils;
+import com.jady.retrofitclient.HttpManager;
+import com.jady.retrofitclient.RetrofitClient;
 import com.landicorp.android.eptapi.DeviceService;
 import com.landicorp.android.eptapi.exception.ReloginException;
 import com.landicorp.android.eptapi.exception.RequestException;
@@ -62,7 +65,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 网络断开的时候调用
      */
     protected abstract void onNetworkDisConnected();
-
 
 
     //Toast及时反应

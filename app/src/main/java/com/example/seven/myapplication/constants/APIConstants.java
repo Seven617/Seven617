@@ -18,6 +18,7 @@ public  interface APIConstants {
      String URL_QUERY_ORDER ="pos/order/list";
      String URL_REFUND_ORDER="/pos/refund";
      String URL_TODAY_ORDER="/pos/order/today";
+     String URL_USER_LOGOUT="/pos/signon/dologout";
 
      String STRING_USERNAME="username";
      String STRING_PASSWORD="password";
@@ -32,13 +33,10 @@ public  interface APIConstants {
 
      String STRING_IS_CHECK="ISCHECK";
 
-
+     String MSG_RESULT_NO_LOGIN_ERROR="请先登陆后再进行操作!";
+     String MSG_RESULT_SESSION_TIMEOUT_ERROR="用户登陆已失效,请重新登陆!";
 
 
 
      String CODE_RESULT_SUCCESS ="0";
-     //http://gank.io/api/data/福利/5/1
-     @GET("api/data/福利/{pageCount}/{pageIndex}")
-     Call<QueryOrderData> getData(@Path("pageCount") int pageCount,
-                                  @Path("pageIndex") int pageIndex);
 }
