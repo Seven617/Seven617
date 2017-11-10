@@ -17,6 +17,11 @@ public class AmountFilter implements InputFilter {
 
     Pattern mPattern;//正则匹配
 
+    Pattern pointPattern;
+
+    private int pointSize = 0;
+
+
     private static final int POINTER_AFTER_LENGTH = 2; //小数点后的位数
 
     private static final String POINTER = ".";
@@ -30,6 +35,7 @@ public class AmountFilter implements InputFilter {
     public AmountFilter() {
         //正则表达式
         mPattern = Pattern.compile("([0-9]|\\.)*");
+        pointPattern = Pattern.compile("\\.");
     }
 
 
@@ -49,14 +55,34 @@ public class AmountFilter implements InputFilter {
         String sourceText = source.toString();
         String destText = dest.toString();
 
+        //如果小数点超过1个则无视
+        if(pointPattern.matcher(sourceText).matches()){
+
+            if(dest.toString().contains(".")){
+                sourceText="";
+                source="";
+            }
+
+
+
+        }
+
         if(!mPattern.matcher(sourceText).matches()){
-            return null;
+            sourceText="";
+            source="";
         }
 
         //验证删除等按键
         if (TextUtils.isEmpty(sourceText)) {
             return "";
         }
+        //如果第一位是.自动添加0
+        if(source.toString().equals(".") && (destText.equals("")|| destText ==null)){
+            sourceText="0.";
+            source = "0.";
+        }
+
+
         //验证输入金额的大小
         if (!source.toString().equals("")) {
             double dold = Double.parseDouble(destText + source.toString());
