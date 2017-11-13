@@ -93,7 +93,14 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     View.OnClickListener todo = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showpopupWindow(v);// 显示PopupWindow
+            refundsSn = refunds_edittext.getText().toString();
+            if(refundsSn.isEmpty()){
+                showToast("单号不可为空！");
+            }
+            else{
+                showpopupWindow(v);// 显示PopupWindow
+            }
+
         }
     };
 

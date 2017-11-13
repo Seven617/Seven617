@@ -80,7 +80,14 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            forresult();
+            orderSn = clearEditText.getText().toString();
+            if(orderSn.isEmpty()){
+                showToast("单号不可为空！");
+            }
+            else{
+                forresult();
+            }
+
         }
     };
 
@@ -174,7 +181,8 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeSuccess(String result) {
 //        showToast(result);
-        orderSn=result;
+
+        clearEditText.setText(result);
         forresult();
 
 //        clearEditText.setText(orderSn);
@@ -209,7 +217,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     private void forresult() {
         showDialog();
         queryOrderService = new QueryOrderService();
-//        orderSn = clearEditText.getText().toString();
+        orderSn = clearEditText.getText().toString();
         queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
             @Override
             public void onSuccess(NetworkResult<List<QueryOrderData>> data) {
