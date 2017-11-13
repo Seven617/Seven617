@@ -1,6 +1,7 @@
 package com.example.seven.myapplication.ui.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,11 +36,13 @@ public class MainActivity extends BaseActivity {
     private LinearLayout gone_main;
     private boolean quit = false; //设置退出的标识
     private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
+    public static Activity MainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivity=this;
         getView();
         titleBar();
     }

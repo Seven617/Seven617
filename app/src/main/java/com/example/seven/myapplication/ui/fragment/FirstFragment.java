@@ -174,8 +174,9 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeSuccess(String result) {
 //        showToast(result);
-        forresult();
         orderSn=result;
+        forresult();
+
 //        clearEditText.setText(orderSn);
         vibrate();
         mQRCodeView.startSpotDelay(5000);
@@ -208,7 +209,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     private void forresult() {
         showDialog();
         queryOrderService = new QueryOrderService();
-        orderSn = clearEditText.getText().toString();
+//        orderSn = clearEditText.getText().toString();
         queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
             @Override
             public void onSuccess(NetworkResult<List<QueryOrderData>> data) {

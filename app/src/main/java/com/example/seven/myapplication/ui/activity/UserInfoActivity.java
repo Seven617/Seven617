@@ -32,7 +32,7 @@ public class UserInfoActivity extends BaseActivity {
     private TextView username;//操作员
     private TitleBar titleBar;
     private String title;
-    private  LoginService loginService;
+    private LoginService loginService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,22 +78,23 @@ public class UserInfoActivity extends BaseActivity {
     View.OnClickListener exit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loginService = new  LoginService();
+            loginService = new LoginService();
             loginService.logout(new CommonCallback<NetworkResult<String>>() {
 
                 @Override
                 public void onSuccess(NetworkResult<String> data) {
 
-                        Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
-                        startActivity(intent);
-                        UserInfoActivity.this.finish();
-                        exit();
+                    Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    UserInfoActivity.this.finish();
+                    MainActivity.MainActivity.finish();
+                    exit();
 
                 }
 
                 @Override
                 public void onFailure(String error_code, String error_message) {
-                    Intent intent=new Intent(UserInfoActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);
                     startActivity(intent);
                     UserInfoActivity.this.finish();
                     exit();
@@ -110,7 +111,8 @@ public class UserInfoActivity extends BaseActivity {
         usershopSn.setText(tusershopSn);
         username.setText(tusername);
     }
-    private void exit(){
+
+    private void exit() {
         app = (App) getApplication();
         app.setUserName("");
         app.setUserTypeName("");

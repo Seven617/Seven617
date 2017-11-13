@@ -16,8 +16,8 @@ import java.util.LinkedList;
 
 /**
  * 类描述：
- * 创建人：Bob
- * 创建时间：2015/9/25 11:36
+ * 创建人：Seven617
+ * 创建时间：2017/11/02 
  */
 public class TitleBar extends ViewGroup implements View.OnClickListener {
     private static final int DEFAULT_MAIN_TEXT_SIZE = 18;
