@@ -182,12 +182,12 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     public void onScanQRCodeSuccess(String result) {
 //        showToast(result);
 
-        clearEditText.setText(result);
+//        clearEditText.setText(result);
         forresult();
 
 //        clearEditText.setText(orderSn);
         vibrate();
-        mQRCodeView.startSpotDelay(5000);
+//        mQRCodeView.startSpotDelay(5000);
 
     }
 

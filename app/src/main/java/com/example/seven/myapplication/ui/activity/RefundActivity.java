@@ -53,6 +53,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     private PrintPosService printPosService;
     private QueryOrderData queryOrderData;
     private CatLoadingView mView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,10 +95,9 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
         @Override
         public void onClick(View v) {
             refundsSn = refunds_edittext.getText().toString();
-            if(refundsSn.isEmpty()){
+            if (refundsSn.isEmpty()) {
                 showToast("单号不可为空！");
-            }
-            else{
+            } else {
                 showpopupWindow(v);// 显示PopupWindow
             }
 
@@ -105,7 +105,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     };
 
     private void showpopupWindow(View v) {
-        refundsSn = refunds_edittext.getText().toString();
+//        refundsSn = refunds_edittext.getText().toString();
         LayoutInflater layoutInflater = LayoutInflater.from(RefundActivity.this);
         View view = layoutInflater.inflate(R.layout.refundpopupwindow, null);
         popupWindow = new PopupWindow(view, 500, 500, true);
@@ -128,7 +128,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
 
             @Override
             public void onDismiss() {
-
+                backgroundAlpha(1f);
             }
         });
     }
@@ -145,11 +145,9 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.query_popsure)
-
             {
                 popupWindow.dismiss();
             } else
-
             {
                 printPosService.printQueryOrder(queryOrderData);
             }
@@ -263,12 +261,13 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        showToast(result);
+
         refundsSn = result;
-        refunds_edittext.setText(refundsSn);
+//        refunds_edittext.setText(refundsSn);
+        showpopupWindow(btn_sure);// 显示PopupWindow
         vibrate();
 
-        mQRCodeView.startSpotDelay(5000);
+//        mQRCodeView.startSpotDelay(5000);
     }
 
 
@@ -287,6 +286,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
                 break;
         }
     }
+
     @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
     private void requestCodeQRCodePermissions() {
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -307,8 +307,8 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     private void foresult() {
         showDialog();
         refundService = new RefundService();
+        refundsSn=refunds_edittext.getText().toString();
         refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
-
             @Override
             public void onSuccess(NetworkResult<QueryOrderData> data) {
                 mView.dismiss();
@@ -316,7 +316,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
                     showPrintfpopupWindow(btn_sure, data.getData());
                     //退款成功跳到新页面
                 } else {
-                    checkoutTokenLost(data.getStatus(),RefundActivity.this);
+                    checkoutTokenLost(data.getStatus(), RefundActivity.this);
                     showToast(data.getMsg());
                 }
             }
@@ -330,6 +330,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
 //            showToast("点击了密码");
         popupWindow.dismiss();
     }
+
     public void showDialog() {
         mView.show(getSupportFragmentManager(), "");
     }
