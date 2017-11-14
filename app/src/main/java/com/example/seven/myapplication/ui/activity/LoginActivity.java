@@ -36,7 +36,9 @@ import com.example.seven.myapplication.util.Md5Util;
 import com.example.seven.myapplication.view.TitleBar;
 import com.roger.catloadinglibrary.CatLoadingView;
 
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class LoginActivity extends BaseActivity {
     private EditText edt1;
     private EditText edt2;

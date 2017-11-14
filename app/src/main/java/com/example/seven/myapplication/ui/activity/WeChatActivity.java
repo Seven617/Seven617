@@ -10,7 +10,9 @@ import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.view.AmountEditText;
 import com.example.seven.myapplication.view.TitleBar;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class WeChatActivity extends BaseActivity {
     private TitleBar titleBar;
     private String title;

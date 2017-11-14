@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by asus on 2016/3/26.
+ * Created by Seven on 2017/11/02.
  */
 public class SecondFragment extends BaseFragment implements MyAdapter.OnRecyclerViewItemClickListener, SwipyRefreshLayout.OnRefreshListener {
     private ArrayList<QueryOrderData> arrayList;

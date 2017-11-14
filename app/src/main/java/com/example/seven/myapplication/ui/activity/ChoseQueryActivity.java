@@ -1,6 +1,5 @@
 package com.example.seven.myapplication.ui.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,18 +7,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.adapter.ViewPagerIndicator;
-import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.ui.fragment.FirstFragment;
 import com.example.seven.myapplication.ui.fragment.SecondFragment;
 import com.example.seven.myapplication.view.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class ChoseQueryActivity extends AppCompatActivity {
     private TitleBar titleBar;
     private String title;

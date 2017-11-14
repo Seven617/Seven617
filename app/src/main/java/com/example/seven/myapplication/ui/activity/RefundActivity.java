@@ -35,6 +35,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Created by Seven on 2017/11/02.
+ */
 //退款
 public class RefundActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = PayScannerActivity.class.getSimpleName();
@@ -144,11 +147,9 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
 
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.query_popsure)
-            {
+            if (v.getId() == R.id.query_popsure) {
                 popupWindow.dismiss();
-            } else
-            {
+            } else {
                 printPosService.printQueryOrder(queryOrderData);
             }
         }
@@ -307,7 +308,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     private void foresult() {
         showDialog();
         refundService = new RefundService();
-        refundsSn=refunds_edittext.getText().toString();
+        refundsSn = refunds_edittext.getText().toString();
         refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
             @Override
             public void onSuccess(NetworkResult<QueryOrderData> data) {

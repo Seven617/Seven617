@@ -35,7 +35,7 @@ import static android.content.ContentValues.TAG;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 /**
- * Created by asus on 2016/3/26.
+ * Created by Seven on 2017/11/02.
  */
 public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;

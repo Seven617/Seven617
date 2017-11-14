@@ -18,7 +18,9 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class AmountActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     private TitleBar titleBar;
     private String title;

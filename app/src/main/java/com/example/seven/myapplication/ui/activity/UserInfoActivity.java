@@ -16,7 +16,9 @@ import com.example.seven.myapplication.network.NetUtils;
 import com.example.seven.myapplication.service.LoginService;
 import com.example.seven.myapplication.view.TitleBar;
 
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class UserInfoActivity extends BaseActivity {
     private App app;
     private Button userexit;

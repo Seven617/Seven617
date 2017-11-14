@@ -20,7 +20,9 @@ import com.landicorp.android.eptapi.exception.ReloginException;
 import com.landicorp.android.eptapi.exception.RequestException;
 import com.landicorp.android.eptapi.exception.ServiceOccupiedException;
 import com.landicorp.android.eptapi.exception.UnsupportMultiProcess;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     private boolean isDeviceServiceLogined;

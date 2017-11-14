@@ -18,7 +18,9 @@ import java.util.TimerTask;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 //主界面
 public class MainActivity extends BaseActivity {
     private TitleBar titleBar;

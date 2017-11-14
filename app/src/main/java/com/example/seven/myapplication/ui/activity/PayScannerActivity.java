@@ -26,7 +26,9 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
-
+/**
+ * Created by Seven on 2017/10/20.
+ */
 public class PayScannerActivity extends BaseActivity implements QRCodeView.Delegate {
     private static final String TAG = PayScannerActivity.class.getSimpleName();
     private QRCodeView mQRCodeView;
