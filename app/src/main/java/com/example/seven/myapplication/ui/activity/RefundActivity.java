@@ -308,7 +308,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
     private void foresult() {
         showDialog();
         refundService = new RefundService();
-        refundsSn = refunds_edittext.getText().toString();
+//        refundsSn = refunds_edittext.getText().toString();
         refundService.refund(refundsSn, popPassword.getText().toString(), new CommonCallback<NetworkResult<QueryOrderData>>() {
             @Override
             public void onSuccess(NetworkResult<QueryOrderData> data) {
