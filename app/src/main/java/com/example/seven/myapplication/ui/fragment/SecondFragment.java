@@ -126,10 +126,10 @@ public class SecondFragment extends BaseFragment implements MyAdapter.OnRecycler
         TextView payStatusTextView = (TextView)view.findViewById(R.id.pay_status_text);
         orderSnTextView.setText(data.getOrderSn());
 //        tradeNoTextView.setText(data.getTradeNo());
-        amountTextView.setText(data.getAmount());
+        amountTextView.setText(data.getRMBAmount());
         payTimeTextView.setText(DateUtil.TimestampToString(Long.valueOf(data.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
         payTypeTextView.setText(data.getPayTypeTxt());
-        payStatusTextView.setText(data.getStatus());
+        payStatusTextView.setText(data.getStringStatus());
         //下面的那些控件你自己获取一下
         Button querypopbtnsure = (Button) view.findViewById(R.id.query_popsure);//左边确定按钮
         Button querypopprint = (Button) view.findViewById(R.id.query_popprint);//右边打印按钮

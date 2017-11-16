@@ -67,10 +67,10 @@ public class MyAdapter extends RecyclerView.Adapter implements View.OnClickListe
         ViewHodler mHodler = (ViewHodler) holder;
 
         mHodler.orderView.setText(list.get(position).getOrderSn());
-        mHodler.amountView.setText(list.get(position).getAmount());
+        mHodler.amountView.setText(list.get(position).getRMBAmount());
         mHodler.dateView.setText((DateUtil.TimestampToString(Long.valueOf(list.get(position).getModifyDate()),DateStyle.YYYY_MM_DD_HH_MM_SS_EN)));
         mHodler.payTypeView.setText(list.get(position).getPayTypeTxt());
-        mHodler.statusView.setText(list.get(position).getStatus());
+        mHodler.statusView.setText(list.get(position).getStringStatus());
         mHodler.itemView.setTag(list.get(position));
 
     }

@@ -1,6 +1,7 @@
 package com.example.seven.myapplication.ui.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.example.seven.myapplication.R;
 import com.example.seven.myapplication.constants.APIConstants;
 import com.example.seven.myapplication.model.NetworkResult;
@@ -19,6 +21,7 @@ import com.example.seven.myapplication.model.QueryOrderData;
 import com.example.seven.myapplication.network.CommonCallback;
 import com.example.seven.myapplication.service.PrintPosService;
 import com.example.seven.myapplication.service.QueryOrderService;
+import com.example.seven.myapplication.ui.activity.QueryResultActivity;
 import com.example.seven.myapplication.ui.activity.RefundActivity;
 import com.example.seven.myapplication.util.DateStyle;
 import com.example.seven.myapplication.util.DateUtil;
@@ -80,14 +83,7 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     View.OnClickListener OK = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            orderSn = clearEditText.getText().toString();
-            if(orderSn.isEmpty()){
-                showToast("单号不可为空！");
-            }
-            else{
-                forresult();
-            }
-
+            forresult();
         }
     };
 
@@ -111,10 +107,10 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         TextView payStatusTextView = (TextView)view.findViewById(R.id.pay_status_text);
         orderSnTextView.setText(data.getOrderSn());
 //        tradeNoTextView.setText(data.getTradeNo());
-        amountTextView.setText(data.getAmount());
+        amountTextView.setText(data.getRMBAmount());
         payTimeTextView.setText(DateUtil.TimestampToString(Long.valueOf(data.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
         payTypeTextView.setText(data.getPayTypeTxt());
-        payStatusTextView.setText(data.getStatus());
+        payStatusTextView.setText(data.getStringStatus());
         //下面的那些控件你自己获取一下
         Button querypopbtnsure = (Button) view.findViewById(R.id.query_popsure);//左边确定按钮
         Button querypopprint = (Button) view.findViewById(R.id.query_popprint);//右边打印按钮
@@ -181,13 +177,16 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
     @Override
     public void onScanQRCodeSuccess(String result) {
 //        showToast(result);
+        clearEditText.setText(result);
 
-//        clearEditText.setText(result);
+
         forresult();
-
-//        clearEditText.setText(orderSn);
         vibrate();
-//        mQRCodeView.startSpotDelay(5000);
+        mQRCodeView.startSpotDelay(5000);
+
+
+
+
 
     }
 
@@ -215,9 +214,14 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
         }
     }
     private void forresult() {
+        orderSn = clearEditText.getText().toString();
+        if(orderSn.isEmpty()){
+            showToast("订单号不能为空");
+            return;
+        }
+
         showDialog();
         queryOrderService = new QueryOrderService();
-        orderSn = clearEditText.getText().toString();
         queryOrderService.queryByOrderNo(orderSn, new CommonCallback<NetworkResult<List<QueryOrderData>>>() {
             @Override
             public void onSuccess(NetworkResult<List<QueryOrderData>> data) {
@@ -227,7 +231,11 @@ public class FirstFragment extends BaseFragment implements QRCodeView.Delegate {
                         showToast("未找到该订单");
                     } else {
 //                        showToast(data.getData().get(0).getAmount());
-                        showpopupWindow(btn_sure, data.getData().get(0));
+                        Intent intent = new Intent(getContext(), QueryResultActivity.class);
+                        intent.putExtra("data", JSON.toJSONString(data.getData().get(0)));
+                        startActivity(intent);
+//                        showpopupWindow(btn_sure, data.getData().get(0));
+
                     }
                 } else {
                     checkoutTokenLost(data.getStatus(),getActivity());

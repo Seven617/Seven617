@@ -177,7 +177,7 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
         TextView payStatusTextView = (TextView) view.findViewById(R.id.pay_status_text);
         orderSnTextView.setText(data.getOrderSn());
 
-        amountTextView.setText(data.getAmount());
+        amountTextView.setText(data.getRMBAmount());
         payTimeTextView.setText(DateUtil.TimestampToString(Long.valueOf(data.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN));
         payTypeTextView.setText(data.getPayTypeTxt());
         payStatusTextView.setText("已退款");

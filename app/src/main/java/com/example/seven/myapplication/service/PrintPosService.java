@@ -47,7 +47,7 @@ public class PrintPosService extends Service {
 
         }
         if (!printer.addText(queryOrderData.getMerName(),queryOrderData.getShopName(),queryOrderData.getAddress(),
-                queryOrderData.getOperatorName(), DateUtil.TimestampToString(Long.valueOf(queryOrderData.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN),queryOrderData.getAmount(),queryOrderData.getPayTypeTxt())) {
+                queryOrderData.getOperatorName(), DateUtil.TimestampToString(Long.valueOf(queryOrderData.getModifyDate()), DateStyle.YYYY_MM_DD_HH_MM_SS_EN),queryOrderData.getRMBAmount(),queryOrderData.getPayTypeTxt())) {
             return "add text fail";
         }
         if (!printer.addBarcode(queryOrderData.getOrderSn())) {

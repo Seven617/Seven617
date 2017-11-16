@@ -61,6 +61,8 @@
         </activity>
         <activity android:name=".ui.activity.AboutActivity">
         </activity>
+        <activity android:name=".ui.activity.QueryResultActivity">
+        </activity>
     </application>
 
 </manifest>

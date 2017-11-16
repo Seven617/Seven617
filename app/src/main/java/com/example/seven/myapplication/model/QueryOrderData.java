@@ -23,7 +23,14 @@ public class QueryOrderData {
     private String amount;
     private Integer status;
 
-    public String getStatus() {
+    public Integer getStatus() {
+
+        return status;
+    }
+
+
+
+    public String getStringStatus(){
         if(null != status){
             return OrderStatusEnum.getOrderStatusEnum(this.status).getDesc();
         }
@@ -112,6 +119,10 @@ public class QueryOrderData {
 
 
     public String getAmount() {
+       return amount;
+    }
+
+    public String getRMBAmount(){
         if(null != amount){
             BigDecimal bigDecimal = new BigDecimal(amount);
             return bigDecimal.divide(new BigDecimal(100)).toString();
@@ -119,6 +130,7 @@ public class QueryOrderData {
         }
         return amount;
     }
+
 
     public void setAmount(String amount) {
         this.amount = amount;
