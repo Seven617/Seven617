@@ -154,6 +154,7 @@ public class PayScannerActivity extends BaseActivity implements QRCodeView.Deleg
 
             @Override
             public void onFailure(String error_code, String error_message) {
+                mView.dismiss();
                 //网络连接故障时的响应
                 showToast("网络故障请检查网络");
             }
