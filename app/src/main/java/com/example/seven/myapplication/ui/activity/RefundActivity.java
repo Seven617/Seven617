@@ -277,16 +277,6 @@ public class RefundActivity extends BaseActivity implements QRCodeView.Delegate 
         Log.e(TAG, "打开相机出错");
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.scan_barcode:
-                mQRCodeView.changeToScanBarcodeStyle();
-                break;
-            case R.id.scan_qrcode:
-                mQRCodeView.changeToScanQRCodeStyle();
-                break;
-        }
-    }
 
     @AfterPermissionGranted(REQUEST_CODE_QRCODE_PERMISSIONS)
     private void requestCodeQRCodePermissions() {

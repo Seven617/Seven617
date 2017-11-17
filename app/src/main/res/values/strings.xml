@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">POS机（测试版）</string>
+    <string name="qcode_empty">Qcode is empty</string>
     <string name="version_name">测试版本</string>
     <string name="can_not_find_version_name">暂无更新</string>
 </resources>
